@@ -4,7 +4,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
 # --- Configuration ---
-DB_NAME = "../data/letterboxd_project_cut_b.db"
+DB_NAME = "movie_first.db"
 
 
 class ContentBasedRecommender:
