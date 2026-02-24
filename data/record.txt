@@ -1,0 +1,19 @@
+Database backup records
+
+testrun.db
+starting user: nmcassa
+user: 4
+movie: 1179
+comment: Dummy data
+
+letterboxd_project_cut_a.db
+starting user: jimothy1989
+user: 93
+movie: 19782
+comment: I forgot to save the title and year! F**K!
+
+letterboxd_project_cut_b.db
+starting user: jimothy1989
+user: 1
+movie: 241
+comment: small test data

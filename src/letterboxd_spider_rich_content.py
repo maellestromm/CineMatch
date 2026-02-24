@@ -7,10 +7,10 @@ from letterboxdpy import user, movie
 
 # --- Configuration ---
 DB_NAME = "letterboxd_project.db"
-START_USER = "nmcassa"
-MAX_USERS_TO_SCRAPE = 2
+START_USER = "jimothy1989"
+MAX_USERS_TO_SCRAPE = 5000
 MIN_DELAY = 1
-MAX_DELAY = 3
+MAX_DELAY = 1.5
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
@@ -292,6 +292,8 @@ def worker_process_movie(conn, current_movie_slug):
         lbd_movie_obj = movie.Movie(current_movie_slug)
 
         # Extract details
+        title = getattr(lbd_movie_obj, 'title', "")
+        year = getattr(lbd_movie_obj, 'year', None)
         crew_data = getattr(lbd_movie_obj, 'crew', {})
         directors_list = extract_directors(crew_data)
 
@@ -299,7 +301,7 @@ def worker_process_movie(conn, current_movie_slug):
         genres_list = extract_names_from_list(genres_data)
 
         cast_data = getattr(lbd_movie_obj, 'cast', [])
-        cast_list = extract_names_from_list(cast_data[:5])
+        cast_list = extract_names_from_list(cast_data[:10])
 
         details_data = getattr(lbd_movie_obj, 'details', [])
         country_list = []
@@ -312,7 +314,9 @@ def worker_process_movie(conn, current_movie_slug):
 
         conn.execute('''
                      UPDATE movies
-                     SET director=?,
+                     SET title=?,
+                         year=?,
+                         director=?,
                          genres=?,
                          cast=?,
                          country=?,
@@ -322,6 +326,7 @@ def worker_process_movie(conn, current_movie_slug):
                          is_enriched=1
                      WHERE slug = ?
                      ''', (
+                         title, year,
                          list_to_str(directors_list),
                          list_to_str(genres_list),
                          list_to_str(cast_list),
