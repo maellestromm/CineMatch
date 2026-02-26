@@ -18,16 +18,28 @@ user: 1
 movie: 241
 comment: small test data
 
-user_first.7z
+user_first_cut1.7z
 starting user: jimothy1989
 user: 1570
 movie: 549
 comment: The original database file.
-You can extract it to the src folder to continue running the
-crawler and expand the data.
+You can extract it to the src folder to continue running the crawler and expand the data.
 
-user_first_clear.db
+user_first_cut1_clear.db
 starting user: jimothy1989
 user: 1570
 movie: 549
+comment: The database has had all caches cleared. Data cannot be added further.
+
+user_first_cut2.7z
+starting user: jimothy1989
+user: 2397
+movie: 976
+comment: The original database file.
+You can extract it to the src folder to continue running the crawler and expand the data.
+
+user_first_cut2_clear.db
+starting user: jimothy1989
+user: 2397
+movie: 976
 comment: The database has had all caches cleared. Data cannot be added further.

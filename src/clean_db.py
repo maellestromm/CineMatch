@@ -1,7 +1,7 @@
 import sqlite3
 import os
 
-DB_NAME = "../data/user_first_clear.db"
+DB_NAME = "../data/user_first_cut2_clear.db"
 
 
 def clean_database():
@@ -25,6 +25,13 @@ def clean_database():
     deleted_movies = cursor.rowcount
     print(f"delete {deleted_movies} movies")
 
+    cursor.execute("DELETE FROM user_queue")
+    deleted_users_queue = cursor.rowcount
+    print(f"Cleared {deleted_users_queue} users from user_queue")
+
+    cursor.execute("DELETE FROM movie_queue")
+    deleted_movies_queue = cursor.rowcount
+    print(f"Cleared {deleted_movies_queue} movies from movie_queue")
     conn.commit()
 
     print("VACUUM")
