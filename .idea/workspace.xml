@@ -4,18 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4fb65961-2b56-4585-8fc1-86fe6579e464" name="更改" comment="A database suitable for user-collaborative filtering knn. -- Du Wang">
-      <change afterPath="$PROJECT_DIR$/src/evaluate_strict.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/split_db.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/user_knn.py" afterDir="false" />
+    <list default="true" id="4fb65961-2b56-4585-8fc1-86fe6579e464" name="更改" comment="User knn, database partitioning script, test script, a huge dataset. --Du Wang">
+      <change afterPath="$PROJECT_DIR$/src/evaluate_rmse.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/infer_autorec.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/train_autorec.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/user_knn_gpu.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/f01d2834-b312-49ca-bf96-f55617996e41.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/f01d2834-b312-49ca-bf96-f55617996e41.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/db-forest-config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/db-forest-config.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/record.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/record.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/user_first.7z" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/user_first_clear.db" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/User_first_crawler.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/User_first_crawler.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/clean_db.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/clean_db.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/content_knn.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/content_knn.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/evaluate_strict.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/evaluate_strict.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/split_db.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/split_db.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/user_knn.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/user_knn.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,9 +73,13 @@
     "Python.User_first_crawler.executor": "Run",
     "Python.clean_db.executor": "Run",
     "Python.content_knn.executor": "Run",
+    "Python.evaluate_rmse.executor": "Run",
     "Python.evaluate_strict.executor": "Run",
+    "Python.infer_autorec.executor": "Run",
     "Python.split_db.executor": "Run",
+    "Python.train_autorec.executor": "Run",
     "Python.user_knn.executor": "Run",
+    "Python.user_knn_gpu.executor": "Run",
     "RunOnceActivity.MCP Project settings loaded": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
@@ -98,31 +109,7 @@
       <recent name="C:\Users\donyw\Desktop\cmpt310\CineMatch\data" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.evaluate_strict">
-    <configuration name="clean_db" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="CineMatch" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="RUN_TOOL" value="" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/clean_db.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Python.evaluate_rmse">
     <configuration name="content_knn" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="CineMatch" />
       <option name="ENV_FILES" value="" />
@@ -139,6 +126,30 @@
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="RUN_TOOL" value="" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/content_knn.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="evaluate_rmse" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="CineMatch" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="RUN_TOOL" value="" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/evaluate_rmse.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -171,30 +182,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="split_db" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="CineMatch" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="RUN_TOOL" value="" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/split_db.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="user_knn" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="CineMatch" />
       <option name="ENV_FILES" value="" />
@@ -219,11 +206,35 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="user_knn_gpu" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="CineMatch" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="RUN_TOOL" value="" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/user_knn_gpu.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.evaluate_rmse" />
         <item itemvalue="Python.evaluate_strict" />
-        <item itemvalue="Python.split_db" />
-        <item itemvalue="Python.clean_db" />
+        <item itemvalue="Python.user_knn_gpu" />
         <item itemvalue="Python.content_knn" />
         <item itemvalue="Python.user_knn" />
       </list>
@@ -246,7 +257,7 @@
       <updated>1771962183782</updated>
       <workItem from="1771962184816" duration="729000" />
       <workItem from="1772035778719" duration="2420000" />
-      <workItem from="1772041508808" duration="10624000" />
+      <workItem from="1772041508808" duration="33830000" />
     </task>
     <task id="LOCAL-00001" summary="A database suitable for user-collaborative filtering knn. -- Du Wang">
       <option name="closed" value="true" />
@@ -264,7 +275,15 @@
       <option name="project" value="LOCAL" />
       <updated>1772035839017</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="User knn, database partitioning script, test script, a huge dataset. --Du Wang">
+      <option name="closed" value="true" />
+      <created>1772076622557</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1772076622557</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -272,14 +291,19 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="A database suitable for user-collaborative filtering knn. -- Du Wang" />
-    <option name="LAST_COMMIT_MESSAGE" value="A database suitable for user-collaborative filtering knn. -- Du Wang" />
+    <MESSAGE value="User knn, database partitioning script, test script, a huge dataset. --Du Wang" />
+    <option name="LAST_COMMIT_MESSAGE" value="User knn, database partitioning script, test script, a huge dataset. --Du Wang" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/CineMatch$split_db.coverage" NAME="split_db 覆盖结果" MODIFIED="1772073033662" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
-    <SUITE FILE_PATH="coverage/CineMatch$evaluate_strict.coverage" NAME="evaluate_strict 覆盖结果" MODIFIED="1772073664716" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
-    <SUITE FILE_PATH="coverage/CineMatch$user_knn.coverage" NAME="user_knn 覆盖结果" MODIFIED="1772071834281" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
-    <SUITE FILE_PATH="coverage/CineMatch$clean_db.coverage" NAME="clean_db 覆盖结果" MODIFIED="1772076278517" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
-    <SUITE FILE_PATH="coverage/CineMatch$content_knn.coverage" NAME="content_knn 覆盖结果" MODIFIED="1772071867788" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
-    <SUITE FILE_PATH="coverage/CineMatch$User_first_crawler.coverage" NAME="User_first_crawler 覆盖结果" MODIFIED="1772041522059" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/CineMatch$split_db.coverage" NAME="split_db 覆盖结果" MODIFIED="1772244623651" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/CineMatch$evaluate_rmse.coverage" NAME="evaluate_rmse 覆盖结果" MODIFIED="1772253317991" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/CineMatch$evaluate_strict.coverage" NAME="evaluate_strict 覆盖结果" MODIFIED="1772253161852" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/CineMatch$user_knn.coverage" NAME="user_knn 覆盖结果" MODIFIED="1772250334609" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/CineMatch$user_knn_gpu.coverage" NAME="user_knn_gpu 覆盖结果" MODIFIED="1772252997784" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/CineMatch$clean_db.coverage" NAME="clean_db 覆盖结果" MODIFIED="1772244416905" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/CineMatch$infer_autorec.coverage" NAME="infer_autorec 覆盖结果" MODIFIED="1772249307540" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/CineMatch$train_autorec.coverage" NAME="train_autorec 覆盖结果" MODIFIED="1772246295783" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/CineMatch$content_knn.coverage" NAME="content_knn 覆盖结果" MODIFIED="1772251455294" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/CineMatch$User_first_crawler.coverage" NAME="User_first_crawler 覆盖结果" MODIFIED="1772132803651" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
   </component>
 </project>

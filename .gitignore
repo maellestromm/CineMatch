@@ -209,3 +209,4 @@ __marimo__/
 src/user_first.db
 src/test_eval.db
 src/train_model.db
+data/user_first_cut3_clear.db

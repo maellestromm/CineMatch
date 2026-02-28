@@ -60,7 +60,7 @@ class ContentBasedRecommender:
 
     def get_recommendations(self, user_profile, top_n=10):
         """
-        Get recommendations based on a user profile.
+        Get recommendations based on a user profile (Normalized for 1-5 star RMSE).
         :param user_profile: dict, e.g., {'movie-slug': 5.0, 'another-slug': 4.0}
         :param top_n: int, number of recommendations to return
         :return: list of dicts representing recommended movies
@@ -68,16 +68,26 @@ class ContentBasedRecommender:
         if self.df.empty:
             return []
 
-        # Initialize an array of zeros to hold the aggregated similarity scores
+        # 1. 准备分子 (累加分数) 和 分母 (累加相似度)
         total_scores = np.zeros(len(self.df))
+        total_sims = np.zeros(len(self.df))
         valid_slugs = 0
 
-        # Calculate weighted similarity based on user's rated movies
+        # 计算用户的历史平均分，用于处理完全没有相似度的情况 (兜底)
+        user_ratings = list(user_profile.values())
+        user_avg = sum(user_ratings) / len(user_ratings) if user_ratings else 3.0
+
+        # 2. 遍历用户看过的电影，累加加权分数和权重
         for slug, rating in user_profile.items():
             if slug in self.indices:
                 idx = self.indices[slug]
-                # Weight the similarity vector by the user's rating
-                total_scores += self.cosine_sim_matrix[idx] * rating
+                sim_vector = self.cosine_sim_matrix[idx]
+
+                # 分子：相似度 * 打分
+                total_scores += sim_vector * rating
+                # 分母：累加相似度本身
+                total_sims += sim_vector
+
                 valid_slugs += 1
             else:
                 print(f"[Content-KNN] Warning: '{slug}' not found in database.")
@@ -86,8 +96,17 @@ class ContentBasedRecommender:
             print("[Content-KNN] Warning: None of the input movies are in the database.")
             return []
 
-        # Enumerate and sort the scores
-        sim_scores = list(enumerate(total_scores))
+        # 3. 核心修复：执行归一化除法，算出真正的 1~5 星预测！
+        # 如果 total_sims 为 0，说明没有任何相似度，默认给 user_avg
+        normalized_scores = np.divide(
+            total_scores,
+            total_sims,
+            out=np.full_like(total_scores, user_avg),
+            where=total_sims != 0
+        )
+
+        # 4. 组装结果并排序
+        sim_scores = list(enumerate(normalized_scores))
         sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
 
         watched_slugs = set(user_profile.keys())
@@ -103,7 +122,7 @@ class ContentBasedRecommender:
                     'year': self.df.iloc[idx]['year'],
                     'director': self.df.iloc[idx]['director'],
                     'poster_url': self.df.iloc[idx].get('poster_url', ''),
-                    'score': score
+                    'score': float(score)  # 确保转成标准浮点数
                 })
                 if len(results) >= top_n:
                     break
@@ -113,7 +132,7 @@ class ContentBasedRecommender:
 
 # --- Test Execution ---
 if __name__ == "__main__":
-    recommender = ContentBasedRecommender("../data/user_first_cut2_clear.db")
+    recommender = ContentBasedRecommender("../data/user_first_cut3_clear.db")
 
     demo_profile = {
         "inception": 5.0,

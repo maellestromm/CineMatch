@@ -71,8 +71,28 @@ class UserBasedRecommender:
         # 3. Find top K neighbors
         top_k_neighbors = sim_series.nlargest(k_neighbors)
 
+        # # 4. Collect and weight movies from neighbors
+        # recommendation_scores = {}
+        #
+        # for neighbor_name, sim_score in top_k_neighbors.items():
+        #     if sim_score <= 0:
+        #         continue
+        #
+        #     neighbor_ratings = self.user_movie_matrix.loc[neighbor_name]
+        #
+        #     for slug, rating in neighbor_ratings.items():
+        #         # Filter: neighbor watched it (>0) AND target user hasn't seen it (==0)
+        #         if rating > 0 and target_vector[slug] == 0:
+        #             if slug not in recommendation_scores:
+        #                 recommendation_scores[slug] = 0.0
+        #
+        #             # Weight score by neighbor's rating and similarity
+        #             recommendation_scores[slug] += rating * sim_score
+
+
         # 4. Collect and weight movies from neighbors
         recommendation_scores = {}
+        similarity_sums = {}  # 🚀 新增：用来记录分母！
 
         for neighbor_name, sim_score in top_k_neighbors.items():
             if sim_score <= 0:
@@ -81,16 +101,26 @@ class UserBasedRecommender:
             neighbor_ratings = self.user_movie_matrix.loc[neighbor_name]
 
             for slug, rating in neighbor_ratings.items():
-                # Filter: neighbor watched it (>0) AND target user hasn't seen it (==0)
                 if rating > 0 and target_vector[slug] == 0:
                     if slug not in recommendation_scores:
                         recommendation_scores[slug] = 0.0
+                        similarity_sums[slug] = 0.0  # 🚀 初始化分母
 
-                    # Weight score by neighbor's rating and similarity
+                    # 分子：累加 (打分 * 相似度)
                     recommendation_scores[slug] += rating * sim_score
+                    # 分母：累加 (相似度)
+                    similarity_sums[slug] += sim_score
 
-        # 5. Sort and format results
-        sorted_recs = sorted(recommendation_scores.items(), key=lambda x: x[1], reverse=True)
+        # 🚀 新增：计算真正的加权平均分 (1~5星)
+        final_scores = {}
+        for slug in recommendation_scores:
+            final_scores[slug] = recommendation_scores[slug] / similarity_sums[slug]
+
+        # 5. Sort and format results (用真实的平均分来排序！)
+        # sorted_recs = sorted(recommendation_scores.items(), key=lambda x: x[1], reverse=True)
+        sorted_recs = sorted(final_scores.items(), key=lambda x: x[1], reverse=True)
+
+
         results = []
 
         for slug, score in sorted_recs[:top_n]:
@@ -110,7 +140,7 @@ class UserBasedRecommender:
 
 # --- Test Execution ---
 if __name__ == "__main__":
-    recommender = UserBasedRecommender("../data/user_first_cut2_clear.db")
+    recommender = UserBasedRecommender("../data/user_first_cut3_clear.db")
 
     demo_profile = {
         "inception": 5.0,

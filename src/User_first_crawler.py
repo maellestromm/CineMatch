@@ -138,9 +138,19 @@ def get_next_user(conn):
 def get_most_popular_pending_movie(conn):
     """
     Select the pending movie that has the most reviews currently in our database.
-    This 'Hub-based' approach guarantees we build a dense User-Movie matrix.
+    If a movie has a 'priority' status, it will be selected immediately.
     """
     c = conn.cursor()
+
+    # 1. 优先检查是否有 status 为 'priority' 的电影
+    c.execute("SELECT slug FROM movie_queue WHERE status = 'priority' LIMIT 1")
+    priority_row = c.fetchone()
+    if priority_row:
+        slug = priority_row[0]
+        logging.info(f"🔥 Selected PRIORITY movie: {slug}")
+        return slug
+
+    # 2. 如果没有 priority 电影，则退回到原有的“最多评论数”逻辑
     query = """
             SELECT mq.slug, COUNT(r.id) as review_count
             FROM movie_queue mq
@@ -148,7 +158,7 @@ def get_most_popular_pending_movie(conn):
             WHERE mq.status = 'pending'
             GROUP BY mq.slug
             ORDER BY review_count DESC
-            LIMIT 1 \
+            LIMIT 1
             """
     c.execute(query)
     row = c.fetchone()
@@ -156,6 +166,7 @@ def get_most_popular_pending_movie(conn):
         slug, count = row
         logging.info(f"🏆 Selected most popular pending movie: {slug} ({count} reviews in DB)")
         return slug
+
     return None
 
 
