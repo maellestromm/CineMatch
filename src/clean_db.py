@@ -1,7 +1,7 @@
 import sqlite3
 import os
 
-DB_NAME = "../data/user_first_cut2_clear.db"
+DB_NAME = "../data/user_first_cut3_clear.db"
 
 
 def clean_database():

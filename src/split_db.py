@@ -5,10 +5,10 @@ import random
 import os
 
 # --- Configuration ---
-ORIGINAL_DB = "../data/user_first_cut2_clear.db"
+ORIGINAL_DB = "../data/user_first_cut3_clear.db"
 TRAIN_DB = "train_model.db"
 TEST_DB = "test_eval.db"
-TEST_RATIO = 0.2  # 20% of users go to the test database
+TEST_RATIO = 0.1  # 10% of users go to the test database
 MIN_REVIEWS = 10  # Only consider users with at least 10 reviews for testing
 
 
