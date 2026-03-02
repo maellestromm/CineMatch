@@ -4,8 +4,10 @@ import random
 import logging
 from letterboxdpy import user, movie
 
+from util import root_path
+
 # --- Configuration ---
-DB_NAME = "user_first.db"
+DB_NAME = root_path() / "tools/user_first.db"
 START_USER = "jimothy1989"
 MAX_USERS_TO_SCRAPE = 5000
 MIN_DELAY = 1

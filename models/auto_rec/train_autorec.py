@@ -8,6 +8,8 @@ import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import DataLoader, TensorDataset
 
+from util import root_path
+
 
 # ==========================================
 # 1. 核心神经网络架构 (Deep AutoRec)
@@ -46,7 +48,7 @@ def masked_mse_loss(predictions, targets):
 # ==========================================
 # 3. 极其严谨的数据加载与维度对齐
 # ==========================================
-def load_and_align_data(train_db="train_model.db", test_db="test_eval.db"):
+def load_and_align_data(train_db=root_path() / "data/train_model.db", test_db=root_path() / "data/test_eval.db"):
     print("📥 正在读取并对齐物理隔离的数据库...")
 
     # --- 加载训练集 ---
@@ -94,7 +96,7 @@ def train_model(epochs=100, batch_size=256, lr=0.005, patience=8):
     num_movies = len(movie_slugs)
 
     # 保存字典供未来推理使用
-    with open("movie_dictionary.json", "w", encoding="utf-8") as f:
+    with open("../../data/movie_dictionary.json", "w", encoding="utf-8") as f:
         json.dump(movie_slugs, f)
 
     # 包装 DataLoader
@@ -147,7 +149,7 @@ def train_model(epochs=100, batch_size=256, lr=0.005, patience=8):
             epochs_no_improve = 0
             best_epoch = epoch + 1
             # 只有创纪录时，才把权重存到硬盘上！
-            torch.save(model.state_dict(), "autorec_best_weights.pth")
+            torch.save(model.state_dict(), root_path() / "data/autorec_best_weights.pth")
         else:
             epochs_no_improve += 1
 

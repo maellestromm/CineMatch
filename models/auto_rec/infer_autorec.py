@@ -5,6 +5,8 @@ import torch.nn as nn
 import json
 import numpy as np
 
+from util import root_path
+
 
 # ==========================================
 # 1. 网络结构定义 (必须与训练时完全一致)
@@ -33,7 +35,8 @@ class DeepAutoRec(nn.Module):
 # 2. 推荐器封装 (完全对齐 UserBasedRecommender)
 # ==========================================
 class AutoRecRecommender:
-    def __init__(self, db_path, dict_path="movie_dictionary.json", weights_path="autorec_best_weights.pth"):
+    def __init__(self, db_path, dict_path=root_path() / "data/movie_dictionary.json",
+                 weights_path=root_path() / "data/autorec_best_weights.pth"):
         self.db_path = db_path
         self.df_movies = None
         self.movie_slugs = []
@@ -135,7 +138,7 @@ class AutoRecRecommender:
 # --- 极简测试运行 ---
 if __name__ == "__main__":
     # 替换为你实际的数据库路径
-    recommender = AutoRecRecommender("../data/user_first_cut3_clear.db")
+    recommender = AutoRecRecommender(root_path() / "data/train_model.db")
 
     demo_profile = {
         "inception": 5.0,

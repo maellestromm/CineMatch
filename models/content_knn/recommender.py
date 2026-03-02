@@ -4,6 +4,23 @@ import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
+from util import root_path
+
+
+def _create_soup(row):
+    """Create a 'Feature Soup' by mixing director, genres, cast, and description."""
+    director = str(row['director']) if pd.notnull(row['director']) else ''
+    genres = str(row['genres']) if pd.notnull(row['genres']) else ''
+    cast = str(row['cast']) if pd.notnull(row['cast']) else ''
+    description = str(row['description']) if pd.notnull(row['description']) else ''
+
+    director = director.replace(',', ' ')
+    genres = genres.replace(',', ' ')
+    cast = cast.replace(',', ' ')
+
+    # Repeat director and genres to give them higher TF-IDF weight
+    return f"{director} {director} {genres} {genres} {cast} {description}"
+
 
 class ContentBasedRecommender:
     def __init__(self, db_path):
@@ -26,20 +43,6 @@ class ContentBasedRecommender:
         conn.close()
         print(f"[Content-KNN] Loaded {len(self.df)} movies.")
 
-    def _create_soup(self, row):
-        """Create a 'Feature Soup' by mixing director, genres, cast, and description."""
-        director = str(row['director']) if pd.notnull(row['director']) else ''
-        genres = str(row['genres']) if pd.notnull(row['genres']) else ''
-        cast = str(row['cast']) if pd.notnull(row['cast']) else ''
-        description = str(row['description']) if pd.notnull(row['description']) else ''
-
-        director = director.replace(',', ' ')
-        genres = genres.replace(',', ' ')
-        cast = cast.replace(',', ' ')
-
-        # Repeat director and genres to give them higher TF-IDF weight
-        return f"{director} {director} {genres} {genres} {cast} {description}"
-
     def _build_model(self):
         """Vectorize the text and calculate the Cosine Similarity matrix."""
         if self.df.empty:
@@ -47,7 +50,7 @@ class ContentBasedRecommender:
             return
 
         print("[Content-KNN] Building TF-IDF matrix and calculating similarities...")
-        self.df['soup'] = self.df.apply(self._create_soup, axis=1)
+        self.df['soup'] = self.df.apply(_create_soup, axis=1)
 
         tfidf = TfidfVectorizer(stop_words='english')
         tfidf_matrix = tfidf.fit_transform(self.df['soup'])
@@ -132,7 +135,7 @@ class ContentBasedRecommender:
 
 # --- Test Execution ---
 if __name__ == "__main__":
-    recommender = ContentBasedRecommender("../data/user_first_cut3_clear.db")
+    recommender = ContentBasedRecommender(root_path() / "data/user_first_cut3_clear.db")
 
     demo_profile = {
         "inception": 5.0,
@@ -140,11 +143,12 @@ if __name__ == "__main__":
         "the-dark-knight": 5.0
     }
 
-    print("--- Content-Based Recommendations ---")
-    recommendations = recommender.get_recommendations(demo_profile, top_n=10)
+    import time
 
-    if not recommendations:
-        print("No recommendations found.")
-    else:
-        for i, rec in enumerate(recommendations, 1):
-            print(f"{i}. [{rec['score']:.2f}] {rec['title']} ({rec['year']}) - Dir: {rec['director']}")
+    start_time = time.time()
+    recommendations = recommender.get_recommendations(demo_profile, top_n=10)
+    latency = (time.time() - start_time) * 1000
+
+    for i, rec in enumerate(recommendations, 1):
+        print(f"{i}. [{rec['score']:.2f}] {rec['title']} ({rec['year']})")
+    print(f"Latency: {latency:.2f} ms")

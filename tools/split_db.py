@@ -1,13 +1,15 @@
-import sqlite3
-import pandas as pd
-import shutil
 import random
-import os
+import shutil
+import sqlite3
+
+import pandas as pd
+
+from util import root_path
 
 # --- Configuration ---
-ORIGINAL_DB = "../data/user_first_cut3_clear.db"
-TRAIN_DB = "train_model.db"
-TEST_DB = "test_eval.db"
+ORIGINAL_DB = root_path() / "data/user_first_cut3_clear.db"
+TRAIN_DB = root_path() / "data/train_model.db"
+TEST_DB = root_path() / "data/test_eval.db"
 TEST_RATIO = 0.1  # 10% of users go to the test database
 MIN_REVIEWS = 10  # Only consider users with at least 10 reviews for testing
 

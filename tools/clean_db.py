@@ -1,7 +1,9 @@
 import sqlite3
 import os
 
-DB_NAME = "../data/user_first_cut3_clear.db"
+from util import root_path
+
+DB_NAME = root_path() / "data/user_first_cut3_clear.db"
 
 
 def clean_database():

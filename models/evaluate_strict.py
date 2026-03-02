@@ -1,45 +1,41 @@
-import sqlite3
-import pandas as pd
 import random
 import time
 
-# from user_knn_gpu import UserBasedRecommender
-from user_knn import UserBasedRecommender
+from auto_rec import AutoRecRecommender
 from content_knn import ContentBasedRecommender
-from infer_autorec import AutoRecRecommender
+from item_knn import ItemBasedRecommender
+from util import load_test_datas, root_path
+from svd import SVDRecommender
+from user_knn import UserBasedRecommender
 
 # --- Configuration ---
-TRAIN_DB = "train_model.db"
-TEST_DB = "test_eval.db"
+TRAIN_DB = root_path() / "data/train_model.db"
+TEST_DB = root_path() / "data/test_eval.db"
 
 HIDE_RATIO = 0.2
 TOP_N_RECS = 10
 
 
 def run_strict_evaluation():
-    print("📊 --- Agnostic Multi-Model Hit Rate & Precision Benchmark --- 📊\n")
+    print("--- Agnostic Multi-Model Hit Rate & Precision Benchmark ---\n")
 
     print("[Eval] Initializing models (Black-box mode)...")
     models = {
         "User-KNN": UserBasedRecommender(db_path=TRAIN_DB),
-        # "Content-KNN": ContentBasedRecommender(db_path=TRAIN_DB),
-        # "Deep AutoRec": AutoRecRecommender(db_path=TRAIN_DB)
+        "Content-KNN": ContentBasedRecommender(db_path=TRAIN_DB),
+        "Deep AutoRec": AutoRecRecommender(db_path=TRAIN_DB),
+        "Item-KNN": ItemBasedRecommender(db_path=TRAIN_DB),
+        "SVD-50": SVDRecommender(db_path=TRAIN_DB),
     }
 
     metrics = {name: {"hits": 0, "precision_sum": 0.0, "time": 0.0} for name in models}
 
     print("\n[Eval] Loading test subjects from Test DB...")
-    conn = sqlite3.connect(TEST_DB)
-    df_test_reviews = pd.read_sql_query("SELECT user_username, movie_slug, rating FROM reviews WHERE rating != 'None'",
-                                        conn)
-    df_test_reviews['rating'] = pd.to_numeric(df_test_reviews['rating'], errors='coerce').dropna()
-    conn.close()
-
-    test_users = df_test_reviews['user_username'].unique()
+    test_reviews, test_users = load_test_datas(TEST_DB)
     valid_evaluations = 0
 
     for i, user in enumerate(test_users, 1):
-        user_data = df_test_reviews[df_test_reviews['user_username'] == user]
+        user_data = test_reviews[test_reviews['user_username'] == user]
         liked_movies = user_data[user_data['rating'] >= 4.0]['movie_slug'].tolist()
 
         if len(liked_movies) < 5:
@@ -52,12 +48,12 @@ def run_strict_evaluation():
         train_profile = dict(zip(train_data['movie_slug'], train_data['rating']))
 
         # ==========================================
-        # 核心：纯接口调用，极其优雅的轮询
+        # Core Evaluation Loop
         # ==========================================
         for model_name, model in models.items():
             start_time = time.time()
 
-            # 标准化调用
+            # Standardized invocation
             recommendations = model.get_recommendations(train_profile, top_n=TOP_N_RECS)
             rec_slugs = [rec['slug'] for rec in recommendations]
 
@@ -70,17 +66,17 @@ def run_strict_evaluation():
 
         valid_evaluations += 1
         if valid_evaluations % 50 == 0:
-            print(f"[{valid_evaluations}] Users evaluated... (Simultaneous battle for {len(models)} models)")
+            print(f"[{valid_evaluations}] Users evaluated...")
 
     if valid_evaluations == 0:
         print("\nEvaluation failed: No valid users fit the criteria.")
         return
 
     # ==========================================
-    # 打印学术级排行榜
+    # Print Leaderboard
     # ==========================================
     print("\n" + "=" * 65)
-    print(f"🏆 HIT RATE & PRECISION LEADERBOARD (Top-{TOP_N_RECS}) 🏆")
+    print(f"HIT RATE & PRECISION LEADERBOARD (Top-{TOP_N_RECS})")
     print(f"Total Valid Users Evaluated: {valid_evaluations}")
     print("=" * 65)
     print(f"{'Model Name':<18} | {'Hit Rate (@10)':<15} | {'Precision (@10)':<15} | {'Avg Latency'}")
