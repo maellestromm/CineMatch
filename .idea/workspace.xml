@@ -5,7 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb65961-2b56-4585-8fc1-86fe6579e464" name="更改" comment="clear_up --Du Wang">
+      <change afterPath="$PROJECT_DIR$/README_cn.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -361,7 +363,7 @@
       <workItem from="1771962184816" duration="729000" />
       <workItem from="1772035778719" duration="2420000" />
       <workItem from="1772041508808" duration="35999000" />
-      <workItem from="1772485990689" duration="5891000" />
+      <workItem from="1772485990689" duration="7359000" />
     </task>
     <task id="LOCAL-00001" summary="A database suitable for user-collaborative filtering knn. -- Du Wang">
       <option name="closed" value="true" />
@@ -411,7 +413,15 @@
       <option name="project" value="LOCAL" />
       <updated>1772491603969</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="clear_up --Du Wang">
+      <option name="closed" value="true" />
+      <created>1772492041912</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1772492041912</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
