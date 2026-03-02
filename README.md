@@ -1,37 +1,126 @@
 # CineMatch
 
-## requirement
+## Requirements
 
-letterboxdpy 6.4.1\
-scikit-learn 1.8.0\
-pandas 3.0.1
+pandas~=3.0.1\
+scikit-learn~=1.8.0\
+letterboxdpy~=6.4.1\
+torch~=2.10.0\
+matplotlib~=3.10.8\
+numpy~=2.4.2\
+scipy~=1.17.1.0
 
 ## Project Structure
 
-├── data # Database backup\
-├── src/Movie_first_crawler.py # Movie first spider\
-├── src/User_first_crawler.py # User first spider\
-├── src/content_knn.py # Content Based KNN demo\
-├── src/user_knn.py # User Based KNN demo\
-├── src/clear_db.py # Clean up movies and their reviews in the database that lack details\
-├── src/split_db.py # Split users into two databases in an 8:2 ratio\
-├── src/evaluate_strict.py # Accuracy test
+├── db_backup/ # Database backup files (raw crawled data)\
+├── data/ # Runtime data, model weights, generated dictionaries, etc.\
+├── models/\
+│ ├── content_knn/ # Content-based recommendation (Content-KNN)\
+│ ├── item_knn/ # Item-based collaborative filtering (Item-KNN)\
+│ ├── svd/ # Latent factor model / Matrix factorization (Truncated SVD)\
+│ ├── user_knn/ # User-based collaborative filtering (User-KNN)\
+│ └── auto_rec/ # Deep learning autoencoder (Deep AutoRec)\
+├── tools/\
+│ ├── clear_db.py # Database cleaning and preprocessing script\
+│ ├── split_db.py # Train/test set physical split script\
+│ ├── Movie_first_crawler.py # Movie-first crawler\
+│ └── User_first_crawler.py # User-first crawler\
+├── util.py # Global helper and path configuration functions\
+└── README.md # Project documentation
 
-## About spider
+## Recommendation Models
 
-movie first: 1. Fetch all movies reviewed by a user from the user queue to the movie queue. 2. Fetch details of all
-movies from the movie queue and add the top reviews to the user queue.
+This project implements five classic recommendation algorithms spanning different eras to build a complete recall and
+ranking architecture:
 
-user first: 1. Retrieve all movies commented on by all users in the user queue. 2. Select the movie with the most
-comments and retrieve its details and popular comments to the user queue.
+### 1. Content-KNN
 
-## How to run evaluate_strict.py
+* **Principle**: "These movies share the same tags as the ones you've watched before."
+* **Implementation**: Extracts movie metadata such as director, genre, cast, and overview to build TF-IDF text feature
+  vectors. By calculating cosine similarity, it finds candidate movies that are physically closest to the user's
+  historical high-rated movies. This solves the cold-start problem for new movies.
 
-1. run split_db.py\
-   split_db.py takes a db file and splits the user ratings in it
-   into `train_model.db` and `test_eval.db` in an 8:2 ratio.
-2. run evaluate_strict.py
-   `evaluate_strict.py` uses `train_model.db` to build a k-nearest neighbor (KNN) and then uses user ratings from
-   `test_eval.db` to test the accuracy of the KNN. For each user, 80% of the ratings are randomly selected and provided
-   to the model, and then the model's predictions are checked for overlap with the remaining 20% of the ratings. You
-   can change the model to be tested on line 20.
+### 2. Item-KNN
+
+* **Principle**: "People who like this movie usually also like that movie."
+* **Implementation**: Calculates the cosine similarity between items based on the global Item-User interaction matrix.
+  Introduces Bayesian Smoothing to penalize high-score biases from small samples. Achieves ultra-fast recommendations
+  during inference via tensor matrix multiplication.
+
+### 3. User-KNN
+
+* **Principle**: "What are your soulmates with similar tastes watching?"
+* **Implementation**: Finds the K nearest neighbors with the closest rating trends to the target user based on the
+  User-Item interaction matrix. Also incorporates a prior mean and damping factor to eliminate popularity bias. Supports
+  dual-engine backends: CPU (scikit-learn) and GPU (PyTorch tensor operations).
+
+### 4. Matrix Factorization (SVD-50)
+
+* **Principle**: "You might not understand your own taste, but math does."
+* **Implementation**: Uses Truncated Singular Value Decomposition (Truncated SVD) to reduce the dimensionality of the
+  massive rating matrix, extracting 50 latent semantic dimensions (Latent Factors). Utilizes the Folding-in projection
+  technique during the inference phase to achieve ultra-low latency score predictions for new users without retraining.
+
+### 5. Deep Autoencoder (Deep AutoRec)
+
+* **Principle**: "Using neural networks to learn the non-linear compression and reconstruction of high-dimensional
+  features."
+* **Implementation**: Constructs a multi-layer Encoder-Decoder architecture and introduces 30% Dropout to prevent
+  overfitting. It can capture complex, non-linear implicit correlations in user rating data with extreme precision.
+
+## Crawlers
+
+To obtain high-quality real rating data, we designed two complementary crawling strategies based on alternating queue
+fetching:
+
+* **User-First Crawler**
+    1. Fetches all movies reviewed by all users in the User Queue.
+    2. Selects the movie with the most reviews, retrieves its detailed metadata, extracts popular reviews under that
+       movie, and adds the authors of these reviews to the User Queue.
+
+    * **Purpose**: Rapidly aggregates user groups that have interacted with core movies, quickly increasing the local
+      density of the User-Item matrix.
+
+* **Movie-First Crawler**
+    1. Retrieves all movies reviewed by a specific user in the User Queue and adds these movies to the Movie Queue.
+    2. Fetches detailed metadata for all movies in the Movie Queue, extracts popular reviews for these movies, and adds
+       the review authors to the User Queue.
+
+    * **Purpose**: Focuses on exploring movie diversity, broadly expanding the boundaries of movie genres in the
+      database, and providing rich feature materials for Content-KNN.
+
+## How to Run Benchmarks
+
+1. Extract `db_backup/user_first_cut3_clear.7z` into the `data/` directory.
+2. Run `tools/split_db.py`. This performs a strict physical split of the database at a 9:1 ratio, generating
+   `train_model.db` and `test_eval.db` to ensure zero data leakage during evaluation.
+3. (Optional) Navigate to `models/auto_rec/` and run `train_autorec.py` to pre-train the deep learning model.
+4. Run `evaluate_strict.py` to view the leaderboard of all models on Hit Rate and Precision.
+5. Run `evaluate_rmse.py` to view the leaderboard of all models on the true taste prediction accuracy (1-5 stars).
+
+## Performance
+
+### 1. Recall & Hit Rate Test (Hit Rate & Precision @ 10)
+
+Objective: Can the model blindly guess the true interacted movies hidden in the test set out of a vast sea of movies?
+
+| Model Name   | Hit Rate (@10) | Precision (@10) | Avg Latency |
+|:-------------|:---------------|:----------------|:------------|
+| **SVD-50**   | **72.92%**     | **25.04%**      | **9.3 ms**  |
+| User-KNN     | 71.13%         | 18.06%          | 139.1 ms    |
+| Item-KNN     | 57.91%         | 13.05%          | 167.5 ms    |
+| Deep AutoRec | 46.49%         | 8.61%           | 2.5 ms      |
+| Content-KNN  | 20.88%         | 2.95%           | 5.8 ms      |
+
+### 2. True Taste Prediction Accuracy (RMSE Score)
+
+Objective: Given that a user has watched a movie, can the model accurately predict their specific 1-5 star rating? (
+Lower score is better)
+
+| Model Name       | RMSE Score |
+|:-----------------|:-----------|
+| **Deep AutoRec** | **0.7524** |
+| User-KNN         | 0.8092     |
+| SVD-50           | 0.8513     |
+| Item-KNN         | 0.8875     |
+| Content-KNN      | 0.9483     |
