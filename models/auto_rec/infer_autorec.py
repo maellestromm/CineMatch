@@ -9,14 +9,14 @@ from util import root_path
 
 
 # ==========================================
-# 1. 网络结构定义 (必须与训练时完全一致)
+# 1. Network Architecture Definition
 # ==========================================
 class DeepAutoRec(nn.Module):
     def __init__(self, num_movies):
         super(DeepAutoRec, self).__init__()
         self.encoder = nn.Sequential(
             nn.Linear(num_movies, 512),
-            nn.Dropout(0.3),  # 推理时(model.eval)会自动失效
+            nn.Dropout(0.3),  # Automatically disabled during inference (model.eval)
             nn.ReLU(),
             nn.Linear(512, 128),
             nn.Sigmoid()
@@ -32,7 +32,7 @@ class DeepAutoRec(nn.Module):
 
 
 # ==========================================
-# 2. 推荐器封装 (完全对齐 UserBasedRecommender)
+# 2. Recommender Wrapper
 # ==========================================
 class AutoRecRecommender:
     def __init__(self, db_path, dict_path=root_path() / "data/movie_dictionary.json",
@@ -44,11 +44,10 @@ class AutoRecRecommender:
         self.num_movies = 0
         self.model = None
 
-        # 实例化时自动加载数据和模型
         self._load_data(dict_path, weights_path)
 
     def _load_data(self, dict_path, weights_path):
-        """加载电影元数据、模型字典和权重"""
+        """Load movie metadata, model dictionary, and weights"""
         print("[AutoRec] Loading movie metadata from database...")
         conn = sqlite3.connect(self.db_path)
         query_movies = "SELECT slug, title, year, director, poster_url FROM movies"
@@ -60,36 +59,36 @@ class AutoRecRecommender:
             with open(dict_path, "r", encoding="utf-8") as f:
                 self.movie_slugs = json.load(f)
         except FileNotFoundError:
-            raise Exception(f"❌ 找不到字典文件 {dict_path}，请先运行训练脚本！")
+            raise Exception(f"Dictionary file {dict_path} not found. Please run the training script first.")
 
         self.num_movies = len(self.movie_slugs)
         self.movie_to_idx = {slug: idx for idx, slug in enumerate(self.movie_slugs)}
 
-        # 初始化模型并加载权重 (map_location='cpu' 保证没有显卡也能极速跑)
+        # Initialize model and load weights
         self.model = DeepAutoRec(num_movies=self.num_movies)
         try:
             self.model.load_state_dict(torch.load(weights_path, map_location=torch.device('cpu')))
         except FileNotFoundError:
-            raise Exception(f"❌ 找不到权重文件 {weights_path}，请先运行训练脚本！")
+            raise Exception(f"Weights file {weights_path} not found. Please run the training script first.")
 
-        self.model.eval()  # 🚨 极其重要：切换到推理模式
+        self.model.eval()  # Switch to inference mode
         print(f"[AutoRec] Engine ready! {self.num_movies} movies loaded.\n")
 
     def get_recommendations(self, user_profile, top_n=10):
         """
-        和 User-KNN 拥有完全一致的签名和返回格式
+        Get recommendations based on a user profile.
         :param user_profile: dict, e.g., {'movie-slug': 5.0, 'another-slug': 4.0}
-        :param top_n: int, 返回的推荐数量
+        :param top_n: int, number of recommendations to return
         :return: list of dicts representing recommended movies
         """
         if self.model is None:
             return []
 
-        # 1. 创建一张 3334 维的空白答题卡
+        # 1. Create a blank tensor for all movies
         target_vector = torch.zeros(self.num_movies)
         watched_indices = []
 
-        # 2. 填入教授/用户打的分数
+        # 2. Fill in the user's ratings
         for slug, rating in user_profile.items():
             if slug in self.movie_to_idx:
                 idx = self.movie_to_idx[slug]
@@ -102,20 +101,20 @@ class AutoRecRecommender:
             print("[AutoRec] Warning: None of the input movies are in the database.")
             return []
 
-        # 将 1D 数组升维成 (1, 3334)
+        # 3. Add batch dimension: (1, num_movies)
         target_vector = target_vector.unsqueeze(0)
 
-        # 3. 瞬间推理
+        # 4. Fast inference without gradients
         with torch.no_grad():
             predictions = self.model(target_vector).squeeze(0).numpy()
 
-        # 4. 强行屏蔽已经看过的电影
+        # 5. Mask out already watched movies
         predictions[watched_indices] = -999.0
 
-        # 5. 提取预测分最高的前 N 部电影索引
+        # 6. Extract top N predicted movie indices
         top_indices = np.argsort(predictions)[::-1][:top_n]
 
-        # 6. 组装返回结果 (与 KNN 完全一致的字典格式)
+        # 7. Assemble the results
         results = []
         for idx in top_indices:
             slug = self.movie_slugs[idx]
@@ -135,9 +134,8 @@ class AutoRecRecommender:
         return results
 
 
-# --- 极简测试运行 ---
+# --- Test Execution ---
 if __name__ == "__main__":
-    # 替换为你实际的数据库路径
     recommender = AutoRecRecommender(root_path() / "data/train_model.db")
 
     demo_profile = {
