@@ -5,9 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb65961-2b56-4585-8fc1-86fe6579e464" name="更改" comment="clear_up --Du Wang">
-      <change afterPath="$PROJECT_DIR$/README_cn.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/f01d2834-b312-49ca-bf96-f55617996e41.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/f01d2834-b312-49ca-bf96-f55617996e41.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,42 +59,42 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Python.User_first_crawler.executor": "Run",
-    "Python.clean_db.executor": "Run",
-    "Python.content_knn.executor": "Run",
-    "Python.evaluate_rmse.executor": "Run",
-    "Python.evaluate_strict.executor": "Run",
-    "Python.gpu_backend.executor": "Run",
-    "Python.infer_autorec.executor": "Run",
-    "Python.item_knn.executor": "Run",
-    "Python.recommender (1).executor": "Run",
-    "Python.recommender.executor": "Run",
-    "Python.split_db.executor": "Run",
-    "Python.svd_recommender.executor": "Run",
-    "Python.train_autorec.executor": "Run",
-    "Python.user_knn.executor": "Run",
-    "Python.user_knn_gpu.executor": "Run",
-    "RunOnceActivity.MCP Project settings loaded": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "ai.playground.ignore.import.keys.banner.in.settings": "true",
-    "git-widget-placeholder": "Du-Test",
-    "last_opened_file_path": "C:/Users/donyw/Desktop/cmpt310/CineMatch/models/content_knn",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "run.code.analysis.last.selected.profile": "aDefault",
-    "settings.editor.selected.configurable": "vcs.Git",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Python.User_first_crawler.executor&quot;: &quot;Run&quot;,
+    &quot;Python.clean_db.executor&quot;: &quot;Run&quot;,
+    &quot;Python.content_knn.executor&quot;: &quot;Run&quot;,
+    &quot;Python.evaluate_rmse.executor&quot;: &quot;Run&quot;,
+    &quot;Python.evaluate_strict.executor&quot;: &quot;Run&quot;,
+    &quot;Python.gpu_backend.executor&quot;: &quot;Run&quot;,
+    &quot;Python.infer_autorec.executor&quot;: &quot;Run&quot;,
+    &quot;Python.item_knn.executor&quot;: &quot;Run&quot;,
+    &quot;Python.recommender (1).executor&quot;: &quot;Run&quot;,
+    &quot;Python.recommender.executor&quot;: &quot;Run&quot;,
+    &quot;Python.split_db.executor&quot;: &quot;Run&quot;,
+    &quot;Python.svd_recommender.executor&quot;: &quot;Run&quot;,
+    &quot;Python.train_autorec.executor&quot;: &quot;Run&quot;,
+    &quot;Python.user_knn.executor&quot;: &quot;Run&quot;,
+    &quot;Python.user_knn_gpu.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;ai.playground.ignore.import.keys.banner.in.settings&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/donyw/Desktop/cmpt310/CineMatch/models/content_knn&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;aDefault&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;vcs.Git&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecapSpentCounter">
     <option name="endsOfQuotaMs" value="1773338570853" />
     <option name="spentUsd" value="0.038350802" />
@@ -118,7 +117,7 @@
       <recent name="C:\Users\donyw\Desktop\cmpt310\CineMatch\models" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.evaluate_rmse">
+  <component name="RunManager" selected="Python.evaluate_strict">
     <configuration name="content_knn" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="CineMatch" />
       <option name="ENV_FILES" value="" />
@@ -337,8 +336,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.evaluate_rmse" />
         <item itemvalue="Python.evaluate_strict" />
+        <item itemvalue="Python.evaluate_rmse" />
         <item itemvalue="Python.infer_autorec" />
         <item itemvalue="Python.recommender (1)" />
         <item itemvalue="Python.gpu_backend" />

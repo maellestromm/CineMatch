@@ -79,9 +79,13 @@ class ItemBasedRecommender:
             similarity_sums = torch.mv(self.sim_matrix, watched_mask)
 
             # Bayesian Smoothing (identical math to the User-KNN logic)
-            prior_mean = target_tensor.sum().item() / user_ratings_count
-            damping = 3.0
+            user_ratings_count = (target_tensor > 0).sum()
 
+            if user_ratings_count > 0:
+                prior_mean = target_tensor.sum() / user_ratings_count
+            else:
+                prior_mean = torch.tensor(3.0, dtype=torch.float32, device=self.device)
+            damping = 3.0
             final_scores = (recommendation_scores + damping * prior_mean) / (similarity_sums + damping)
 
             # Mask out already watched movies

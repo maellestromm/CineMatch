@@ -66,10 +66,13 @@ class UserKNNGPUBackend:
             similarity_sums = (has_rated_mask.float() * top_k_sims.unsqueeze(1)).sum(dim=0)
 
             # Bayesian Smoothing implementation
-            user_ratings_count = (target_tensor > 0).sum().item()
-            prior_mean = (target_tensor.sum() / user_ratings_count).item() if user_ratings_count > 0 else 3.0
-            damping = 3.0
+            user_ratings_count = (target_tensor > 0).sum()
 
+            if user_ratings_count > 0:
+                prior_mean = target_tensor.sum() / user_ratings_count
+            else:
+                prior_mean = torch.tensor(3.0, dtype=torch.float32, device=self.device)
+            damping = 3.0
             final_scores = (recommendation_scores + damping * prior_mean) / (similarity_sums + damping)
 
             final_scores[watched_indices] = -999.0
