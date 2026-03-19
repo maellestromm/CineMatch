@@ -47,7 +47,7 @@ def masked_mse_loss(predictions, targets):
 # ==========================================
 # 3. Data Loading and Dimensional Alignment
 # ==========================================
-def load_and_align_data(train_db=root_path() / "data/train_model.db", test_db=root_path() / "data/test_eval.db"):
+def load_and_align_data(train_db, test_db):
     print("Reading and aligning physically isolated databases...")
 
     # --- Load Training Set ---
@@ -89,12 +89,17 @@ def load_and_align_data(train_db=root_path() / "data/train_model.db", test_db=ro
 # ==========================================
 # 4. Training Loop with Early Stopping
 # ==========================================
-def train_model(epochs=100, batch_size=256, lr=0.005, patience=8):
-    train_tensor, test_tensor, movie_slugs = load_and_align_data()
+def train_model(epochs=150, batch_size=256, lr=0.0005, patience=15,
+                train_db=root_path() / "data/train_model.db",
+                test_db=root_path() / "data/test_eval.db",
+                weights_save_path=root_path() / "data/autorec_best_weights.pth",
+                dict_path=root_path() / "data/movie_dictionary.json"
+                ):
+    train_tensor, test_tensor, movie_slugs = load_and_align_data(train_db, test_db)
     num_movies = len(movie_slugs)
 
     # Save dictionary for future inference
-    with open("../../data/movie_dictionary.json", "w", encoding="utf-8") as f:
+    with open(dict_path, "w", encoding="utf-8") as f:
         json.dump(movie_slugs, f)
 
     train_dataset = TensorDataset(train_tensor, train_tensor)
@@ -145,7 +150,7 @@ def train_model(epochs=100, batch_size=256, lr=0.005, patience=8):
             epochs_no_improve = 0
             best_epoch = epoch + 1
             # Save weights only when a new record is set
-            torch.save(model.state_dict(), root_path() / "data/autorec_best_weights.pth")
+            torch.save(model.state_dict(), weights_save_path)
         else:
             epochs_no_improve += 1
 
@@ -178,4 +183,4 @@ def train_model(epochs=100, batch_size=256, lr=0.005, patience=8):
 
 
 if __name__ == "__main__":
-    train_model(epochs=150, batch_size=256, lr=0.0005, patience=15)
+    train_model()

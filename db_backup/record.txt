@@ -50,3 +50,7 @@ starting user: jimothy1989
 user: 6268
 movie: 3334
 comment: The database has had all caches cleared. Data cannot be added further.
+
+meta_dataset.db
+comment: This is the data needed to train the meta-learner,
+containing the outputs of all five models and some other values.
