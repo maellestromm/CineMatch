@@ -27,7 +27,7 @@ class UserKNNCPUBackend:
         print(
             f"[User-KNN-CPU] Matrix built! {self.user_movie_matrix.shape[0]} users, {self.user_movie_matrix.shape[1]} movies.\n")
 
-    def get_recommendations(self, user_profile, top_n=10, k_neighbors=15):
+    def get_recommendations(self, user_profile, top_n=10, k_neighbors=10):
         if self.user_movie_matrix is None or self.user_movie_matrix.empty:
             return []
 

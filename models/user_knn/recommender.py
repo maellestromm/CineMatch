@@ -4,13 +4,14 @@ from util import root_path
 
 
 class UserBasedRecommender:
-    def __init__(self, db_path, backend='gpu'):
+    def __init__(self, db_path, k_neighbors=10, backend='gpu'):
         """
         Main entry point for User-KNN Recommender.
         :param db_path: Path to the SQLite database.
         :param backend: 'gpu' or 'cpu'. Defaults to 'gpu'.
         """
         self.db_path = db_path
+        self.k_neighbors = k_neighbors
         self.backend_type = backend.lower()
 
         if self.backend_type == 'gpu':

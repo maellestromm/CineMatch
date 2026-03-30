@@ -33,7 +33,7 @@ class UserKNNGPUBackend:
         self.matrix_tensor = torch.tensor(pivot_df.values, dtype=torch.float32).to(self.device)
         print(f"[User-KNN-GPU] Ready! VRAM occupied: {self.matrix_tensor.nelement() * 4 / 1024 / 1024:.2f} MB\n")
 
-    def get_recommendations(self, user_profile, top_n=10, k_neighbors=15):
+    def get_recommendations(self, user_profile, top_n=10, k_neighbors=10):
         if self.matrix_tensor is None: return []
 
         target_tensor = torch.zeros(len(self.movie_slugs), dtype=torch.float32, device=self.device)
