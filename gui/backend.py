@@ -1,6 +1,8 @@
 import time
 from util import root_path
 from models.meta import MetaRecommender
+from letterboxdpy import user
+import sqlite3
 
 """
 Mock backend that outputs default results: work in progress
@@ -76,6 +78,70 @@ MOCK_RESULTS = [
     },
 ]
 
+# load all movie slugs from DB into a set for lookup
+def load_valid_movie_slugs(db_path):
+  
+    conn = sqlite3.connect(db_path)
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT slug FROM movies")
+    slugs = {row[0] for row in cursor.fetchall()}
+
+    conn.close()
+    return slugs
+
+# to be called for username-based predictions
+def fetch_user_profile(username, db_path=TRAIN_DB, max_movies=500):
+    """
+    Build user profile from Letterboxd films (in DB and with rating val)
+
+    Returns:
+        dict: {movie_slug: rating}
+    """
+
+    try:
+        print(f"[IO] Fetching films for user: {username}")
+
+        # load valid DB slugs
+        valid_slugs = load_valid_movie_slugs(db_path)
+
+        # fetch films
+        lbd_user = user.User(username)
+        films = lbd_user.get_films()['movies']
+
+        if not films:
+            print("[IO] No films found.")
+            return {}
+
+        profile = {}
+        count = 0
+
+        # filter + build profile
+        for slug, data in films.items():
+            rating = data.get("rating")
+
+            # skip unrated
+            if rating is None:
+                continue
+
+            # skip movies not in our DB
+            if slug not in valid_slugs:
+                continue
+
+            profile[slug] = float(rating)
+            count += 1
+
+            if count >= max_movies:
+                break
+
+        print(f"[IO] Collected {len(profile)} usable ratings")
+
+        return profile
+
+    except Exception as e:
+        print(f"[IO] Error: {e}")
+        return {}
+    
 # mock model initialization
 recommender = None
 
@@ -85,13 +151,10 @@ def get_recommender():
     if recommender is None:
         print("[Backend] Loading MetaRecommender...")
 
-        # temp: simulate load time
-        time.sleep(1)
-
         # real version:
-        # recommender = MetaRecommender(db_path=TRAIN_DB)
+        recommender = MetaRecommender(db_path=TRAIN_DB)
 
-        recommender = "MOCK"
+        #recommender = "MOCK"
 
     return recommender
 
@@ -104,7 +167,8 @@ def get_recommendations_from_profile(username):
 
     print(f"[Backend] Fetching profile for user: {username}")
 
-    user_profile = mock_fetch_user_profile(username)
+    #user_profile = mock_fetch_user_profile(username)
+    user_profile = fetch_user_profile(username)
 
     if not user_profile:
         return []
@@ -116,8 +180,8 @@ def get_recommendations_from_profile(username):
         return MOCK_RESULTS
     
     # real version:
-    # recs = recommender.get_recommendations(user_profile, top_n=10)
-    # return recs
+    recs = recommender.get_recommendations(user_profile, top_n=10)
+    return recs
 
 # work in progress function: to be called from gui.py
 def get_recommendations_from_movie(movie_title):
@@ -141,3 +205,12 @@ def mock_fetch_user_profile(username):
         "interstellar": 4.5,
         "the-dark-knight": 5.0
     }
+
+# helper function to print top10 recs to terminal
+def print_recs(recs):
+
+    print("\n" + "=" * 65)
+    print("You might enjoy checking out one of these movies:")
+    print("=" * 65)
+    for i, r in enumerate(recs, 1):
+        print(f"{i}.\t[{r['score']:.2f}] {r['title']} ({r['year']})")
