@@ -1,6 +1,6 @@
 from PySide6.QtWidgets import QApplication, QHBoxLayout, QLineEdit, QMainWindow, QPushButton, QStackedWidget, QVBoxLayout, QWidget, QLabel
 from PySide6.QtCore import Qt
-
+from gui.backend import get_recommendations_from_movie, get_recommendations_from_profile
 
 class MainWindow(QMainWindow):
     def __init__(self):
