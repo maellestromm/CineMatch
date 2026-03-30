@@ -1,29 +1,31 @@
 import numpy as np
-from models.auto_rec import AutoRecRecommender
-from models.content_knn import ContentBasedRecommender
-from models.item_knn import ItemBasedRecommender
 from util import load_review_datas, root_path
-from models.svd import SVDRecommender
-from models.user_knn import UserBasedRecommender
+from models.load_models import load_model, load_all_models
+
+SAVE_DIR = root_path() / "models/saved_models"
 
 class MetaRecommender:
     def __init__(self, db_path):
         self.db_path = db_path
         print("[Meta] Initializing models...")
+        
+        # self.models = {
+        #     "User-KNN": load_model("user_knn"),
+        #     "Deep-AutoRec": AutoRecRecommender(db_path),
+        #     "Item-KNN": load_model("item_knn"),
+        #     "SVD-50": load_model("svd"),
+        #     "Content-KNN": load_model("content_knn")
+        # }
 
-        self.models = {
-            "User-KNN": UserBasedRecommender(db_path),
-            "Deep-AutoRec": AutoRecRecommender(db_path),
-            "Item-KNN": ItemBasedRecommender(db_path),
-            "SVD-50": SVDRecommender(db_path),
-        }
+        self.models = load_all_models()
 
         # defualt - tune later
         self.weights = {
-            "SVD-50": 0.3,
             "User-KNN": 0.25,
+            "Deep-AutoRec": 0.2,
             "Item-KNN": 0.2,
-            "Deep-AutoRec": 0.2
+            "SVD-50": 0.3,
+            "Content-KNN":0.05
         }
 
         print("[Meta] Ready.")
@@ -33,8 +35,12 @@ class MetaRecommender:
 
         # 1. get predictions from each model
         for name, model in self.models.items():
-            raw = model.get_recommendations(user_profile, top_n=3334)
+            raw = model.get_recommendations(user_profile, top_n=300)
             model_preds[name] = {rec['slug']: rec['score'] for rec in raw}
+            
+            # store full recs for one model, SVD
+            if name == "SVD-50":
+                svd_full = {rec['slug']: rec for rec in raw}
 
         # 2. collect all movie candidates
         all_movies = set()
@@ -78,9 +84,10 @@ class MetaRecommender:
         # 5. sort and return top_n
         top_movies = sorted(final_scores.items(), key=lambda x: x[1], reverse=True)[:top_n]
 
-        # reuse metadata from ONE model (e.g., SVD)
-        svd_preds = self.models["SVD-50"].get_recommendations(user_profile, top_n=3334)
-        svd_lookup = {rec['slug']: rec for rec in svd_preds}
+        # reuse metadata from one model (e.g., SVD)
+        #svd_preds = self.models["SVD-50"]#.get_recommendations(user_profile, top_n=3334)
+        #svd_lookup = {rec['slug']: rec for rec in svd_preds}
+        svd_lookup = svd_full
 
         results = []
         for slug, score in top_movies:
@@ -91,63 +98,10 @@ class MetaRecommender:
 
         return results
     
-    def learn_optimal_weights(self, train_reviews):
-        """
-        Learn linear weights for the base models using known train ratings.
-        train_reviews: DataFrame with columns ['user_username', 'movie_slug', 'rating']
-        """
-
-        print("[Meta] Learning optimal weights from train data...")
-        
-        all_users = train_reviews['user_username'].unique()
-        y_true = []
-        pred_matrix = []
-
-        # precompute predictions only for movies each user rated
-        model_cache = {name: {} for name in self.models}
-        for name, model in self.models.items():
-            print(f"[Meta] Precomputing predictions for {name}...")
-            for i, user in enumerate(all_users, 1):
-                user_data = train_reviews[train_reviews['user_username'] == user]
-                user_profile = dict(zip(user_data['movie_slug'], user_data['rating']))
-                # only need predictions for movies this user rated
-                raw = model.get_recommendations(user_profile, top_n=len(user_profile))
-                model_cache[name][user] = {rec['slug']: rec['score'] for rec in raw}
-
-                if i % 50 == 0:
-                    print(f"[Meta] {name}: {i}/{len(all_users)} users processed...")
-                    
-        # build the prediction matrix
-        for i, user in enumerate(all_users, 1):
-            user_data = train_reviews[train_reviews['user_username'] == user]
-
-            for idx, row in user_data.iterrows():
-                slug = row['movie_slug']
-                y_true.append(row['rating'])
-
-                row_preds = []
-                for name in self.models:
-                    pred = model_cache[name][user].get(slug, 0.0)
-                    row_preds.append(pred)
-                pred_matrix.append(row_preds)
-        y_true = np.array(y_true)
-        pred_matrix = np.array(pred_matrix)
-
-        # solve linear regression (least squares)
-        weights, _, _, _ = np.linalg.lstsq(pred_matrix, y_true, rcond=None)
-        weights = np.clip(weights, 0, None)          # prevent negative weights
-        weights /= weights.sum()                     # normalize sum to 1
-
-        # assign to self.weights
-        for i, name in enumerate(self.models):
-            self.weights[name] = weights[i]
-
-        print("[Meta] Learned weights:", self.weights)
-    
 if __name__ == "__main__":
     recommender = MetaRecommender(root_path() / "data/train_model.db")
 
-    df_reviews, _ = load_review_datas(root_path() / "data/train_model.db")
+    test_reviews, test_users = load_review_datas(root_path() / "data/train_model.db")
 
     demo_profile = {
         "inception": 5.0,
@@ -155,10 +109,11 @@ if __name__ == "__main__":
         "the-dark-knight": 5.0
     }
 
-    # Learn optimal weights
-    # recommender.learn_optimal_weights(df_reviews)
-
     recs = recommender.get_recommendations(demo_profile)
 
     for i, r in enumerate(recs, 1):
         print(f"{i}.\t[{r['score']:.2f}] {r['title']} ({r['year']})")
+
+    # rmse, hit_rate, precision = evaluate_model(recommender, test_reviews, test_users)
+    # print(f"[Meta] RMSE: {rmse:.4f} | Hit@10: {hit_rate:.2%} | Prec@10: {precision:.2%}")
+

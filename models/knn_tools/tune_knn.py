@@ -41,8 +41,7 @@ def evaluate_model(model, test_reviews, test_users):
 
         user_avg = train_data['rating'].mean() if not train_data.empty else 3.0
 
-        # get more than 10 for RMSE coverage, but evaluate @10
-        recs = model.get_recommendations(train_profile, top_n=200)
+        recs = model.get_recommendations(train_profile, top_n=3334)
         pred_dict = {r['slug']: r['score'] for r in recs}
 
         # RMSE:

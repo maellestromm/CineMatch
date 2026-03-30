@@ -80,8 +80,8 @@ def load_and_align_data(train_db=root_path() / "data/train_model.db", test_db=ro
     print(f"   Test  : {matrix_test.shape[0]} Users x {num_movies} Movies")
 
     # Convert to PyTorch tensors
-    train_tensor = torch.FloatTensor(matrix_train.values)
-    test_tensor = torch.FloatTensor(matrix_test.values)
+    train_tensor = torch.FloatTensor(matrix_train.values.copy())
+    test_tensor = torch.FloatTensor(matrix_test.values.copy())
 
     return train_tensor, test_tensor, movie_slugs
 
@@ -94,7 +94,7 @@ def train_model(epochs=100, batch_size=256, lr=0.005, patience=8):
     num_movies = len(movie_slugs)
 
     # Save dictionary for future inference
-    with open("../../data/movie_dictionary.json", "w", encoding="utf-8") as f:
+    with open(root_path() / "data/movie_dictionary.json", "w", encoding="utf-8") as f:
         json.dump(movie_slugs, f)
 
     train_dataset = TensorDataset(train_tensor, train_tensor)
