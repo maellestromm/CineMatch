@@ -1,6 +1,6 @@
 import time
 from util import root_path
-from models.meta import MetaRecommender
+from models.load_models import load_model
 from letterboxdpy import user
 import sqlite3
 
@@ -152,7 +152,7 @@ def get_recommender():
         print("[Backend] Loading MetaRecommender...")
 
         # real version:
-        recommender = MetaRecommender(db_path=TRAIN_DB)
+        recommender = load_model("meta")
 
         #recommender = "MOCK"
 
