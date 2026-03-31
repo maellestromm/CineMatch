@@ -32,6 +32,21 @@ scipy~=1.17.1.0
 ├── util.py # Global helper and path configuration functions\
 └── README.md # Project documentation
 
+## How to Run
+
+Setup:
+1. Ensure you have 7z installed
+2. (Optional) Run "make setup" to install dependencies
+3. Run "make initialize" to extract/split the data and extract the MetaRecommender model
+
+Run in Terminal:
+1. Run "make run" to produce user-based recommendations with MetaRecommender
+
+Evaluation:
+1. Run "make eval" to run both Hit Rate@10/Precision@10 and RMSE benchmarks
+
+<img alt="Terminal Demo" src="https://github.com/maellestromm/CineMatch/blob/65867eb2e5f0253ed5f50fd21d6a7a4326193d27/visualizations/demo-terminal-io.png" width="30%"></img>
+
 ## Recommendation Models
 
 This project implements five classic recommendation algorithms spanning different eras to build a complete recall and
@@ -93,15 +108,6 @@ fetching:
     * **Purpose**: Focuses on exploring movie diversity, broadly expanding the boundaries of movie genres in the
       database, and providing rich feature materials for Content-KNN.
 
-## How to Run Benchmarks
-
-1. Extract `db_backup/user_first_cut3_clear.7z` into the `data/` directory.
-2. Run `tools/split_db.py`. This performs a strict physical split of the database at a 9:1 ratio, generating
-   `train_model.db` and `test_eval.db` to ensure zero data leakage during evaluation.
-3. (Optional) Navigate to `models/auto_rec/` and run `train_autorec.py` to pre-train the deep learning model.
-4. Run `evaluate_strict.py` to view the leaderboard of all models on Hit Rate and Precision.
-5. Run `evaluate_rmse.py` to view the leaderboard of all models on the true taste prediction accuracy (1-5 stars).
-
 ## Performance
 
 ### 1. Recall & Hit Rate Test (Hit Rate & Precision @ 10)
@@ -110,11 +116,12 @@ Objective: Can the model blindly guess the true interacted movies hidden in the 
 
 | Model Name   | Hit Rate (@10) | Precision (@10) | Avg Latency |
 |:-------------|:---------------|:----------------|:------------|
-| **SVD-50**   | **72.92%**     | **25.04%**      | **9.3 ms**  |
-| User-KNN     | 71.13%         | 18.06%          | 139.1 ms    |
-| Item-KNN     | 57.91%         | 13.05%          | 167.5 ms    |
-| Deep AutoRec | 46.49%         | 8.61%           | 2.5 ms      |
-| Content-KNN  | 20.88%         | 2.95%           | 5.8 ms      |
+| **Meta**     | **78.29%**     | **27.53%**      | **863.4 ms**|
+| SVD-50       | 77.47%         | 26.38%          | 9.2 ms      |
+| User-KNN     | 72.20%         | 19.01%          | 60.8 ms     |
+| Item-KNN     | 69.90%         | 18.63%          | 46.2 ms     |
+| Deep AutoRec | 46.38%         | 9.38%           | 2.9 ms      |
+| Content-KNN  | 22.70%         | 3.21%           | 7.3 ms      |
 
 ### 2. True Taste Prediction Accuracy (RMSE Score)
 
@@ -123,8 +130,9 @@ Lower score is better)
 
 | Model Name       | RMSE Score |
 |:-----------------|:-----------|
-| **Deep AutoRec** | **0.7524** |
-| User-KNN         | 0.8092     |
-| SVD-50           | 0.8513     |
-| Item-KNN         | 0.8875     |
-| Content-KNN      | 0.9483     |
+| **Deep AutoRec** | **0.7710** |
+| User-KNN         | 0.8251     |
+| SVD-50           | 0.8604     |
+| Item-KNN         | 0.9175     |
+| Meta             | 0.9260     |
+| Content-KNN      | 0.9633     |
