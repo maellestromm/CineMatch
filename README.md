@@ -41,11 +41,11 @@ Setup:
 
 Run in Terminal:
 1. Run "make run" to produce user-based recommendations with MetaRecommender
+<img alt="Terminal Demo" src="https://github.com/maellestromm/CineMatch/blob/65867eb2e5f0253ed5f50fd21d6a7a4326193d27/visualizations/demo-terminal-io.png" width="50%"></img>
 
 Evaluation:
 1. Run "make eval" to run both Hit Rate@10/Precision@10 and RMSE benchmarks
 
-<img alt="Terminal Demo" src="https://github.com/maellestromm/CineMatch/blob/65867eb2e5f0253ed5f50fd21d6a7a4326193d27/visualizations/demo-terminal-io.png" width="30%"></img>
 
 ## Recommendation Models
 
