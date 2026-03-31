@@ -1,126 +1,12 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from util import root_path
-
-models = ["SVD-50", "Item-KNN", "Content-KNN", "Deep-AutoRec", "User-KNN"]
-
-results = [
-    {# 1.
-        "weights": {
-            "SVD-50": 0.4532,
-            "User-KNN": 0.0012,
-            "Item-KNN": 0.3178,
-            "Deep-AutoRec": 0.1321,
-            "Content-KNN": 0.0957
-        },
-        "hit": 0.7817,
-        "prec": 0.2683
-    },
-    { # 2.
-        "weights": {
-            "SVD-50": 0.3016,
-            "User-KNN": 0.1381,
-            "Item-KNN": 0.2511,
-            "Deep-AutoRec": 0.1411,
-            "Content-KNN": 0.1682
-        },
-        "hit": 0.7664,
-        "prec": 0.2557
-    },
-    { # 3.
-        "weights": {
-            "SVD-50": 0.3065,
-            "User-KNN": 0.0389,
-            "Item-KNN": 0.1877,
-            "Deep-AutoRec": 0.0837,
-            "Content-KNN": 0.3832
-        },
-        "hit": 0.7689,
-        "prec": 0.2548
-    },
-    { # 4.
-        "weights": {
-            "SVD-50": 0.3145,
-            "User-KNN": 0.0232,
-            "Item-KNN": 0.2729,
-            "Deep-AutoRec": 0.0671,
-            "Content-KNN": 0.3222
-        },
-        "hit": 0.7642,
-        "prec": 0.2515
-    },
-    { # 5.
-        "weights": {
-            "SVD-50": 0.1771,
-            "User-KNN": 0.3816,
-            "Item-KNN": 0.3716,
-            "Deep-AutoRec": 0.0115,
-            "Content-KNN": 0.0582
-        },
-        "hit": 0.7882,
-        "prec": 0.2491
-    },
-    { # 6.
-        "weights": {
-            "SVD-50": 0.3694,
-            "User-KNN": 0.1891,
-            "Item-KNN": 0.0555,
-            "Deep-AutoRec": 0.2280,
-            "Content-KNN": 0.1581
-        },
-        "hit": 0.7402,
-        "prec": 0.2450
-    },
-    { # 7.
-        "weights": {
-            "SVD-50": 0.1974,
-            "User-KNN": 0.1553,
-            "Item-KNN": 0.2144,
-            "Deep-AutoRec": 0.2571,
-            "Content-KNN": 0.1758
-        },
-        "hit": 0.7511,
-        "prec": 0.2437
-    },
-    { # 8.
-        "weights": {
-            "SVD-50": 0.3467,
-            "User-KNN": 0.0419,
-            "Item-KNN": 0.1384,
-            "Deep-AutoRec": 0.2475,
-            "Content-KNN": 0.2254
-        },
-        "hit": 0.7424,
-        "prec": 0.2426
-    },
-    { # 9.
-        "weights": {
-            "SVD-50": 0.1772,
-            "User-KNN": 0.1910,
-            "Item-KNN": 0.2369,
-            "Deep-AutoRec": 0.1357,
-            "Content-KNN": 0.2594
-        },
-        "hit": 0.7533,
-        "prec": 0.2421
-    },
-    { # 10.
-        "weights": {
-            "SVD-50": 0.1682,
-            "User-KNN": 0.3882,
-            "Item-KNN": 0.2979,
-            "Deep-AutoRec": 0.1163,
-            "Content-KNN": 0.0295
-        },
-        "hit": 0.7445,
-        "prec": 0.2389
-    }
-]
+from models.meta.visualize_data import models, weight_results, confusion_results
 
 def visualize_weight_correlations():
     for model in models:
-        weights = np.array([r["weights"][model] for r in results])
-        precs = np.array([r["prec"] for r in results])
+        weights = np.array([r["weights"][model] for r in weight_results])
+        precs = np.array([r["prec"] for r in weight_results])
 
         corr = np.corrcoef(weights, precs)[0, 1]
         print(f"{model} vs Precision correlation: {corr:.3f}")
@@ -128,8 +14,8 @@ def visualize_weight_correlations():
     correlations = []
 
     for model in models:
-        weights = np.array([r["weights"][model] for r in results])
-        precs = np.array([r["prec"] for r in results])
+        weights = np.array([r["weights"][model] for r in weight_results])
+        precs = np.array([r["prec"] for r in weight_results])
 
         corr = np.corrcoef(weights, precs)[0, 1]
         correlations.append(corr)
@@ -152,8 +38,8 @@ def visualize_grid():
     axes = axes.flatten()
 
     for i, model in enumerate(models):
-        weights = np.array([r["weights"][model] for r in results])
-        precs = np.array([r["prec"] for r in results])
+        weights = np.array([r["weights"][model] for r in weight_results])
+        precs = np.array([r["prec"] for r in weight_results])
 
         ax = axes[i]
         ax.scatter(weights, precs)
@@ -170,13 +56,91 @@ def visualize_grid():
     plt.tight_layout()
     plt.show()
 
+def compute_metrics(confusion_results):
+    results = {}
+
+    data = confusion_results[0]
+
+    for model_name, vals in data.items():
+        TP = vals["TP"]
+        FP = vals["FP"]
+        FN = vals["FN"]
+
+        # avoid divide by zero
+        precision = TP / (TP + FP) if (TP + FP) > 0 else 0.0
+        recall = TP / (TP + FN) if (TP + FN) > 0 else 0.0
+
+        if (precision + recall) > 0:
+            f1 = 2 * precision * recall / (precision + recall)
+        else:
+            f1 = 0.0
+
+        results[model_name] = {
+            "precision": precision,
+            "recall": recall,
+            "f1": f1,
+            "hitrate":data[model_name]["Hit-Rate"]
+        }
+
+    sorted_results = sorted(results.items(), key=lambda x: x[1]["precision"], reverse=False)
+    precisions = []
+    recalls = []
+    f1s = []
+    hitrates = []
+    sorted_names = []
+
+    for model_name, data in sorted_results:
+        precisions.append(data["precision"])
+        recalls.append(data["recall"])
+        f1s.append(data["f1"])
+        hitrates.append(data["hitrate"])
+        sorted_names.append(model_name)
+
+    return sorted_results, precisions, recalls, f1s, hitrates, sorted_names
+
+def visualize_confusion():
+    results, precisions, recalls, f1s, hitrates, model_names = compute_metrics(confusion_results)
+
+    x = np.arange(len(models))
+    width = 0.25
+    
+    plt.figure()
+
+    plt.bar(x - width, precisions, width, label="Precision@10")
+    plt.bar(x, recalls, width, label="Recall@10")
+    plt.bar(x + width, f1s, width, label="F1 Score")
+
+    plt.xticks(x, model_names, rotation=30)
+    plt.ylabel("Score")
+    plt.title("Model Comparison (Top-10 Recommendations)")
+    plt.legend()
+
+    plt.tight_layout()
+    #plt.show()
+    plt.savefig(root_path() / 'visualizations/model_comparison.png')
+
+def visualize_comparison_scatter():
+    results, precisions, recalls, f1s, hitrates, model_names = compute_metrics(confusion_results)
+
+    plt.figure(figsize=(10,6))
+
+    for i, model in enumerate(model_names):
+        plt.scatter(precisions[i], hitrates[i])
+        plt.text(precisions[i], hitrates[i], model, wrap=True)
+
+    plt.xlabel("Precision@10")
+    plt.ylabel("Hit Rate@10")
+    plt.title("Precision vs Hit Rate (Top-10 Recommendations)")
+
+    #plt.show()
+    plt.savefig(root_path() / 'visualizations/comparison_scatter.png')
+
 def main():
 
     #visualize_weight_correlations()
     #visualize_grid()
-
-    import pickle
-    print(pickle.__version__)
+    #visualize_confusion()
+    visualize_comparison_scatter()
     
 
 if __name__ == "__main__":
