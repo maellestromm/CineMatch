@@ -5,7 +5,8 @@ from util import load_review_datas
 
 
 class UserKNNGPUBackend:
-    def __init__(self, db_path):
+    def __init__(self, db_path, k_neighbors):
+        self.k_neighbors = k_neighbors
         self.db_path = db_path
         self.device = torch.device(
             'cuda' if torch.cuda.is_available() else 'mps' if torch.backends.mps.is_available() else 'cpu')
@@ -19,7 +20,7 @@ class UserKNNGPUBackend:
         self._load_data()
 
     def _load_data(self):
-        print(f"[User-KNN-GPU] Initializing Pure-Tensor Engine on: {self.device}")
+        print(f"[User-KNN-GPU] Initializing Engine on: {self.device}")
         df_reviews, self.df_movies = load_review_datas(self.db_path)
         print("[User-KNN-GPU] Building DataFrame...")
         pivot_df = df_reviews.pivot_table(index='user_username', columns='movie_slug', values='rating',
@@ -33,7 +34,7 @@ class UserKNNGPUBackend:
         self.matrix_tensor = torch.tensor(pivot_df.values, dtype=torch.float32).to(self.device)
         print(f"[User-KNN-GPU] Ready! VRAM occupied: {self.matrix_tensor.nelement() * 4 / 1024 / 1024:.2f} MB\n")
 
-    def get_recommendations(self, user_profile, top_n=10, k_neighbors=15):
+    def get_recommendations(self, user_profile, top_n=10):
         if self.matrix_tensor is None: return []
 
         target_tensor = torch.zeros(len(self.movie_slugs), dtype=torch.float32, device=self.device)
@@ -50,7 +51,7 @@ class UserKNNGPUBackend:
         with torch.no_grad():
             sim_tensor = F.cosine_similarity(target_tensor.unsqueeze(0), self.matrix_tensor, dim=1)
 
-            top_k_sims, top_k_indices = torch.topk(sim_tensor, k=k_neighbors)
+            top_k_sims, top_k_indices = torch.topk(sim_tensor, k=self.k_neighbors)
 
             valid_mask = top_k_sims > 0
             top_k_sims = top_k_sims[valid_mask]

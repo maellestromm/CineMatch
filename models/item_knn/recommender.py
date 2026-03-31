@@ -4,7 +4,7 @@ from util import load_review_datas, root_path
 
 
 class ItemBasedRecommender:
-    def __init__(self, db_path, k_neighbors=40):
+    def __init__(self, db_path, k_neighbors=50):
         self.db_path = db_path
         self.k_neighbors = k_neighbors
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'mps' if torch.backends.mps.is_available() else 'cpu')

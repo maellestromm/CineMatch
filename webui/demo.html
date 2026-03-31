@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="demo.css">
+    <title>CineMatch Edge AI</title>
+</head>
+<body>
+
+<div id="search-container">
+    <label for="search-input"></label>
+    <input type="text" id="search-input" placeholder="搜索电影标题...">
+    <label for="csv-upload" class="upload-btn" title="上传 CSV 快速导入评分">📁</label>
+    <input type="file" id="csv-upload" accept=".csv">
+</div>
+
+<div id="movie-grid"></div>
+
+<div id="page-indicator">Page <span id="current-page">1</span> / <span id="total-pages">1</span> (Scroll or Use Arrow
+    Keys)
+</div>
+
+<div id="modal-overlay">
+    <div class="close-btn" onclick="closeModal()">×</div>
+    <div class="modal-content" id="modal-content">
+    </div>
+</div>
+
+<script>
+    let allMovies = [];
+    let displayMovies = []; // 用于搜索过滤后的展示列表
+    let userRatings = {}; // 存储用户打分 { 'movie-1': 4 }
+
+    // 分页状态
+    let currentPage = 0;
+    let pageSize = 0;
+    let isThrottled = false; // 防抖锁
+
+    const gridEl = document.getElementById('movie-grid');
+
+    // ================= 2. 核心：自适应网格计算 =================
+    function calculateGrid() {
+        // 卡片理想大小: 宽 220px, 高 330px
+        const cardWidth = 220;
+        const cardHeight = 330;
+        const gap = 20;
+
+        const availableWidth = window.innerWidth - 80; // 减去 padding
+        const availableHeight = window.innerHeight - 120; // 减去 top/bottom padding
+
+        // 计算行列数
+        const cols = Math.floor((availableWidth + gap) / (cardWidth + gap));
+        const rows = Math.floor((availableHeight + gap) / (cardHeight + gap));
+
+        pageSize = cols * rows;
+
+        // 强制 CSS 网格遵守算出来的行列数，这样绝对不会超出屏幕产生滚动条
+        gridEl.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+        gridEl.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
+
+        renderPage();
+    }
+
+    // ================= 3. 排序逻辑 (0-2个评分 vs 3个以上) =================
+    function sortMovies() {
+        if (Object.keys(userRatings).length >= 3) {
+            // 已有3个打分，开启个性化：按 LightGBM 分数降序
+            console.log("启动 AI 个性化排序！");
+            displayMovies.sort((a, b) => b.ai_scores.lgbm - a.ai_scores.lgbm);
+        } else {
+            // 冷启动：按全局大众评分降序
+            displayMovies.sort((a, b) => b.global_avg - a.global_avg);
+        }
+        currentPage = 0; // 重新排序后回到第一页
+        renderPage();
+    }
+
+    // ================= 4. 渲染卡片 =================
+    function renderPage() {
+        gridEl.innerHTML = '';
+        const totalPages = Math.ceil(displayMovies.length / pageSize);
+
+        // 越界保护
+        if (currentPage >= totalPages) currentPage = Math.max(0, totalPages - 1);
+        if (currentPage < 0) currentPage = 0;
+
+        document.getElementById('current-page').innerText = currentPage + 1;
+        document.getElementById('total-pages').innerText = totalPages || 1;
+
+        const startIdx = currentPage * pageSize;
+        const pageMovies = displayMovies.slice(startIdx, startIdx + pageSize);
+
+        pageMovies.forEach(movie => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.style.backgroundImage = `url('${movie.poster_url}')`;
+
+            // 点击卡片本体打开大图
+            card.onclick = () => openModal(movie);
+
+            // 读取用户的打分（如果有）
+            const myRating = userRatings[movie.slug] || 0;
+
+            card.innerHTML = `
+                <div class="global-rating">⭐ ${movie.global_avg}</div>
+                <div class="card-info">
+                    <div class="card-title">${movie.title}</div>
+                    <div class="stars-container" data-slug="${movie.slug}">
+                        ${[1, 2, 3, 4, 5].map(star => `
+                            <span class="star ${star <= myRating ? 'active' : ''}"
+                                  onclick="rateMovie(event, '${movie.slug}', ${star})">★</span>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+            gridEl.appendChild(card);
+        });
+    }
+
+    // ================= 5. 打分交互 =================
+    window.rateMovie = function (event, slug, rating) {
+        event.stopPropagation(); // 关键：阻止事件冒泡，防止触发卡片的 onClick 打开弹窗
+        userRatings[slug] = rating;
+        sortMovies(); // 每次打分重新评估是否满足 3 个的要求并重绘
+    }
+
+    // ================= 6. 大图弹窗逻辑 =================
+    window.openModal = function (movie) {
+        const overlay = document.getElementById('modal-overlay');
+        const content = document.getElementById('modal-content');
+
+        content.innerHTML = `
+            <div class="modal-top" style="background-image: url('${movie.poster_url}')">
+                <div class="modal-info">
+                    <h1 class="modal-title">${movie.title}</h1>
+                    <div class="modal-meta">${movie.year} | 导演: ${movie.director}</div>
+                    <p style="color: #a8b2d1; margin-top: 20px;">
+                        大众平均评分: ⭐ ${movie.global_avg} <br>
+                        您的打分: ${userRatings[movie.slug] ? '⭐ ' + userRatings[movie.slug] : '未评价'}
+                    </p>
+                </div>
+            </div>
+            <div class="modal-bottom">
+                <div class="scores-base">
+                    <h3 style="margin-top:0; color:#8892b0;">基座模型预测拆解</h3>
+                    <div class="score-row"><span>Deep AutoRec (神经网络)</span> <span>${movie.ai_scores.autorec}</span></div>
+                    <div class="score-row"><span>SVD (矩阵分解)</span> <span>${movie.ai_scores.svd}</span></div>
+                    <div class="score-row"><span>User-KNN (兴趣圈层)</span> <span>${movie.ai_scores.userknn}</span></div>
+                    <div class="score-row"><span>Item-KNN (相似物品)</span> <span>${movie.ai_scores.itemknn}</span></div>
+                    <div class="score-row"><span>Content-KNN (元数据)</span> <span>${movie.ai_scores.contentknn}</span></div>
+                </div>
+                <div class="scores-lgbm">
+                    <h3 style="margin-top:0; color:#8892b0;">Meta-Learner 终极决策</h3>
+                    <div class="lgbm-circle">
+                        <div class="lgbm-score">${movie.ai_scores.lgbm}</div>
+                        <div style="font-size:12px; color:#8892b0;">预测星级</div>
+                    </div>
+                </div>
+            </div>
+        `;
+        overlay.classList.add('active');
+    }
+
+    window.closeModal = function () {
+        document.getElementById('modal-overlay').classList.remove('active');
+    }
+
+    // ================= 7. 页面翻页事件劫持 (滚轮与键盘) =================
+    function turnPage(delta) {
+        if (isThrottled) return;
+        const totalPages = Math.ceil(displayMovies.length / pageSize);
+
+        let newPage = currentPage + delta;
+        if (newPage >= 0 && newPage < totalPages) {
+            currentPage = newPage;
+            renderPage();
+            isThrottled = true;
+            setTimeout(() => isThrottled = false, 50);
+        }
+    }
+
+    window.addEventListener('wheel', (e) => {
+        // 如果弹窗打开了，不要翻页
+        if (document.getElementById('modal-overlay').classList.contains('active')) return;
+        turnPage(e.deltaY > 0 ? 1 : -1);
+    });
+
+    window.addEventListener('keydown', (e) => {
+        if (document.getElementById('modal-overlay').classList.contains('active')) return;
+        if (e.key === 'ArrowDown' || e.key === 'PageDown') turnPage(1);
+        if (e.key === 'ArrowUp' || e.key === 'PageUp') turnPage(-1);
+    });
+
+    // ================= 8. 搜索功能 =================
+    document.getElementById('search-input').addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase();
+        if (!query) {
+            displayMovies = [...allMovies];
+        } else {
+            // 原生简单搜索，实际可替换为 Fuse.js
+            displayMovies = allMovies.filter(m => m.title.toLowerCase().includes(query));
+        }
+        currentPage = 0;
+        renderPage();
+    });
+
+    // ================= 9. CSV 文件上传快速导入评分 =================
+    document.getElementById('csv-upload').addEventListener('change', function (e) {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = function (event) {
+            const text = event.target.result;
+            const lines = text.split('\n');
+            let importCount = 0;
+
+            lines.forEach(line => {
+                const parts = line.split(',');
+                if (parts.length >= 2) {
+                    const slug = parts[0].trim();
+                    const rating = parseFloat(parts[1].trim());
+                    if (!isNaN(rating)) {
+                        userRatings[slug] = rating;
+                        importCount++;
+                    }
+                }
+            });
+            alert(`成功导入 ${importCount} 条评分！AI 引擎已重新排序。`);
+            sortMovies();
+        };
+        reader.readAsText(file);
+        // 清空 input，允许重复上传同一文件
+        e.target.value = '';
+    });
+
+    // ================= 初始化 =================
+    window.addEventListener('resize', () => {
+        // 窗口大小改变时，重新计算网格并重新渲染
+        clearTimeout(window.resizeTimer);
+        window.resizeTimer = setTimeout(calculateGrid, 200);
+    });
+
+// 启动首次渲染
+    fetch('./movie_database.json')
+        .then(res => res.json())
+        .then(data => {
+            // 1. 将 Object (Hash Map) 转换为 Array
+            // 2. 将字典的 key (slug) 注入到对象内部
+            allMovies = Object.entries(data).map(([slug, info]) => {
+                return {
+                    slug: slug,
+                    title: info.title,
+                    year: info.year,
+                    director: info.director,
+                    poster_url: info.poster_url,
+                    global_avg: info.avg, // 将 Python 的 avg 映射为 UI 需要的 global_avg
+
+                    // 安全垫：因为你目前导出的 JSON 还没有真实的 AI 预测分数
+                    // 这里先给一组默认的 0 分，防止打开弹窗或 AI 排序时报错崩溃
+                    ai_scores: {
+                        autorec: 0,
+                        svd: 0,
+                        userknn: 0,
+                        itemknn: 0,
+                        contentknn: 0,
+                        lgbm: 0
+                    }
+                };
+            });
+
+            displayMovies = [...allMovies];
+            sortMovies();
+            calculateGrid();
+        })
+        .catch(err => {
+            console.error("加载电影数据库失败，请检查路径或格式！", err);
+        });
+</script>
+</body>
+</html>

@@ -4,7 +4,7 @@ from util import root_path
 
 
 class UserBasedRecommender:
-    def __init__(self, db_path, backend='gpu'):
+    def __init__(self, db_path, k_neighbors=168, backend='gpu'):
         """
         Main entry point for User-KNN Recommender.
         :param db_path: Path to the SQLite database.
@@ -15,20 +15,20 @@ class UserBasedRecommender:
 
         if self.backend_type == 'gpu':
             try:
-                self.engine = UserKNNGPUBackend(self.db_path)
+                self.engine = UserKNNGPUBackend(self.db_path, k_neighbors=k_neighbors)
             except Exception as e:
                 print(f"[User-KNN] GPU backend initialization failed: {e}. Falling back to CPU.")
-                self.engine = UserKNNCPUBackend(self.db_path)
+                self.engine = UserKNNCPUBackend(self.db_path, k_neighbors=k_neighbors)
         elif self.backend_type == 'cpu':
-            self.engine = UserKNNCPUBackend(self.db_path)
+            self.engine = UserKNNCPUBackend(self.db_path, k_neighbors=k_neighbors)
         else:
             raise ValueError("Backend must be either 'gpu' or 'cpu'.")
 
-    def get_recommendations(self, user_profile, top_n=10, k_neighbors=15):
+    def get_recommendations(self, user_profile, top_n=10):
         """
         Routes the recommendation request to the selected backend engine.
         """
-        return self.engine.get_recommendations(user_profile, top_n, k_neighbors)
+        return self.engine.get_recommendations(user_profile, top_n)
 
 
 # --- Test Execution ---

@@ -5,7 +5,7 @@ from util import load_review_datas, root_path
 
 
 class SVDRecommender:
-    def __init__(self, db_path, k_factors=50):
+    def __init__(self, db_path, k_factors=39):
         self.db_path = db_path
         self.k_factors = k_factors
         self.df_movies = None
@@ -86,7 +86,7 @@ class SVDRecommender:
 
 
 if __name__ == "__main__":
-    recommender = SVDRecommender(root_path() / "data/train_model.db", k_factors=50)
+    recommender = SVDRecommender(root_path() / "data/train_model.db")
 
     demo_profile = {
         "inception": 5.0,

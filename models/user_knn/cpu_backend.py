@@ -5,7 +5,8 @@ from util import load_review_datas
 
 
 class UserKNNCPUBackend:
-    def __init__(self, db_path):
+    def __init__(self, db_path, k_neighbors):
+        self.k_neighbors = k_neighbors
         self.db_path = db_path
         self.user_movie_matrix = None
         self.df_movies = None
@@ -27,7 +28,7 @@ class UserKNNCPUBackend:
         print(
             f"[User-KNN-CPU] Matrix built! {self.user_movie_matrix.shape[0]} users, {self.user_movie_matrix.shape[1]} movies.\n")
 
-    def get_recommendations(self, user_profile, top_n=10, k_neighbors=15):
+    def get_recommendations(self, user_profile, top_n=10):
         if self.user_movie_matrix is None or self.user_movie_matrix.empty:
             return []
 
@@ -46,7 +47,7 @@ class UserKNNCPUBackend:
         similarities = cosine_similarity([target_vector.values], self.user_movie_matrix.values)[0]
         sim_series = pd.Series(similarities, index=self.user_movie_matrix.index)
 
-        top_k_neighbors = sim_series.nlargest(k_neighbors)
+        top_k_neighbors = sim_series.nlargest(self.k_neighbors)
 
         recommendation_scores = {}
         similarity_sums = {}
@@ -74,7 +75,7 @@ class UserKNNCPUBackend:
         final_scores = {}
         for slug in recommendation_scores:
             final_scores[slug] = (recommendation_scores[slug] + damping * prior_mean) / (
-                        similarity_sums[slug] + damping)
+                    similarity_sums[slug] + damping)
 
         sorted_recs = sorted(final_scores.items(), key=lambda x: x[1], reverse=True)
         results = []

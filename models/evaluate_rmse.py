@@ -18,10 +18,6 @@ HIDE_RATIO = 0.2
 
 
 def get_test_profiles(test_db_path=TEST_DB, hide_ratio=HIDE_RATIO, seed=42):
-    """
-    [重构抽取]：为所有测试集用户生成一致的 80/20 验证特征。
-    固定 seed 确保调参时不同模型面对的是完全同一套“考卷”。
-    """
     conn_test = sqlite3.connect(test_db_path)
     df_test = pd.read_sql_query("SELECT user_username, movie_slug, rating FROM reviews WHERE rating != 'None'",
                                 conn_test)
@@ -61,13 +57,8 @@ def get_test_profiles(test_db_path=TEST_DB, hide_ratio=HIDE_RATIO, seed=42):
 
 
 def evaluate_model(model, test_profiles):
-    """
-    [重构抽取]：接收任意一个实现了 get_recommendations() 的推荐系统对象实例，
-    进行黑盒预测并返回 RMSE。
-    """
     errors = []
     for profile in test_profiles:
-        # 绝对防御：强制调用原版模型的真实推理逻辑，杜绝实现重复
         raw_recs = model.get_recommendations(profile['train_profile'], top_n=3334)
         pred_dict = {rec['slug']: rec['score'] for rec in raw_recs}
 
@@ -81,19 +72,16 @@ def evaluate_model(model, test_profiles):
 
 
 def run_rmse_evaluation():
-    """原本的主入口：用于一次性评估全部基座模型"""
     print("--- Agnostic Multi-Model RMSE Benchmark ---\n")
-
-    print("[Eval] 正在生成一致性测试特征 (80/20 split)...")
     test_profiles = get_test_profiles(TEST_DB, HIDE_RATIO)
 
-    print("[Eval] 初始化基座模型 (Black-box mode)...")
+    print("[Eval] Initialize models...")
     models = {
         "User-KNN": UserBasedRecommender(db_path=TRAIN_DB),
         "Content-KNN": ContentBasedRecommender(db_path=TRAIN_DB),
         "Deep AutoRec": AutoRecRecommender(db_path=TRAIN_DB),
         "Item-KNN": ItemBasedRecommender(db_path=TRAIN_DB),
-        "SVD-50": SVDRecommender(db_path=TRAIN_DB),
+        "SVD": SVDRecommender(db_path=TRAIN_DB),
     }
 
     print("\n" + "=" * 55)
