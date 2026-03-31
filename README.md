@@ -19,12 +19,16 @@ scipy~=1.17.1.0
 │ ├── item_knn/ # Item-based collaborative filtering (Item-KNN)\
 │ ├── svd/ # Latent factor model / Matrix factorization (Truncated SVD)\
 │ ├── user_knn/ # User-based collaborative filtering (User-KNN)\
-│ └── auto_rec/ # Deep learning autoencoder (Deep AutoRec)\
+│ ├── auto_rec/ # Deep learning autoencoder (Deep AutoRec)\
+│ ├── meta/ # Weighted hybrid ensemble recommender system\
+│ └── saved_models/ Stored .pkl files for each model
 ├── tools/\
 │ ├── clear_db.py # Database cleaning and preprocessing script\
 │ ├── split_db.py # Train/test set physical split script\
 │ ├── Movie_first_crawler.py # Movie-first crawler\
 │ └── User_first_crawler.py # User-first crawler\
+├── gui/ User interaction through terminal and GUI I/O\
+├── visualizations/ Snapshots and graphs showcasing model performance\
 ├── util.py # Global helper and path configuration functions\
 └── README.md # Project documentation
 
