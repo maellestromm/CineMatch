@@ -173,7 +173,7 @@ def train_model(epochs=100, batch_size=256, lr=0.005, patience=8):
     plt.legend(fontsize=11)
     plt.grid(True, linestyle='--', alpha=0.6)
 
-    plt.savefig('train_vs_test_loss.png', dpi=300, bbox_inches='tight')
+    plt.savefig(root_path() / 'visualizations/train_vs_test_loss.png', dpi=300, bbox_inches='tight')
     print("\nDual-track Loss curve saved as train_vs_test_loss.png")
 
 

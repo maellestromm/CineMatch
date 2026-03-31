@@ -12,10 +12,7 @@ NUM_USERS_SAMPLE = 500
 HIDE_RATIO = 0.2
 NUM_WEIGHT_SAMPLES = 30   # number of random weight configs to test
 
-
-# --------------------------------------------------
 # Generate random normalized weights
-# --------------------------------------------------
 def sample_weights():
     weights = np.random.rand(5)  # 5 models
     weights /= weights.sum()
@@ -29,9 +26,7 @@ def sample_weights():
     }
 
 
-# --------------------------------------------------
-# Evaluation (same as your tune_svd)
-# --------------------------------------------------
+# Evaluation
 def evaluate_model(model, test_reviews, test_users):
     errors = []
     total_users = 0
@@ -56,13 +51,13 @@ def evaluate_model(model, test_reviews, test_users):
         recs = model.get_recommendations(train_profile, top_n=200)
         pred_dict = {r['slug']: r['score'] for r in recs}
 
-        # --- RMSE ---
+        # RMSE
         for slug in hidden:
             actual = float(user_data[user_data['movie_slug'] == slug]['rating'].values[0])
             pred = pred_dict.get(slug, user_avg)
             errors.append((pred - actual) ** 2)
 
-        # --- Hit + Precision ---
+        # Hit + Precision
         top_10 = recs[:10]
         top_10_slugs = set([r['slug'] for r in top_10])
 
@@ -80,10 +75,7 @@ def evaluate_model(model, test_reviews, test_users):
 
     return rmse, hit_rate, precision
 
-
-# --------------------------------------------------
 # Tuning loop
-# --------------------------------------------------
 def tune_meta(results, test_reviews, sampled_users):
     print("\n=== Tuning Meta Ensemble Weights ===")
 
@@ -102,10 +94,7 @@ def tune_meta(results, test_reviews, sampled_users):
 
         results.append((weights, rmse, hit_rate, precision))
 
-
-# --------------------------------------------------
 # Main
-# --------------------------------------------------
 def main():
     print("Loading test data...")
     test_reviews, test_users = load_test_datas(TEST_DB)
@@ -116,9 +105,7 @@ def main():
     results = []
     tune_meta(results, test_reviews, sampled_users)
 
-    # --------------------------------------------
     # Print results sorted by Precision@10
-    # --------------------------------------------
     print("\n" + "=" * 80)
     print("META ENSEMBLE TUNING RESULTS")
     print("=" * 80)

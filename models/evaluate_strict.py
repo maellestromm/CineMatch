@@ -1,12 +1,10 @@
 import random
 import time
 
-from auto_rec import AutoRecRecommender
-from content_knn import ContentBasedRecommender
-from item_knn import ItemBasedRecommender
 from util import load_test_datas, root_path
-from svd import SVDRecommender
-from user_knn import UserBasedRecommender
+from models.load_models import load_model
+from .meta import MetaRecommender
+from models.evaluate_rmse import run_rmse_evaluation
 
 # --- Configuration ---
 TRAIN_DB = root_path() / "data/train_model.db"
@@ -21,11 +19,12 @@ def run_strict_evaluation():
 
     print("[Eval] Initializing models (Black-box mode)...")
     models = {
-        "User-KNN": UserBasedRecommender(db_path=TRAIN_DB),
-        "Content-KNN": ContentBasedRecommender(db_path=TRAIN_DB),
-        "Deep AutoRec": AutoRecRecommender(db_path=TRAIN_DB),
-        "Item-KNN": ItemBasedRecommender(db_path=TRAIN_DB),
-        "SVD-50": SVDRecommender(db_path=TRAIN_DB),
+        "User-KNN": load_model("user_knn"),
+        "Deep-AutoRec": load_model("auto_rec"),
+        "Item-KNN": load_model("item_knn"),
+        "SVD-50": load_model("svd"),
+        "Content-KNN": load_model("content_knn"),
+        "Meta": load_model("meta")
     }
 
     metrics = {name: {"hits": 0, "precision_sum": 0.0, "time": 0.0} for name in models}
