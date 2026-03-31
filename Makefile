@@ -1,0 +1,44 @@
+.PHONY: run setup initialize extract-db split-db extract-meta train-autorec eval eval-strict eval-rmse
+# -------- CONFIG --------
+PYTHON = python
+
+# -------- COMMANDS --------
+
+# For now: run in terminal
+### To be updated upon completion of GUI
+run:
+	$(PYTHON) -m gui.user_io
+
+
+# Setup: ------------------
+
+# Install dependencies
+setup:
+	pip install -r requirements.txt
+
+# Initialize data
+initialize:
+	$(MAKE) extract-db
+	$(MAKE) split-db
+	$(MAKE) extract-meta
+
+extract-db: 
+	7z x db_backup/user_first_cut3_clear.7z -odata/
+
+split-db: 
+	$(PYTHON) -m tools.split_db
+
+extract-meta: 
+	7z x models/saved_models/meta.7z -omodels/saved_models/
+
+
+# Evaluation: ------------------
+eval: eval-strict eval-rmse
+
+eval-strict: #4
+	$(PYTHON) -m models.evaluate_strict
+
+eval-rmse: #5
+	$(PYTHON) -m models.evaluate_rmse
+
+

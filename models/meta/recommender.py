@@ -19,13 +19,22 @@ class MetaRecommender:
 
         self.models = load_all_models()
 
-        # defualt - tune later
+        # # defualt - tune later
+        # self.weights = {
+        #     "SVD-50": 0.3,
+        #     "User-KNN": 0.25,
+        #     "Item-KNN": 0.2,
+        #     "Deep-AutoRec": 0.2,
+        #     "Content-KNN":0.05
+        # }
+
+        # tuned weights
         self.weights = {
-            "User-KNN": 0.25,
-            "Deep-AutoRec": 0.2,
-            "Item-KNN": 0.2,
-            "SVD-50": 0.3,
-            "Content-KNN":0.05
+            "SVD-50": 0.4532,
+            "Item-KNN": 0.3178,
+            "Deep-AutoRec": 0.1321,
+            "Content-KNN": 0.0957,
+            "User-KNN": 0.0012
         }
 
         print("[Meta] Ready.")
@@ -35,7 +44,7 @@ class MetaRecommender:
 
         # 1. get predictions from each model
         for name, model in self.models.items():
-            raw = model.get_recommendations(user_profile, top_n=300)
+            raw = model.get_recommendations(user_profile, top_n=3334)
             model_preds[name] = {rec['slug']: rec['score'] for rec in raw}
             
             # store full recs for one model, SVD
@@ -85,8 +94,6 @@ class MetaRecommender:
         top_movies = sorted(final_scores.items(), key=lambda x: x[1], reverse=True)[:top_n]
 
         # reuse metadata from one model (e.g., SVD)
-        #svd_preds = self.models["SVD-50"]#.get_recommendations(user_profile, top_n=3334)
-        #svd_lookup = {rec['slug']: rec for rec in svd_preds}
         svd_lookup = svd_full
 
         results = []
