@@ -13,19 +13,17 @@ from models.svd import SVDRecommender
 from models.user_knn import UserBasedRecommender
 from util import root_path
 
-# --- 配置 ---
 TRAIN_DB = root_path() / "data/train_model.db"
 META_DB = root_path() / "data/meta_dataset.db"
-TEMP_DB = root_path() / "data/temp_fold_train.db"  # 动态生成的临时数据库
+TEMP_DB = root_path() / "data/temp_fold_train.db"
 HIDE_RATIO = 0.2
 N_SPLITS = 5
 
 
 def build_oof_meta_dataset():
-    print(f"[OOF Data Prep] 启动 {N_SPLITS}-Fold Out-of-Fold 交叉预测引擎...")
+    print(f"[OOF Data Prep] {N_SPLITS}-Fold Out-of-Fold...")
 
-    # 1. 提取全局上下文特征 (必须基于全量的 TRAIN_DB)
-    print("\n[OOF Data Prep] 提取全局电影统计特征...")
+    print("\n[OOF Data Prep] Extracting global movie statistical features...")
     conn_train = sqlite3.connect(TRAIN_DB)
     df_train = pd.read_sql_query("SELECT user_username, movie_slug, rating FROM reviews WHERE rating != 'None'",
                                  conn_train)
@@ -42,36 +40,32 @@ def build_oof_meta_dataset():
     movie_years = df_movies.set_index('slug')['year'].to_dict()
     conn_train.close()
 
-    # 2. 获取所有训练集用户，并进行 K-Fold 划分
     all_users = df_train['user_username'].unique()
     kf = KFold(n_splits=N_SPLITS, shuffle=True, random_state=42)
 
     X_features = []
 
-    # 3. 开启 5 折交叉循环
     for fold, (train_idx, val_idx) in enumerate(kf.split(all_users), 1):
         print(f"\n{'=' * 60}")
-        print(f"🚀 正在处理 FOLD {fold} / {N_SPLITS} (训练集: {len(train_idx)}人, 验证集: {len(val_idx)}人)")
+        print(f"Processing FOLD {fold} / {N_SPLITS} (Train users: {len(train_idx)}, Val users: {len(val_idx)})")
         print(f"{'=' * 60}")
 
         val_users = set(all_users[val_idx])
 
-        # [核心物理隔离]：复制出一个临时的数据库，并彻底删掉验证集用户的打分
+        # 4:1 split database
         if os.path.exists(TEMP_DB):
             os.remove(TEMP_DB)
         shutil.copyfile(TRAIN_DB, TEMP_DB)
 
         conn_temp = sqlite3.connect(TEMP_DB)
-        # 使用临时表安全删除大批量用户，防止 SQLite SQL 语句过长
         conn_temp.execute("CREATE TEMPORARY TABLE temp_val_users (username TEXT)")
         conn_temp.executemany("INSERT INTO temp_val_users VALUES (?)", [(u,) for u in val_users])
         conn_temp.execute("DELETE FROM reviews WHERE user_username IN (SELECT username FROM temp_val_users)")
         conn_temp.commit()
         conn_temp.close()
 
-        # 4. 初始化并在临时数据库上强制重训 5 大基座模型
-        # 注意：这里的 AutoRec 会被触发重训，它的权重(如 autorec.pth)会被反复覆盖，这是正常且符合预期的。
-        print(f"[Fold {fold}] 正在加载并重训 5 大基座模型 (基于 4/5 临时数据)...")
+        # get_oof_autorec will re-train auto-rec before return Recommender
+        print(f"[Fold {fold}] Loading and retraining 5 base models (based on 4/5 temporary data)...")
         models = {
             "AutoRec": get_oof_autorec(db_path=TEMP_DB),
             "UserKNN": UserBasedRecommender(db_path=TEMP_DB),
@@ -80,8 +74,7 @@ def build_oof_meta_dataset():
             "ContentKNN": ContentBasedRecommender(db_path=TEMP_DB)
         }
 
-        # 5. 对被扣留的 1/5 验证集用户进行零样本推理 (Zero-Shot Inference)
-        print(f"[Fold {fold}] 正在对被隔离的验证集用户进行纯净特征预测...")
+        print(f"[Fold {fold}] Predicting clean features for isolated validation users...")
         fold_processed = 0
 
         for user in val_users:
@@ -93,7 +86,6 @@ def build_oof_meta_dataset():
             hidden_count = max(1, int(len(all_movies) * HIDE_RATIO))
             test_set_slugs = random.sample(all_movies, hidden_count)
 
-            # 抽出 80% 作为输入特征
             train_data = user_data[~user_data['movie_slug'].isin(test_set_slugs)]
             train_profile = dict(zip(train_data['movie_slug'], train_data['rating']))
 
@@ -103,7 +95,6 @@ def build_oof_meta_dataset():
             if pd.isna(user_std):
                 user_std = 0.0
 
-            # 让基座模型盲猜
             model_predictions = {}
             for name, model in models.items():
                 raw_recs = model.get_recommendations(train_profile, top_n=3334)
@@ -134,24 +125,21 @@ def build_oof_meta_dataset():
 
             fold_processed += 1
             if fold_processed % 200 == 0:
-                print(f"  -> Fold {fold}: 已处理 {fold_processed} 名用户...")
+                print(f"  -> Fold {fold}: Processed {fold_processed} users...")
 
-        # 释放当前 Fold 的模型内存
         del models
 
-    # 6. 保存最终的全量 Meta 数据集
     df_meta = pd.DataFrame(X_features)
-    print(f"\n[OOF Data Prep] 历劫完成！共生成 {len(df_meta)} 条极其纯净的训练数据，准备保存至 {META_DB}...")
+    print(f"\n[OOF Data Prep] Process complete! Generated {len(df_meta)} training records, saving to {META_DB}...")
 
     conn_meta = sqlite3.connect(META_DB)
     df_meta.to_sql("meta_train", conn_meta, if_exists="replace", index=False)
     conn_meta.close()
 
-    # 清理临时战场
     if os.path.exists(TEMP_DB):
         os.remove(TEMP_DB)
 
-    print("[OOF Data Prep] 工业级 5-Fold 特征抽取完毕！你可以开始训练 LightGBM 了。")
+    print("[OOF Data Prep] Done!")
 
 
 if __name__ == "__main__":

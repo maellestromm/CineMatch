@@ -24,7 +24,6 @@ class LightGBMMetaRecommender:
         except FileNotFoundError:
             raise Exception(f"Model file {model_path} not found. Please run train_meta_learner.py first.")
 
-        # 初始化底层的 5 个基座模型
         print("[LGBM Ranker] Initializing 5 Base Models for Inference...")
         self.base_models = {
             "AutoRec": AutoRecRecommender(db_path=self.db_path),
@@ -60,7 +59,7 @@ class LightGBMMetaRecommender:
         if not user_profile:
             return []
 
-        # 1. 计算用户的上下文特征
+        # user context
         user_ratings = list(user_profile.values())
         user_rating_count = len(user_ratings)
         user_avg = np.mean(user_ratings)
@@ -68,19 +67,18 @@ class LightGBMMetaRecommender:
         if pd.isna(user_std):
             user_std = 0.0
 
-        # 2. 获取所有基础模型的全局打分 (调用基座模型的接口，返回前 3334 名)
+        # score from other model
         model_predictions = {}
         for name, model in self.base_models.items():
             raw_recs = model.get_recommendations(user_profile, top_n=len(self.movie_slugs))
             model_predictions[name] = {rec['slug']: rec['score'] for rec in raw_recs}
 
-        # 3. 组装待预测矩阵
         inference_features = []
         candidate_slugs = []
 
         for slug in self.movie_slugs:
             if slug in user_profile:
-                continue  # 跳过已看过的电影
+                continue
 
             m_stats = self.movie_stats.get(slug, {'movie_avg': 3.0, 'movie_count': 0, 'movie_std': 0.0})
             m_year = self.movie_years.get(slug, 2000)
@@ -105,11 +103,9 @@ class LightGBMMetaRecommender:
         if not inference_features:
             return []
 
-        # 4. 元学习器批量推理
         X_infer = pd.DataFrame(inference_features)
         final_scores = self.model.predict(X_infer)
 
-        # 5. 排序并组装返回结果
         top_indices = np.argsort(final_scores)[::-1][:top_n]
         results = []
 

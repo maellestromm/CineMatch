@@ -23,7 +23,6 @@ def train_lightgbm():
     if df.empty:
         raise ValueError("Dataset is empty. Run prepare_meta_data.py first.")
 
-    # 严格按照给定的特征顺序进行切分
     feature_names = [
         "User_Rating_Count", "User_Avg", "User_Std",
         "Movie_Rating_Count", "Movie_Avg", "Movie_Std", "Release_Year",
