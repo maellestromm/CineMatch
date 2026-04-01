@@ -230,6 +230,11 @@
         });
     }
 
+    function RTD(num) {
+        if (num < 0) return 'N/A';
+        return Math.round(num * 1000) / 1000;
+    }
+
     function openModal(movie) {
         dialogInner.innerHTML = ''; // 清空上一次的内容
 
@@ -243,12 +248,12 @@
 
         clone.querySelector('.modal-ratings-text').innerHTML = `大众平均评分: ⭐ ${movie.global_avg} <br> 您的打分: ${userRatings[movie.slug] ? '⭐ ' + userRatings[movie.slug] : '未评价'}`;
 
-        clone.querySelector('.score-autorec').innerText = movie.ai_scores.autorec;
-        clone.querySelector('.score-svd').innerText = movie.ai_scores.svd;
-        clone.querySelector('.score-userknn').innerText = movie.ai_scores.userknn;
-        clone.querySelector('.score-itemknn').innerText = movie.ai_scores.itemknn;
-        clone.querySelector('.score-contentknn').innerText = movie.ai_scores.contentknn;
-        clone.querySelector('.lgbm-score').innerText = movie.ai_scores.lgbm;
+        clone.querySelector('.score-autorec').innerText = RTD(movie.ai_scores.autorec);
+        clone.querySelector('.score-svd').innerText = RTD(movie.ai_scores.svd);
+        clone.querySelector('.score-userknn').innerText = RTD(movie.ai_scores.userknn);
+        clone.querySelector('.score-itemknn').innerText = RTD(movie.ai_scores.itemknn);
+        clone.querySelector('.score-contentknn').innerText = RTD(movie.ai_scores.contentknn);
+        clone.querySelector('.lgbm-score').innerText = RTD(movie.ai_scores.lgbm);
 
         dialogInner.appendChild(clone);
 

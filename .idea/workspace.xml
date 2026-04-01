@@ -4,15 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4fb65961-2b56-4585-8fc1-86fe6579e464" name="更改" comment="tune knn">
-      <change afterPath="$PROJECT_DIR$/models/auto_rec/export_js.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/webui/models.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/webui/movie_dictionary.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+    <list default="true" id="4fb65961-2b56-4585-8fc1-86fe6579e464" name="更改" comment="web ui test">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/lgbm_meta_model.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/data/lgbm_meta_model.pkl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/evaluate_strict.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/evaluate_strict.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webui/demo.css" beforeDir="false" afterPath="$PROJECT_DIR$/webui/demo.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webui/demo.html" beforeDir="false" afterPath="$PROJECT_DIR$/webui/demo.html" afterDir="false" />
     </list>
@@ -314,7 +307,7 @@
       <workItem from="1773126097236" duration="10000" />
       <workItem from="1773901661116" duration="10834000" />
       <workItem from="1774933563302" duration="21863000" />
-      <workItem from="1775007656619" duration="6310000" />
+      <workItem from="1775007656619" duration="8448000" />
     </task>
     <task id="LOCAL-00001" summary="A database suitable for user-collaborative filtering knn. -- Du Wang">
       <option name="closed" value="true" />
@@ -420,7 +413,15 @@
       <option name="project" value="LOCAL" />
       <updated>1774965849433</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="web ui test">
+      <option name="closed" value="true" />
+      <created>1775022474667</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1775022474667</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -447,7 +448,8 @@
     <MESSAGE value="light gbm test code" />
     <MESSAGE value="tune svd" />
     <MESSAGE value="tune knn" />
-    <option name="LAST_COMMIT_MESSAGE" value="tune knn" />
+    <MESSAGE value="web ui test" />
+    <option name="LAST_COMMIT_MESSAGE" value="web ui test" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/CineMatch$prepare_meta_data.coverage" NAME="prepare_meta_data 覆盖结果" MODIFIED="1774968234581" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/lightgbm" />
