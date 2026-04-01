@@ -148,31 +148,25 @@ body, html {
 }
 
 /* ================= 5. 展开大图详情弹窗 ================= */
-#modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.85);
-    backdrop-filter: blur(10px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
+
+/* 重置原生 dialog 的默认样式，使其适配我们原本的暗黑主题 */
+dialog {
+    padding: 2em;
+    border: none;
+    background: transparent;
+    overflow: visible;
+    outline: none;
+    max-width: 70em;
+    width: 100%;
 }
 
-#modal-overlay.active {
-    opacity: 1;
-    pointer-events: auto;
+dialog::backdrop {
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(10px);
 }
 
 .modal-content {
-    width: 80%;
-    max-width: 900px;
+    width: 100%;
     height: 70vh;
     background: #112240;
     border-radius: 20px;
@@ -285,4 +279,45 @@ body, html {
     color: rgba(255, 255, 255, 0.5);
     font-size: 0.9rem;
     pointer-events: none;
+}
+
+
+
+/* ================= 星星打分系统样式 ================= */
+.stars-container {
+    display: flex;
+    gap: 4px;
+}
+
+.star {
+    cursor: pointer;
+    font-size: 24px;
+    color: #4a5568; /* 默认的暗色底星 */
+    position: relative;
+    display: inline-block;
+    transition: transform 0.1s;
+}
+
+.star:hover {
+    transform: scale(1.2);
+}
+
+/* 满星状态：全金 */
+.star.full {
+    color: #fbbf24;
+}
+
+/* 半星魔法：利用绝对定位的伪元素，盖住左半边 */
+.star.half {
+    color: #4a5568; /* 底色依然是暗色 */
+}
+
+.star.half::before {
+    content: '★';
+    color: #fbbf24; /* 盖上一层金色 */
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 50%; /* 核心魔法：只显示一半宽度 */
+    overflow: hidden;
 }

@@ -25,7 +25,7 @@ def run_strict_evaluation():
         "Content-KNN": ContentBasedRecommender(db_path=TRAIN_DB),
         "Deep AutoRec": AutoRecRecommender(db_path=TRAIN_DB),
         "Item-KNN": ItemBasedRecommender(db_path=TRAIN_DB),
-        "SVD-50": SVDRecommender(db_path=TRAIN_DB),
+        "SVD": SVDRecommender(db_path=TRAIN_DB),
     }
 
     metrics = {name: {"hits": 0, "precision_sum": 0.0, "time": 0.0} for name in models}

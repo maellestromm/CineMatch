@@ -8,3 +8,4 @@ scipy~=1.17.1.0
 lightgbm
 m2cgen
 joblib
+onnx
