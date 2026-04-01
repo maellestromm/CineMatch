@@ -114,6 +114,7 @@ def visualize_confusion():
     plt.ylabel("Score")
     plt.title("Model Comparison (Top-10 Recommendations)")
     plt.legend()
+    plt.grid()
 
     plt.tight_layout()
     #plt.show()
@@ -139,8 +140,9 @@ def main():
 
     #visualize_weight_correlations()
     #visualize_grid()
-    #visualize_confusion()
-    visualize_comparison_scatter()
+    visualize_confusion()
+    #visualize_comparison_scatter()
+
     
 
 if __name__ == "__main__":
