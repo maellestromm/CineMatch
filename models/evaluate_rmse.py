@@ -1,31 +1,23 @@
 import math
 import random
+
 import numpy as np
-import pandas as pd
-import sqlite3
 
 from models.auto_rec import AutoRecRecommender
 from models.content_knn import ContentBasedRecommender
 from models.item_knn import ItemBasedRecommender
-from models.user_knn import UserBasedRecommender
 from models.svd import SVDRecommender
-
-from util import root_path
+from models.user_knn import UserBasedRecommender
+from util import root_path, load_test_datas
 
 TRAIN_DB = root_path() / "data/train_model.db"
 TEST_DB = root_path() / "data/test_eval.db"
 HIDE_RATIO = 0.2
 
 
-def get_test_profiles(test_db_path=TEST_DB, hide_ratio=HIDE_RATIO, seed=42):
-    conn_test = sqlite3.connect(test_db_path)
-    df_test = pd.read_sql_query("SELECT user_username, movie_slug, rating FROM reviews WHERE rating != 'None'",
-                                conn_test)
-    df_test['rating'] = pd.to_numeric(df_test['rating'], errors='coerce').dropna()
-    conn_test.close()
-
+def get_rmse_test_profiles(test_db_path=TEST_DB, hide_ratio=HIDE_RATIO, seed=42):
     random.seed(seed)
-    test_users = df_test['user_username'].unique()
+    df_test, test_users = load_test_datas(test_db_path)
     profiles = []
 
     for user in test_users:
@@ -56,14 +48,18 @@ def get_test_profiles(test_db_path=TEST_DB, hide_ratio=HIDE_RATIO, seed=42):
     return profiles
 
 
-def evaluate_model(model, test_profiles):
+def evaluate_model_rmse(model, test_profiles):
     errors = []
     for profile in test_profiles:
         raw_recs = model.get_recommendations(profile['train_profile'], top_n=3334)
         pred_dict = {rec['slug']: rec['score'] for rec in raw_recs}
 
         for target in profile['targets']:
-            pred_rating = pred_dict.get(target['slug'], profile['user_avg'])
+            pred_rating = pred_dict.get(target['slug'], 0.0)
+
+            if pred_rating <= 0:
+                pred_rating = profile['user_avg']
+
             errors.append((pred_rating - target['actual']) ** 2)
 
     if not errors:
@@ -73,14 +69,17 @@ def evaluate_model(model, test_profiles):
 
 def run_rmse_evaluation():
     print("--- Agnostic Multi-Model RMSE Benchmark ---\n")
-    test_profiles = get_test_profiles(TEST_DB, HIDE_RATIO)
+    test_profiles = get_rmse_test_profiles(TEST_DB, HIDE_RATIO)
 
     print("[Eval] Initialize models...")
     models = {
-        "User-KNN": UserBasedRecommender(db_path=TRAIN_DB),
-        "Content-KNN": ContentBasedRecommender(db_path=TRAIN_DB),
+        "User-KNN-13": UserBasedRecommender(db_path=TRAIN_DB,k_neighbors=13),
+        "User-KNN-168": UserBasedRecommender(db_path=TRAIN_DB),
+        "Content-KNN-1": ContentBasedRecommender(db_path=TRAIN_DB,k_neighbors=1),
+        "Content-KNN-871": ContentBasedRecommender(db_path=TRAIN_DB),
         "Deep AutoRec": AutoRecRecommender(db_path=TRAIN_DB),
-        "Item-KNN": ItemBasedRecommender(db_path=TRAIN_DB),
+        "Item-KNN-7": ItemBasedRecommender(db_path=TRAIN_DB,k_neighbors=7),
+        "Item-KNN-50": ItemBasedRecommender(db_path=TRAIN_DB),
         "SVD": SVDRecommender(db_path=TRAIN_DB),
     }
 
@@ -89,7 +88,7 @@ def run_rmse_evaluation():
     print("=" * 55)
 
     for name, model in models.items():
-        rmse = evaluate_model(model, test_profiles)
+        rmse = evaluate_model_rmse(model, test_profiles)
         print(f"{name:<18} | {rmse:.4f}")
 
 

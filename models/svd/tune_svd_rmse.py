@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from scipy.sparse.linalg import svds
 
-from models.evaluate_rmse import get_test_profiles, evaluate_model
+from models.evaluate_rmse import get_rmse_test_profiles, evaluate_model_rmse
 from models.svd import SVDRecommender
 from util import root_path, plot_results
 
@@ -33,14 +33,14 @@ def global_sigma_plot():
 
 def tune_svd():
     print("[SVD Tuner] get test profiles...")
-    test_profiles = get_test_profiles(TEST_DB)
+    test_profiles = get_rmse_test_profiles(TEST_DB)
 
     rmse_results = []
     print(f"[SVD Tuner] testing {len(K_RANGE)} K values...")
 
     for k in K_RANGE:
         model = SVDRecommender(db_path=TRAIN_DB, k_factors=k)
-        rmse = evaluate_model(model, test_profiles)
+        rmse = evaluate_model_rmse(model, test_profiles)
         rmse_results.append(rmse)
         print(f"  -> k={k:03d} | RMSE: {rmse:.4f}")
 
@@ -52,4 +52,5 @@ if __name__ == "__main__":
     plot_results(tune_svd(), K_RANGE,
                  "SVD Tuning: RMSE vs. $k$",
                  "Number of Latent Factors ($k$)",
-                 "svd_tuning_k.png")
+                 'Root Mean Squared Error (RMSE)',
+                 "svd_tuning_k_rmse.png")

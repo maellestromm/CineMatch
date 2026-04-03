@@ -1,7 +1,7 @@
 import pandas as pd
 from sklearn.metrics.pairwise import cosine_similarity
 
-from util import load_review_datas
+from util import load_review_movie_datas
 
 
 class UserKNNCPUBackend:
@@ -15,7 +15,7 @@ class UserKNNCPUBackend:
 
     def _load_data(self):
         print("[User-KNN-CPU] Loading data from database...")
-        df_reviews, self.query_movies = load_review_datas(self.db_path)
+        df_reviews, self.query_movies = load_review_movie_datas(self.db_path)
 
         print("[User-KNN-CPU] Building User-Movie Matrix...")
         self.user_movie_matrix = df_reviews.pivot_table(

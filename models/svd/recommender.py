@@ -1,7 +1,7 @@
 import numpy as np
 from scipy.sparse.linalg import svds
 
-from util import load_review_datas, root_path
+from util import load_review_movie_datas, root_path
 
 
 class SVDRecommender:
@@ -16,7 +16,7 @@ class SVDRecommender:
 
     def _load_data_and_train(self):
         print(f"[SVD] Initializing Truncated SVD Recommender (k={self.k_factors})...")
-        df_reviews, self.df_movies = load_review_datas(self.db_path)
+        df_reviews, self.df_movies = load_review_movie_datas(self.db_path)
 
         print("[SVD] Building dense matrix and computing user means...")
         pivot_df = df_reviews.pivot_table(index='user_username', columns='movie_slug', values='rating')

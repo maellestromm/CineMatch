@@ -3,7 +3,7 @@ import m2cgen as m2c
 from util import root_path
 
 MODEL_SAVE_PATH = root_path() / "data/lgbm_meta_model.pkl"
-JS_EXPORT_PATH = root_path() / "data/lgbm_ranker.js"
+JS_EXPORT_PATH = root_path() / "webui/lgbm_ranker.js"
 
 
 def export_model_to_js():

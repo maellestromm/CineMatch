@@ -68,10 +68,15 @@ def build_oof_meta_dataset():
         print(f"[Fold {fold}] Loading and retraining 5 base models (based on 4/5 temporary data)...")
         models = {
             "AutoRec": get_oof_autorec(db_path=TEMP_DB),
-            "UserKNN": UserBasedRecommender(db_path=TEMP_DB),
-            "ItemKNN": ItemBasedRecommender(db_path=TEMP_DB),
+            "UserKNNRMSE": UserBasedRecommender(db_path=TEMP_DB, k_neighbors=168),
+            "UserKNNHit": UserBasedRecommender(db_path=TEMP_DB, k_neighbors=13),
+            "ItemKNNRMSE": ItemBasedRecommender(db_path=TEMP_DB, k_neighbors=50),
+            "ItemKNNHit": ItemBasedRecommender(db_path=TEMP_DB, k_neighbors=7),
             "SVD": SVDRecommender(db_path=TEMP_DB),
-            "ContentKNN": ContentBasedRecommender(db_path=TEMP_DB)
+            "ContentKNNHit": ContentBasedRecommender(db_path=TEMP_DB, k_neighbors=1),
+            "ContentKNNRMSE": ContentBasedRecommender(db_path=TEMP_DB, k_neighbors=150),
+            # The optimal number is 871, with an RMSE of 0.9551. However, to ensure smooth web UI operation,
+            # we choose 150, which is at the inflection point, resulting in an RMSE of 0.9657. --Du
         }
 
         print(f"[Fold {fold}] Predicting clean features for isolated validation users...")
@@ -100,7 +105,6 @@ def build_oof_meta_dataset():
                 raw_recs = model.get_recommendations(train_profile, top_n=3334)
                 model_predictions[name] = {rec['slug']: rec['score'] for rec in raw_recs}
 
-            # 组装 12 维特征
             for hidden_slug in test_set_slugs:
                 actual_rating = float(user_data[user_data['movie_slug'] == hidden_slug]['rating'].values[0])
                 m_stats = movie_stats.get(hidden_slug, {'movie_avg': 3.0, 'movie_count': 0, 'movie_std': 0.0})
@@ -114,11 +118,14 @@ def build_oof_meta_dataset():
                     "Movie_Avg": m_stats['movie_avg'],
                     "Movie_Std": m_stats['movie_std'],
                     "Release_Year": m_year,
-                    "AutoRec_Score": model_predictions["AutoRec"].get(hidden_slug, user_avg),
-                    "UserKNN_Score": model_predictions["UserKNN"].get(hidden_slug, user_avg),
-                    "ItemKNN_Score": model_predictions["ItemKNN"].get(hidden_slug, user_avg),
-                    "SVD_Score": model_predictions["SVD"].get(hidden_slug, user_avg),
-                    "ContentKNN_Score": model_predictions["ContentKNN"].get(hidden_slug, user_avg),
+                    "AutoRec_Score": model_predictions["AutoRec"].get(hidden_slug, 0.0),  # 弃权请坚决用 0.0，不要用 user_avg 兜底
+                    "UserKNN_RMSE_Score": model_predictions["UserKNNRMSE"].get(hidden_slug, 0.0),
+                    "UserKNN_Hit_Score": model_predictions["UserKNNHit"].get(hidden_slug, 0.0),
+                    "ItemKNN_RMSE_Score": model_predictions["ItemKNNRMSE"].get(hidden_slug, 0.0),
+                    "ItemKNN_Hit_Score": model_predictions["ItemKNNHit"].get(hidden_slug, 0.0),
+                    "SVD_Score": model_predictions["SVD"].get(hidden_slug, 0.0),
+                    "ContentKNN_Hit_Score": model_predictions["ContentKNNHit"].get(hidden_slug, 0.0),
+                    "ContentKNN_RMSE_Score": model_predictions["ContentKNNRMSE"].get(hidden_slug, 0.0),
                     "Actual_Rating": actual_rating
                 }
                 X_features.append(row)

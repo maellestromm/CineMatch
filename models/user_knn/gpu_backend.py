@@ -1,7 +1,7 @@
 import torch
 import torch.nn.functional as F
 
-from util import load_review_datas
+from util import load_review_movie_datas
 
 
 class UserKNNGPUBackend:
@@ -21,7 +21,7 @@ class UserKNNGPUBackend:
 
     def _load_data(self):
         print(f"[User-KNN-GPU] Initializing Engine on: {self.device}")
-        df_reviews, self.df_movies = load_review_datas(self.db_path)
+        df_reviews, self.df_movies = load_review_movie_datas(self.db_path)
         print("[User-KNN-GPU] Building DataFrame...")
         pivot_df = df_reviews.pivot_table(index='user_username', columns='movie_slug', values='rating',
                                           aggfunc='mean').fillna(0)
@@ -75,6 +75,8 @@ class UserKNNGPUBackend:
                 prior_mean = torch.tensor(3.0, dtype=torch.float32, device=self.device)
             damping = 3.0
             final_scores = (recommendation_scores + damping * prior_mean) / (similarity_sums + damping)
+
+            final_scores[similarity_sums == 0] = 0.0
 
             final_scores[watched_indices] = -999.0
 

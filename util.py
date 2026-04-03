@@ -11,7 +11,7 @@ def root_path():
     return Path(__file__).parent
 
 
-def load_review_datas(db_path):
+def load_review_movie_datas(db_path):
     conn = sqlite3.connect(db_path)
 
     df_reviews = pd.read_sql_query("SELECT user_username, movie_slug, rating FROM reviews WHERE rating != 'None'", conn)
@@ -33,18 +33,18 @@ def load_test_datas(db_path):
     return df_test, test_users
 
 
-def plot_results(rmse_results, k_range, title: str, xlabel: str, filename: str):
-    best_i_k = k_range[np.argmin(rmse_results)]
-    best_i_rmse = np.min(rmse_results)
+def plot_results(results, k_range, title: str, xlabel: str,ylabel:str, filename: str, min_best: bool = True):
+    best_i_k = k_range[np.argmin(results)] if min_best else k_range[np.argmax(results)]
+    best_i_result = np.min(results) if min_best else np.max(results)
     plt.figure(figsize=(10, 6))
-    plt.plot(k_range, rmse_results, marker='s', color='#ff7f0e', linewidth=2)
+    plt.plot(k_range, results, marker='s', color='#ff7f0e', linewidth=2)
     plt.axvline(x=best_i_k, color='red', linestyle='--', alpha=0.7)
-    plt.scatter(best_i_k, best_i_rmse, color='red', s=100, zorder=5)
-    plt.annotate(f'Best $k$={best_i_k}\nRMSE={best_i_rmse:.4f}',
-                 xy=(best_i_k, best_i_rmse), xytext=(best_i_k + 10, best_i_rmse + 0.0002),
+    plt.scatter(best_i_k, best_i_result, color='red', s=100, zorder=5)
+    plt.annotate(f'Best $k$={best_i_k}\n{best_i_result:.4f}',
+                 xy=(best_i_k, best_i_result), xytext=(best_i_k + 10, best_i_result + 0.0002),
                  arrowprops=dict(facecolor='black', shrink=0.05, width=1.5, headwidth=6))
     plt.title(title, fontsize=14)
     plt.xlabel(xlabel, fontsize=12)
-    plt.ylabel('Root Mean Squared Error (RMSE)', fontsize=12)
+    plt.ylabel(ylabel, fontsize=12)
     plt.grid(True, linestyle=':', alpha=0.6)
     plt.savefig(filename, dpi=300, bbox_inches='tight')

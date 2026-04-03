@@ -19,7 +19,8 @@ scipy~=1.17.1.0
 │ ├── item_knn/ # Item-based collaborative filtering (Item-KNN)\
 │ ├── svd/ # Latent factor model / Matrix factorization (Truncated SVD)\
 │ ├── user_knn/ # User-based collaborative filtering (User-KNN)\
-│ └── auto_rec/ # Deep learning autoencoder (Deep AutoRec)\
+│ ├── auto_rec/ # Deep learning autoencoder (Deep AutoRec)\
+│ └── lightgbm/ # LightGBM Meta learner\
 ├── tools/\
 │ ├── clear_db.py # Database cleaning and preprocessing script\
 │ ├── split_db.py # Train/test set physical split script\
@@ -104,23 +105,18 @@ fetching:
 
 Objective: Can the model blindly guess the true interacted movies hidden in the test set out of a vast sea of movies?
 
-| Model Name   | Hit Rate (@10) | Precision (@10) | Avg Latency |
-|:-------------|:---------------|:----------------|:------------|
-| **SVD-50**   | **72.92%**     | **25.04%**      | **9.3 ms**  |
-| User-KNN     | 71.13%         | 18.06%          | 139.1 ms    |
-| Item-KNN     | 57.91%         | 13.05%          | 167.5 ms    |
-| Deep AutoRec | 46.49%         | 8.61%           | 2.5 ms      |
-| Content-KNN  | 20.88%         | 2.95%           | 5.8 ms      |
-
 ### 2. True Taste Prediction Accuracy (RMSE Score)
 
 Objective: Given that a user has watched a movie, can the model accurately predict their specific 1-5 star rating? (
 Lower score is better)
 
-| Model Name       | RMSE Score |
-|:-----------------|:-----------|
-| **Deep AutoRec** | **0.7524** |
-| User-KNN         | 0.8092     |
-| SVD-50           | 0.8513     |
-| Item-KNN         | 0.8875     |
-| Content-KNN      | 0.9483     |
+| Model Name      | Hit Rate (@10) | Precision (@10) | Avg Latency | RMSE Score |
+|:----------------|:---------------|:----------------|:------------|:-----------|
+| SVD             | **76.51%**     | 25.64%          | 16.8 ms     | 0.8607     |
+| User-KNN-13     | 75.53%         | 18.19%          | 17.2 ms     | 0.8228     |
+| Item-KNN-7      | 73.41%         | 19.43%          | 18.9 ms     | 0.9180     |
+| User-KNN-168    | 62.81%         | 13.13%          | 13.7 ms     | 0.7701     |
+| Item-KNN-50     | 55.46%         | 11.68%          | 30.3 ms     | 0.8928     |
+| Deep AutoRec    | 48.29%         | 8.71%           | 4.0 ms      | **0.7598** |
+| Content-KNN-1   | 44.70%         | 7.50%           | 1.1 ms      | 1.0165     |
+| Content-KNN-871 | 19.09%         | 2.69%           | 0.9 ms      | 0.9551     |

@@ -1,6 +1,6 @@
 import torch
 
-from util import load_review_datas, root_path
+from util import load_review_movie_datas, root_path
 
 
 class ItemBasedRecommender:
@@ -18,7 +18,7 @@ class ItemBasedRecommender:
 
     def _load_data(self):
         print(f"[Item-KNN] Initializing Engine on: {self.device}")
-        df_reviews, self.df_movies = load_review_datas(self.db_path)
+        df_reviews, self.df_movies = load_review_movie_datas(self.db_path)
 
         print("[Item-KNN] Building Item-User Matrix...")
         pivot_df = df_reviews.pivot_table(index='user_username', columns='movie_slug', values='rating', aggfunc='mean').fillna(0)
@@ -88,6 +88,8 @@ class ItemBasedRecommender:
             damping = 3.0
             final_scores = (recommendation_scores + damping * prior_mean) / (similarity_sums + damping)
 
+            # 🚀 核心对齐：如果没有任何相似度，摧毁贝叶斯平滑的底噪，强行弃权输出 0
+            final_scores[similarity_sums == 0] = 0.0
             # Mask out already watched movies
             final_scores[watched_indices] = -999.0
 

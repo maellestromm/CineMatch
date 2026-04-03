@@ -1,12 +1,12 @@
 import random
 import time
 
-from auto_rec import AutoRecRecommender
-from content_knn import ContentBasedRecommender
-from item_knn import ItemBasedRecommender
-from util import load_test_datas, root_path
-from svd import SVDRecommender
-from user_knn import UserBasedRecommender
+from models.auto_rec import AutoRecRecommender
+from models.content_knn import ContentBasedRecommender
+from models.item_knn import ItemBasedRecommender
+from models.svd import SVDRecommender
+from models.user_knn import UserBasedRecommender
+from util import root_path, load_test_datas
 
 # --- Configuration ---
 TRAIN_DB = root_path() / "data/train_model.db"
@@ -16,65 +16,101 @@ HIDE_RATIO = 0.2
 TOP_N_RECS = 10
 
 
-def run_strict_evaluation():
-    print("--- Agnostic Multi-Model Hit Rate & Precision Benchmark ---\n")
+def get_strict_test_profiles(test_db_path=TEST_DB, hide_ratio=HIDE_RATIO, seed=42):
+    """
+    生成用于 Hit Rate 和 Precision 测试的用户画像。
+    只隐藏用户打了高分（>= 4.0）的电影作为测试集，因为推荐系统只在乎能否猜中用户喜欢的电影。
+    """
+    random.seed(seed)
+    df_test, test_users = load_test_datas(test_db_path)
+    profiles = []
 
-    print("[Eval] Initializing models (Black-box mode)...")
-    models = {
-        "User-KNN": UserBasedRecommender(db_path=TRAIN_DB),
-        "Content-KNN": ContentBasedRecommender(db_path=TRAIN_DB),
-        "Deep AutoRec": AutoRecRecommender(db_path=TRAIN_DB),
-        "Item-KNN": ItemBasedRecommender(db_path=TRAIN_DB),
-        "SVD": SVDRecommender(db_path=TRAIN_DB),
-    }
+    for user in test_users:
+        user_data = df_test[df_test['user_username'] == user]
 
-    metrics = {name: {"hits": 0, "precision_sum": 0.0, "time": 0.0} for name in models}
-
-    print("\n[Eval] Loading test subjects from Test DB...")
-    test_reviews, test_users = load_test_datas(TEST_DB)
-    valid_evaluations = 0
-
-    for i, user in enumerate(test_users, 1):
-        user_data = test_reviews[test_reviews['user_username'] == user]
+        # 只把用户喜欢的电影拿出来做隐藏测试
         liked_movies = user_data[user_data['rating'] >= 4.0]['movie_slug'].tolist()
 
         if len(liked_movies) < 5:
             continue
 
-        hidden_count = max(1, int(len(liked_movies) * HIDE_RATIO))
+        hidden_count = max(1, int(len(liked_movies) * hide_ratio))
         test_set = random.sample(liked_movies, hidden_count)
 
+        # 训练集：除了被隐藏的喜欢的电影，其他的都作为已知信息喂给模型
         train_data = user_data[~user_data['movie_slug'].isin(test_set)]
         train_profile = dict(zip(train_data['movie_slug'], train_data['rating']))
 
-        # ==========================================
-        # Core Evaluation Loop
-        # ==========================================
-        for model_name, model in models.items():
-            start_time = time.time()
+        profiles.append({
+            'user': user,
+            'train_profile': train_profile,
+            'test_set': test_set  # 这里的 test_set 就是模型需要去努力命中的 target
+        })
 
-            # Standardized invocation
-            recommendations = model.get_recommendations(train_profile, top_n=TOP_N_RECS)
-            rec_slugs = [rec['slug'] for rec in recommendations]
+    return profiles
 
-            metrics[model_name]["time"] += (time.time() - start_time)
 
-            hits = len([slug for slug in test_set if slug in rec_slugs])
-            if hits > 0:
-                metrics[model_name]["hits"] += 1
-            metrics[model_name]["precision_sum"] += (hits / TOP_N_RECS)
+def evaluate_model_strict(model, test_profiles, top_n=TOP_N_RECS):
+    """
+    统一的模型评测接口，计算 Hit Rate, Precision 和 Latency
+    """
+    hits = 0
+    precision_sum = 0.0
+    total_time = 0.0
+    valid_evaluations = len(test_profiles)
 
-        valid_evaluations += 1
-        if valid_evaluations % 50 == 0:
-            print(f"[{valid_evaluations}] Users evaluated...")
+    if valid_evaluations == 0:
+        return 0.0, 0.0, 0.0
+
+    for profile in test_profiles:
+        start_time = time.time()
+
+        # 统一的模型推理调用
+        recommendations = model.get_recommendations(profile['train_profile'], top_n=top_n)
+        rec_slugs = [rec['slug'] for rec in recommendations]
+
+        total_time += (time.time() - start_time)
+
+        # 计算命中数
+        user_hits = len([slug for slug in profile['test_set'] if slug in rec_slugs])
+
+        if user_hits > 0:
+            hits += 1
+        precision_sum += (user_hits / top_n)
+
+    # 聚合指标
+    hit_rate = hits / valid_evaluations
+    precision = precision_sum / valid_evaluations
+    avg_latency = (total_time / valid_evaluations) * 1000
+
+    return hit_rate, precision, avg_latency
+
+
+def run_strict_evaluation():
+    print("--- Agnostic Multi-Model Hit Rate & Precision Benchmark ---\n")
+
+    print("[Eval] Loading test subjects from Test DB...")
+    test_profiles = get_strict_test_profiles(TEST_DB, HIDE_RATIO)
+    valid_evaluations = len(test_profiles)
 
     if valid_evaluations == 0:
         print("\nEvaluation failed: No valid users fit the criteria.")
         return
 
-    # ==========================================
-    # Print Leaderboard
-    # ==========================================
+    print(f"[Eval] Generated {valid_evaluations} valid test profiles.")
+
+    print("[Eval] Initializing models (Black-box mode)...")
+    models = {
+        "User-KNN-13": UserBasedRecommender(db_path=TRAIN_DB,k_neighbors=13),
+        "User-KNN-168": UserBasedRecommender(db_path=TRAIN_DB),
+        "Content-KNN-1": ContentBasedRecommender(db_path=TRAIN_DB,k_neighbors=1),
+        "Content-KNN-871": ContentBasedRecommender(db_path=TRAIN_DB),
+        "Deep AutoRec": AutoRecRecommender(db_path=TRAIN_DB),
+        "Item-KNN-7": ItemBasedRecommender(db_path=TRAIN_DB,k_neighbors=7),
+        "Item-KNN-50": ItemBasedRecommender(db_path=TRAIN_DB),
+        "SVD": SVDRecommender(db_path=TRAIN_DB),
+    }
+
     print("\n" + "=" * 65)
     print(f"HIT RATE & PRECISION LEADERBOARD (Top-{TOP_N_RECS})")
     print(f"Total Valid Users Evaluated: {valid_evaluations}")
@@ -82,13 +118,18 @@ def run_strict_evaluation():
     print(f"{'Model Name':<18} | {'Hit Rate (@10)':<15} | {'Precision (@10)':<15} | {'Avg Latency'}")
     print("-" * 65)
 
-    sorted_models = sorted(metrics.items(), key=lambda x: x[1]["hits"], reverse=True)
+    results = []
 
-    for name, data in sorted_models:
-        hit_rate = data["hits"] / valid_evaluations
-        precision = data["precision_sum"] / valid_evaluations
-        avg_time = (data["time"] / valid_evaluations) * 1000
-        print(f" {name:<17} | {hit_rate:>10.2%}      | {precision:>10.2%}      | {avg_time:>6.1f} ms")
+    # 核心评测循环，极其干净
+    for name, model in models.items():
+        hit_rate, precision, avg_latency = evaluate_model_strict(model, test_profiles, TOP_N_RECS)
+        results.append((name, hit_rate, precision, avg_latency))
+
+    # 按 Hit Rate 降序排列榜单
+    results.sort(key=lambda x: x[1], reverse=True)
+
+    for name, hit_rate, precision, avg_latency in results:
+        print(f" {name:<17} | {hit_rate:>10.2%}      | {precision:>10.2%}      | {avg_latency:>6.1f} ms")
     print("=" * 65)
 
 

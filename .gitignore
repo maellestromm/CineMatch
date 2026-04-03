@@ -213,3 +213,4 @@ __marimo__/
 /data/meta_dataset.db
 /data/temp_oof_autorec.pth
 /data/temp_oof_autorec.json
+/data/temp_fold_train.db
