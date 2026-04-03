@@ -26,7 +26,11 @@ def train_lightgbm():
     feature_names = [
         "User_Rating_Count", "User_Avg", "User_Std",
         "Movie_Rating_Count", "Movie_Avg", "Movie_Std", "Release_Year",
-        "AutoRec_Score", "UserKNN_Score", "ItemKNN_Score", "SVD_Score", "ContentKNN_Score"
+
+        "UserKNN_RMSE_Score", "UserKNN_Hit_Score",
+        "ItemKNN_RMSE_Score", "ItemKNN_Hit_Score",
+        "ContentKNN_RMSE_Score", "ContentKNN_Hit_Score",
+        "SVD_Score", "AutoRec_Score",
     ]
 
     X = df[feature_names]
