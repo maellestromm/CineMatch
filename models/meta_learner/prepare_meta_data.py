@@ -111,6 +111,7 @@ def build_oof_meta_dataset():
                 m_year = movie_years.get(hidden_slug, 2000)
 
                 row = {
+                    "user_username": user,
                     "User_Rating_Count": user_rating_count,
                     "User_Avg": user_avg,
                     "User_Std": user_std,

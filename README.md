@@ -9,6 +9,9 @@ torch~=2.10.0\
 matplotlib~=3.10.8\
 numpy~=2.4.2\
 scipy~=1.17.1.0
+lightgbm~=4.6.0
+m2cgen~=0.10.0
+onnx~=1.21.0
 
 ## Project Structure
 
@@ -20,7 +23,7 @@ scipy~=1.17.1.0
 │ ├── svd/ # Latent factor model / Matrix factorization (Truncated SVD)\
 │ ├── user_knn/ # User-based collaborative filtering (User-KNN)\
 │ ├── auto_rec/ # Deep learning autoencoder (Deep AutoRec)\
-│ └── lightgbm/ # LightGBM Meta learner\
+│ └── meta_learner/ # LightGBM Meta learner\
 ├── tools/\
 │ ├── clear_db.py # Database cleaning and preprocessing script\
 │ ├── split_db.py # Train/test set physical split script\
@@ -55,11 +58,11 @@ ranking architecture:
   User-Item interaction matrix. Also incorporates a prior mean and damping factor to eliminate popularity bias. Supports
   dual-engine backends: CPU (scikit-learn) and GPU (PyTorch tensor operations).
 
-### 4. Matrix Factorization (SVD-50)
+### 4. Matrix Factorization (SVD)
 
 * **Principle**: "You might not understand your own taste, but math does."
 * **Implementation**: Uses Truncated Singular Value Decomposition (Truncated SVD) to reduce the dimensionality of the
-  massive rating matrix, extracting 50 latent semantic dimensions (Latent Factors). Utilizes the Folding-in projection
+  massive rating matrix, extracting 39 latent semantic dimensions (Latent Factors). Utilizes the Folding-in projection
   technique during the inference phase to achieve ultra-low latency score predictions for new users without retraining.
 
 ### 5. Deep Autoencoder (Deep AutoRec)
@@ -68,6 +71,10 @@ ranking architecture:
   features."
 * **Implementation**: Constructs a multi-layer Encoder-Decoder architecture and introduces 30% Dropout to prevent
   overfitting. It can capture complex, non-linear implicit correlations in user rating data with extreme precision.
+
+### 6. Meta Learner (LightGBM)
+
+* TODO
 
 ## Crawlers
 
@@ -112,11 +119,13 @@ Lower score is better)
 
 | Model Name      | Hit Rate (@10) | Precision (@10) | Avg Latency | RMSE Score |
 |:----------------|:---------------|:----------------|:------------|:-----------|
+| LightGBM-rmse   | 67.54%         | 17.88%          | 987.6 ms    | **0.6997** |
 | SVD             | **76.51%**     | 25.64%          | 16.8 ms     | 0.8607     |
+| Deep-AutoRec    | 48.29%         | 8.71%           | 4.0 ms      | 0.7598     |
 | User-KNN-13     | 75.53%         | 18.19%          | 17.2 ms     | 0.8228     |
-| Item-KNN-7      | 73.41%         | 19.43%          | 18.9 ms     | 0.9180     |
 | User-KNN-168    | 62.81%         | 13.13%          | 13.7 ms     | 0.7701     |
+| Item-KNN-7      | 73.41%         | 19.43%          | 18.9 ms     | 0.9180     |
 | Item-KNN-50     | 55.46%         | 11.68%          | 30.3 ms     | 0.8928     |
-| Deep AutoRec    | 48.29%         | 8.71%           | 4.0 ms      | **0.7598** |
 | Content-KNN-1   | 44.70%         | 7.50%           | 1.1 ms      | 1.0165     |
 | Content-KNN-871 | 19.09%         | 2.69%           | 0.9 ms      | 0.9551     |
+

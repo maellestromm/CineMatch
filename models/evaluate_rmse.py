@@ -6,6 +6,7 @@ import numpy as np
 from models.auto_rec import AutoRecRecommender
 from models.content_knn import ContentBasedRecommender
 from models.item_knn import ItemBasedRecommender
+from models.meta_learner import LGBMRecommenderRMSE
 from models.svd import SVDRecommender
 from models.user_knn import UserBasedRecommender
 from util import root_path, load_test_datas
@@ -13,6 +14,21 @@ from util import root_path, load_test_datas
 TRAIN_DB = root_path() / "data/train_model.db"
 TEST_DB = root_path() / "data/test_eval.db"
 HIDE_RATIO = 0.2
+
+
+def test_models(db_path):
+    models = {
+        "SVD": SVDRecommender(db_path=db_path),
+        "Deep-AutoRec": AutoRecRecommender(db_path=db_path),
+        "User-KNN-13": UserBasedRecommender(db_path=db_path, k_neighbors=13),
+        "User-KNN-168": UserBasedRecommender(db_path=db_path),
+        "Item-KNN-7": ItemBasedRecommender(db_path=db_path, k_neighbors=7),
+        "Item-KNN-50": ItemBasedRecommender(db_path=db_path),
+        "Content-KNN-1": ContentBasedRecommender(db_path=db_path, k_neighbors=1),
+        "Content-KNN-871": ContentBasedRecommender(db_path=db_path),
+        "LightGBM": LGBMRecommenderRMSE(db_path=db_path),
+    }
+    return models
 
 
 def get_rmse_test_profiles(test_db_path=TEST_DB, hide_ratio=HIDE_RATIO, seed=42):
@@ -69,20 +85,21 @@ def evaluate_model_rmse(model, test_profiles):
 
 def run_rmse_evaluation():
     print("--- Agnostic Multi-Model RMSE Benchmark ---\n")
+    print("[Eval] Loading test subjects from Test DB...")
     test_profiles = get_rmse_test_profiles(TEST_DB, HIDE_RATIO)
+    valid_evaluations = len(test_profiles)
 
+    if valid_evaluations == 0:
+        print("\nEvaluation failed: No valid users fit the criteria.")
+        return
+
+    print(f"[Eval] Generated {valid_evaluations} valid test profiles.")
     print("[Eval] Initialize models...")
+    from models.meta_learner import NNMetaRecommender
+    from models.meta_tmp import MetaRecommender
     models = {
-        "User-KNN-13": UserBasedRecommender(db_path=TRAIN_DB,k_neighbors=13),
-        "User-KNN-168": UserBasedRecommender(db_path=TRAIN_DB),
-        "Content-KNN-1": ContentBasedRecommender(db_path=TRAIN_DB,k_neighbors=1),
-        "Content-KNN-871": ContentBasedRecommender(db_path=TRAIN_DB),
-        "Deep AutoRec": AutoRecRecommender(db_path=TRAIN_DB),
-        "Item-KNN-7": ItemBasedRecommender(db_path=TRAIN_DB,k_neighbors=7),
-        "Item-KNN-50": ItemBasedRecommender(db_path=TRAIN_DB),
-        "SVD": SVDRecommender(db_path=TRAIN_DB),
+        "Meta": NNMetaRecommender(db_path=TRAIN_DB),
     }
-
     print("\n" + "=" * 55)
     print("RMSE ACCURACY LEADERBOARD")
     print("=" * 55)

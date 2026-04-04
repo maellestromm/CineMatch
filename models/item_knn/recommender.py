@@ -117,7 +117,7 @@ class ItemBasedRecommender:
         return results
 
 if __name__ == "__main__":
-    recommender = ItemBasedRecommender(root_path() / "data/train_model.db", k_neighbors=40)
+    recommender = ItemBasedRecommender(root_path() / "data/train_model.db")
 
     demo_profile = {
         "inception": 5.0,

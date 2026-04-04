@@ -1,17 +1,17 @@
 import math
 import sqlite3
 
-import joblib
 import lightgbm as lgb
 import matplotlib.pyplot as plt
 import pandas as pd
 from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import train_test_split
 
+from models.meta_learner.export_to_js import export_model_to_js
 from util import root_path
 
 META_DB = root_path() / "data/meta_dataset.db"
-MODEL_SAVE_PATH = root_path() / "data/lgbm_meta_model.pkl"
+MODEL_SAVE_PATH = root_path() / "data/lgbm_meta_model_rmse.txt"
 
 
 def train_lightgbm():
@@ -62,11 +62,12 @@ def train_lightgbm():
     lgb.plot_importance(model, importance_type='gain', title='Meta-Learner Feature Importance (Information Gain)',
                         xlabel='Gain', max_num_features=12)
     plt.tight_layout()
-    plt.savefig('lgbm_feature_importance.png', dpi=300)
+    plt.savefig('lgbm_feature_importance_rmse.png', dpi=300)
 
-    print(f"[Train] Saving trained model to {MODEL_SAVE_PATH}...")
-    joblib.dump(model, MODEL_SAVE_PATH)
-    print("[Train] Training phase complete!")
+    print(f"[Train] Saving Native LightGBM model to {MODEL_SAVE_PATH}...")
+    model.booster_.save_model(str(MODEL_SAVE_PATH))
+    export_model_to_js(model,root_path() / "webui/lgbm_rmse.js")
+    print("[Train] Done!")
 
 
 if __name__ == "__main__":

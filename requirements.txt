@@ -5,7 +5,6 @@ torch~=2.10.0
 matplotlib~=3.10.8
 numpy~=2.4.2
 scipy~=1.17.1.0
-lightgbm
-m2cgen
-joblib
-onnx
+lightgbm~=4.6.0
+m2cgen~=0.10.0
+onnx~=1.21.0

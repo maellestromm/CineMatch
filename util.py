@@ -33,7 +33,7 @@ def load_test_datas(db_path):
     return df_test, test_users
 
 
-def plot_results(results, k_range, title: str, xlabel: str,ylabel:str, filename: str, min_best: bool = True):
+def plot_results(results, k_range, title: str, xlabel: str, ylabel: str, filename: str, min_best: bool = True):
     best_i_k = k_range[np.argmin(results)] if min_best else k_range[np.argmax(results)]
     best_i_result = np.min(results) if min_best else np.max(results)
     plt.figure(figsize=(10, 6))

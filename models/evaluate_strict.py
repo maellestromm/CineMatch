@@ -1,11 +1,9 @@
 import random
 import time
 
-from models.auto_rec import AutoRecRecommender
-from models.content_knn import ContentBasedRecommender
-from models.item_knn import ItemBasedRecommender
-from models.svd import SVDRecommender
-from models.user_knn import UserBasedRecommender
+from models.evaluate_rmse import test_models
+
+
 from util import root_path, load_test_datas
 
 # --- Configuration ---
@@ -100,17 +98,13 @@ def run_strict_evaluation():
     print(f"[Eval] Generated {valid_evaluations} valid test profiles.")
 
     print("[Eval] Initializing models (Black-box mode)...")
+    # models = test_models(TEST_DB)
+    from models.meta_learner import ResidualMetaRecommender
+    from models.meta_learner import NNMetaRecommender
+    from models.meta_tmp import MetaRecommender
     models = {
-        "User-KNN-13": UserBasedRecommender(db_path=TRAIN_DB,k_neighbors=13),
-        "User-KNN-168": UserBasedRecommender(db_path=TRAIN_DB),
-        "Content-KNN-1": ContentBasedRecommender(db_path=TRAIN_DB,k_neighbors=1),
-        "Content-KNN-871": ContentBasedRecommender(db_path=TRAIN_DB),
-        "Deep AutoRec": AutoRecRecommender(db_path=TRAIN_DB),
-        "Item-KNN-7": ItemBasedRecommender(db_path=TRAIN_DB,k_neighbors=7),
-        "Item-KNN-50": ItemBasedRecommender(db_path=TRAIN_DB),
-        "SVD": SVDRecommender(db_path=TRAIN_DB),
+        "Meta": NNMetaRecommender(db_path=TRAIN_DB),
     }
-
     print("\n" + "=" * 65)
     print(f"HIT RATE & PRECISION LEADERBOARD (Top-{TOP_N_RECS})")
     print(f"Total Valid Users Evaluated: {valid_evaluations}")
