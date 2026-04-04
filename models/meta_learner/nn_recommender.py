@@ -11,7 +11,7 @@ from models.item_knn import ItemBasedRecommender
 from models.svd import SVDRecommender
 from models.user_knn import UserBasedRecommender
 
-MODEL_LOAD_PATH = root_path() / "data/mlp_meta_model.pth"
+MODEL_LOAD_PATH = root_path() / "data/nn_meta_model.pth"
 
 
 # 🚀 1. 必须在推理文件里定义一模一样的网络结构
@@ -95,26 +95,38 @@ class NNMetaRecommender:
         if not inference_features:
             return []
 
-        # 🚀 3. 推理前向传播 (Forward Pass)
-        # 将特征矩阵转为 Tensor 并送入设备
+        # 🚀 3. 推理前向传播
         X_tensor = torch.tensor(inference_features, dtype=torch.float32).to(self.device)
 
         with torch.no_grad():
-            # forward 输出形如 [N, 1]，用 squeeze(1) 压平成 [N] 的一维数组
-            final_scores = self.model(X_tensor).squeeze(1).cpu().numpy()
+            # 此时网络输出的是“相对偏差分” (Centered Scores)
+            centered_preds = self.model(X_tensor).squeeze(1).cpu().numpy()
 
-        top_indices = np.argsort(final_scores)[::-1][:top_n]
+        # ==========================================================
+        # 🚀 死保 Hit Rate：直接用相对偏差分排序！
+        # ==========================================================
+        top_indices = np.argsort(centered_preds)[::-1][:top_n]
         results = []
+
+        # 获取用户真实的打分均值，作为绝对分的锚点
+        user_ratings = list(user_profile.values())
+        user_avg = np.mean(user_ratings) if user_ratings else 3.5
 
         for idx in top_indices:
             slug = candidate_slugs[idx]
             movie_data = self.df_movies.loc[slug]
+
+            # 🚀 拯救 RMSE：将预测出的“偏差”加上“用户均分”，还原为绝对星级！
+            absolute_score = centered_preds[idx] + user_avg
+
+            # 越界保护 (不影响已经确定的排序)
+            final_absolute_score = max(0.5, min(5.0, absolute_score))
+
             results.append({
                 'slug': slug,
                 'title': movie_data['title'],
                 'year': movie_data['year'],
-                # 输出的是回归预测的无界连续分，绝对完美保留了 SVD 的相对排序
-                'score': float(final_scores[idx])
+                'score': float(final_absolute_score)
             })
 
         return results

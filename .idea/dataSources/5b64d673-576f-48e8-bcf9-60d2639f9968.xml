@@ -568,7 +568,7 @@
     </routine>
     <schema id="214" parent="1" name="main">
       <Current>1</Current>
-      <LastIntrospectionLocalTimestamp>2026-03-19.07:49:11</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2026-04-04.11:16:26</LastIntrospectionLocalTimestamp>
     </schema>
     <argument id="215" parent="14">
       <ArgumentDirection>R</ArgumentDirection>
@@ -1810,75 +1810,91 @@
     <table id="628" parent="214" name="sqlite_master">
       <System>1</System>
     </table>
-    <column id="629" parent="627" name="User_Rating_Count">
+    <column id="629" parent="627" name="user_username">
       <Position>1</Position>
+      <StoredType>TEXT|0s</StoredType>
+    </column>
+    <column id="630" parent="627" name="User_Rating_Count">
+      <Position>2</Position>
       <StoredType>INTEGER|0s</StoredType>
     </column>
-    <column id="630" parent="627" name="User_Avg">
-      <Position>2</Position>
-      <StoredType>REAL|0s</StoredType>
-    </column>
-    <column id="631" parent="627" name="User_Std">
+    <column id="631" parent="627" name="User_Avg">
       <Position>3</Position>
       <StoredType>REAL|0s</StoredType>
     </column>
-    <column id="632" parent="627" name="Movie_Rating_Count">
+    <column id="632" parent="627" name="User_Std">
       <Position>4</Position>
-      <StoredType>INTEGER|0s</StoredType>
-    </column>
-    <column id="633" parent="627" name="Movie_Avg">
-      <Position>5</Position>
       <StoredType>REAL|0s</StoredType>
     </column>
-    <column id="634" parent="627" name="Movie_Std">
+    <column id="633" parent="627" name="Movie_Rating_Count">
+      <Position>5</Position>
+      <StoredType>INTEGER|0s</StoredType>
+    </column>
+    <column id="634" parent="627" name="Movie_Avg">
       <Position>6</Position>
       <StoredType>REAL|0s</StoredType>
     </column>
-    <column id="635" parent="627" name="Release_Year">
+    <column id="635" parent="627" name="Movie_Std">
       <Position>7</Position>
-      <StoredType>INTEGER|0s</StoredType>
-    </column>
-    <column id="636" parent="627" name="AutoRec_Score">
-      <Position>8</Position>
       <StoredType>REAL|0s</StoredType>
     </column>
-    <column id="637" parent="627" name="UserKNN_Score">
+    <column id="636" parent="627" name="Release_Year">
+      <Position>8</Position>
+      <StoredType>INTEGER|0s</StoredType>
+    </column>
+    <column id="637" parent="627" name="AutoRec_Score">
       <Position>9</Position>
       <StoredType>REAL|0s</StoredType>
     </column>
-    <column id="638" parent="627" name="ItemKNN_Score">
+    <column id="638" parent="627" name="UserKNN_RMSE_Score">
       <Position>10</Position>
       <StoredType>REAL|0s</StoredType>
     </column>
-    <column id="639" parent="627" name="SVD_Score">
+    <column id="639" parent="627" name="UserKNN_Hit_Score">
       <Position>11</Position>
       <StoredType>REAL|0s</StoredType>
     </column>
-    <column id="640" parent="627" name="ContentKNN_Score">
+    <column id="640" parent="627" name="ItemKNN_RMSE_Score">
       <Position>12</Position>
       <StoredType>REAL|0s</StoredType>
     </column>
-    <column id="641" parent="627" name="Actual_Rating">
+    <column id="641" parent="627" name="ItemKNN_Hit_Score">
       <Position>13</Position>
       <StoredType>REAL|0s</StoredType>
     </column>
-    <column id="642" parent="628" name="type">
+    <column id="642" parent="627" name="SVD_Score">
+      <Position>14</Position>
+      <StoredType>REAL|0s</StoredType>
+    </column>
+    <column id="643" parent="627" name="ContentKNN_Hit_Score">
+      <Position>15</Position>
+      <StoredType>REAL|0s</StoredType>
+    </column>
+    <column id="644" parent="627" name="ContentKNN_RMSE_Score">
+      <Position>16</Position>
+      <StoredType>REAL|0s</StoredType>
+    </column>
+    <column id="645" parent="627" name="Actual_Rating">
+      <Position>17</Position>
+      <StoredType>REAL|0s</StoredType>
+    </column>
+    <column id="646" parent="628" name="type">
       <Position>1</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="643" parent="628" name="name">
+    <column id="647" parent="628" name="name">
       <Position>2</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="644" parent="628" name="tbl_name">
+    <column id="648" parent="628" name="tbl_name">
       <Position>3</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="645" parent="628" name="rootpage">
+    <column id="649" parent="628" name="rootpage">
       <Position>4</Position>
       <StoredType>INT|0s</StoredType>
     </column>
-    <column id="646" parent="628" name="sql">
+    <column id="650" parent="628" name="sql">
       <Position>5</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
