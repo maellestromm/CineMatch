@@ -63,10 +63,10 @@
             <div class="score-row"><span>Item-KNN (相似物品)</span> <span class="score-itemknn"></span></div>
             <div class="score-row"><span>Content-KNN (元数据)</span> <span class="score-contentknn"></span></div>
         </div>
-        <div class="scores-lgbm">
+        <div class="scores-meta">
             <h3 style="margin-top:0; color:#8892b0;">Meta-Learner 终极决策</h3>
-            <div class="lgbm-circle">
-                <div class="lgbm-score"></div>
+            <div class="meta-circle">
+                <div class="meta-score"></div>
                 <div style="font-size:12px; color:#8892b0;">预测星级</div>
             </div>
         </div>
@@ -80,7 +80,7 @@
     }
 </script>
 <script type="module">
-    import {LightGBM} from './models.js';
+    import {NN_Meta} from './models.js';
 
     let allMovies = [];
     let displayMovies = [];
@@ -95,7 +95,7 @@
     const dialogInner = document.getElementById('modal-inner-content');
 
     // 初始化模型引擎
-    const recommender = new LightGBM();
+    const recommender = new NN_Meta();
     let isModelReady = false;
 
     // 绑定关闭弹窗事件
@@ -122,39 +122,46 @@
         renderPage();
     }
 
-    // 将排序变为异步函数，因为它需要等待 WebAssembly 推理结果
+    function sortAllMovies() {
+        allMovies.sort((a, b) => {
+            let av = a.global_avg
+            let bv = b.global_avg
+            if (userRatings[a.slug] !== undefined) av = userRatings[a.slug];
+            else if (a.ai_scores.meta !== 0) av = a.ai_scores.meta;
+            if (userRatings[b.slug] !== undefined) bv = userRatings[b.slug];
+            else if (b.ai_scores.meta !== 0) bv = b.ai_scores.meta;
+            return bv - av;
+        });
+    }
+
     async function sortMovies() {
-        if (Object.keys(userRatings).length >= 3 && isModelReady) {
-            console.log("启动 AI 个性化排序！");
-
-            // 🚀 获取全量预测分数 (已打分的会在里面是 -999)
-            const predictions = await recommender.get_recommendations(userRatings);
-
-            displayMovies.forEach(movie => {
-                const aiScore = predictions[movie.slug] || 0;
-                movie.ai_scores.autorec = aiScore;
-                movie.ai_scores.lgbm = aiScore;
-            });
-
-            // 🌟 核心修改：AI 模式下的混合排序
-            displayMovies.sort((a, b) => {
-                // 优先使用用户真实打分，没有则降级使用 AI 预测分
-                const scoreA = userRatings[a.slug] !== undefined ? userRatings[a.slug] : a.ai_scores.lgbm;
-                const scoreB = userRatings[b.slug] !== undefined ? userRatings[b.slug] : b.ai_scores.lgbm;
-                return scoreB - scoreA; // 降序排列
-            });
-
-        } else {
-            // 🌟 核心修改：冷启动（全局平均分）模式下的混合排序
-            displayMovies.sort((a, b) => {
-                const scoreA = userRatings[a.slug] !== undefined ? userRatings[a.slug] : a.global_avg;
-                const scoreB = userRatings[b.slug] !== undefined ? userRatings[b.slug] : b.global_avg;
-                return scoreB - scoreA;
-            });
+        if (!isModelReady || Object.keys(userRatings).length < 3) {
+            sortAllMovies();
+            filterMovies();
+            renderPage(1);
+            return;
         }
 
-        currentPage = 0;
-        renderPage();
+        const aiResults = await recommender.get_recommendations(userRatings);
+
+        allMovies.forEach(movie => {
+            const result = aiResults[movie.slug];
+            if (result) {
+                movie.ai_scores.meta = result.meta;
+                movie.ai_scores.svd = result.svd;
+                movie.ai_scores.itemknn = result.itemknn;
+                movie.ai_scores.autorec = result.autorec;
+                movie.ai_scores.contentknn = result.contentknn;
+                movie.ai_scores.userknn = result.userknn;
+                // 接收后端传来的已看标记
+                movie.isWatched = result.is_watched;
+            }
+        });
+
+        // 🚀 核心修改：不再 filter，直接拿全量 allMovies 按照 meta 降序排列！
+        sortAllMovies();
+        filterMovies();
+        renderPage(1);
     }
 
     function renderPage() {
@@ -253,7 +260,7 @@
         clone.querySelector('.score-userknn').innerText = RTD(movie.ai_scores.userknn);
         clone.querySelector('.score-itemknn').innerText = RTD(movie.ai_scores.itemknn);
         clone.querySelector('.score-contentknn').innerText = RTD(movie.ai_scores.contentknn);
-        clone.querySelector('.lgbm-score').innerText = RTD(movie.ai_scores.lgbm);
+        clone.querySelector('.meta-score').innerText = RTD(movie.ai_scores.meta);
 
         dialogInner.appendChild(clone);
 
@@ -274,6 +281,18 @@
         }
     }
 
+    let query = ''
+
+    function filterMovies() {
+        if (!query) {
+            displayMovies = [...allMovies];
+        } else {
+            displayMovies = allMovies.filter(m => m.title.toLowerCase().includes(query));
+        }
+
+        renderPage();
+    }
+
     window.addEventListener('wheel', (e) => {
         if (dialog.open) return; // 利用原生 open 属性判断
         turnPage(e.deltaY > 0 ? 1 : -1);
@@ -286,14 +305,9 @@
     });
 
     document.getElementById('search-input').addEventListener('input', (e) => {
-        const query = e.target.value.toLowerCase();
-        if (!query) {
-            displayMovies = [...allMovies];
-        } else {
-            displayMovies = allMovies.filter(m => m.title.toLowerCase().includes(query));
-        }
+        query = e.target.value.toLowerCase();
         currentPage = 0;
-        renderPage();
+        filterMovies();
     });
 
     document.getElementById('csv-upload').addEventListener('change', function (e) {
@@ -349,10 +363,11 @@
                     poster_url: info.poster_url,
                     global_avg: info.avg,
                     ai_scores: {
-                        autorec: 0, svd: 0, userknn: 0, itemknn: 0, contentknn: 0, lgbm: 0
+                        autorec: 0, svd: 0, userknn: 0, itemknn: 0, contentknn: 0, meta: 0
                     }
                 };
             });
+            allMovies.sort((a, b) => b.global_avg - a.global_avg);
 
             displayMovies = [...allMovies];
 

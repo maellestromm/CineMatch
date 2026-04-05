@@ -6,7 +6,7 @@ import numpy as np
 from models.auto_rec import AutoRecRecommender
 from models.content_knn import ContentBasedRecommender
 from models.item_knn import ItemBasedRecommender
-from models.meta_learner import LGBMRecommenderRMSE
+from models.lgbm_meta import LGBMRecommenderRMSE
 from models.svd import SVDRecommender
 from models.user_knn import UserBasedRecommender
 from util import root_path, load_test_datas
@@ -95,7 +95,7 @@ def run_rmse_evaluation():
 
     print(f"[Eval] Generated {valid_evaluations} valid test profiles.")
     print("[Eval] Initialize models...")
-    from models.meta_learner import NNMetaRecommender
+    from models.lgbm_meta import NNMetaRecommender
     from models.meta_tmp import MetaRecommender
     from models.meta_tmp import FastMetaRecommender
     from models.meta_tmp import LinearMetaRecommender

@@ -102,8 +102,8 @@ def run_strict_evaluation():
 
     print("[Eval] Initializing models (Black-box mode)...")
     # models = test_models(TEST_DB)
-    from models.meta_learner import ResidualMetaRecommender
-    from models.meta_learner import NNMetaRecommender
+    from models.lgbm_meta import ResidualMetaRecommender
+    from models.lgbm_meta import NNMetaRecommender
     from models.meta_tmp import MetaRecommender
     from models.dpan import Recommender
     from models.meta_tmp import FastMetaRecommender

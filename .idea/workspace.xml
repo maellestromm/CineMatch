@@ -4,35 +4,455 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4fb65961-2b56-4585-8fc1-86fe6579e464" name="更改" comment="nn meta learner">
-      <change afterPath="$PROJECT_DIR$/models/meta_learner/nn_recommender1.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/meta_learner/train_meta_learner_nn1.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/meta_tmp/fast_meta_recommender.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/meta_tmp/hit_rate_sniper.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/meta_tmp/linear_meta.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/meta_tmp/ultimate_meta_learner.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/plot_nn_distribution.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/aa67591b-227d-4dca-9eaa-03acc812a851.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/aa67591b-227d-4dca-9eaa-03acc812a851/storage_v2/_src_/schema/main.uQUzAA.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/data_sources_history.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/data_sources_history.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/f9d017f6-88bd-4d1d-a084-521e672f657a.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/f9d017f6-88bd-4d1d-a084-521e672f657a/storage_v2/_src_/schema/main.uQUzAA.meta" beforeDir="false" />
+    <list default="true" id="4fb65961-2b56-4585-8fc1-86fe6579e464" name="更改" comment="stop at here">
+      <change afterPath="$PROJECT_DIR$/models/content_knn/export_content_knn_k1.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/item_knn/export_item_knn_k7.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/lgbm_meta/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/nn_meta/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/nn_meta/export_nn_onnx.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/svd/export_svd_k39.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/user_knn/export_user_knn_k13.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webui/demo-en.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/nn_meta_model.pth" beforeDir="false" afterPath="$PROJECT_DIR$/data/nn_meta_model.pth" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/auto_rec/infer_autorec.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/auto_rec/infer_autorec.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/content_knn/recommender.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/content_knn/recommender.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/dynamic_rec_model.pth" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/lgbm_meta_model_hit.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/lgbm_meta_model_rmse.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/lgbm_residual_model.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/mlp_meta_model.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/mlp_meta_model.pth" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/model_meta.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/nn_meta_norm.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/nn_meta_scaler.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_backup/meta_dataset.db" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_backup/record.txt" beforeDir="false" afterPath="$PROJECT_DIR$/db_backup/record.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/04MCAVOY_nn_inference_dist.png" beforeDir="false" afterPath="$PROJECT_DIR$/doc/04MCAVOY_nn_inference_dist.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/50ShadesOfHay_nn_inference_dist.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/Juggernaut323_nn_inference_dist.png" beforeDir="false" afterPath="$PROJECT_DIR$/doc/Juggernaut323_nn_inference_dist.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/04MCAVOY_nn_inference_dist.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/50ShadesOfHay_nn_inference_dist.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/Juggernaut323_nn_inference_dist.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/Juggernaut323_rating_distributions.png" beforeDir="false" afterPath="$PROJECT_DIR$/doc/Juggernaut323_rating_distributions.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/auto_rec/export_js.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/auto_rec/export_auto_rec.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/dpan/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/dpan/dpan_model.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/dpan/inference.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/dpan/train.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/models/evaluate_rmse.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/evaluate_rmse.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/evaluate_strict.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/evaluate_strict.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/item_knn/recommender.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/item_knn/recommender.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/meta_learner/meta_learner_loss_curve.png" beforeDir="false" afterPath="$PROJECT_DIR$/models/meta_learner/meta_learner_loss_curve.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/meta_learner/nn_recommender.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/meta_learner/nn_recommender.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/meta_learner/prepare_meta_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/meta_learner/prepare_meta_data.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/meta_learner/train_meta_learner_nn.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/meta_learner/train_meta_learner_nn.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/meta_tmp/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/meta_tmp/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/plot_timcop_dist.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/plot_dist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/svd/recommender.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/svd/recommender.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/user_knn/gpu_backend.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/user_knn/gpu_backend.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/meta_learner/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/meta_learner/export_to_js.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/meta_learner/lgbm_feature_importance_ranker.png" beforeDir="false" afterPath="$PROJECT_DIR$/doc/lgbm_feature_importance_ranker.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/meta_learner/lgbm_recommender_hit.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/meta_learner/lgbm_recommender_rmse.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/lgbm_meta/lgbm_recommender_rmse.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/meta_learner/meta_learner_loss_curve.png" beforeDir="false" afterPath="$PROJECT_DIR$/doc/meta_learner_loss_curve.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/meta_learner/nn_recommender.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/nn_meta/nn_recommender.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/meta_learner/nn_recommender1.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/meta_learner/prepare_meta_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/prepare_meta_data.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/meta_learner/train_meta_learner_nn.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/nn_meta/train_meta_learner_nn.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/meta_learner/train_meta_learner_nn1.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/meta_learner/train_meta_learner_rank.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/meta_learner/train_meta_learner_regression.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/lgbm_meta/train_meta_learner_regression.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/meta_learner/train_vs_test_loss.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/meta_tmp/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/meta_tmp/fast_meta_recommender.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/meta_tmp/hit_rate_sniper.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/meta_tmp/linear_meta.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/meta_tmp/recommender.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/meta_tmp/ultimate_meta_learner.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/plot_dist.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/nn_meta/plot_dist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/plot_nn_distribution.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/nn_meta/plot_nn_distribution.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/util.py" beforeDir="false" afterPath="$PROJECT_DIR$/util.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/demo.css" beforeDir="false" afterPath="$PROJECT_DIR$/webui/demo.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/demo.html" beforeDir="false" afterPath="$PROJECT_DIR$/webui/demo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/lgbm_rmse.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/models.js" beforeDir="false" afterPath="$PROJECT_DIR$/webui/models.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/.package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/aspromise/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/aspromise/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/aspromise/index.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/aspromise/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/aspromise/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/aspromise/tests/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/base64/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/base64/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/base64/index.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/base64/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/base64/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/base64/tests/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/codegen/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/codegen/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/codegen/index.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/codegen/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/codegen/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/codegen/tests/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/eventemitter/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/eventemitter/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/eventemitter/index.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/eventemitter/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/eventemitter/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/eventemitter/tests/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/fetch/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/fetch/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/fetch/index.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/fetch/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/fetch/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/fetch/tests/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/float/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/float/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/float/bench/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/float/bench/suite.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/float/index.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/float/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/float/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/float/tests/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/inquire/.npmignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/inquire/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/inquire/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/inquire/index.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/inquire/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/inquire/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/inquire/tests/data/array.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/inquire/tests/data/emptyArray.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/inquire/tests/data/emptyObject.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/inquire/tests/data/object.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/inquire/tests/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/path/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/path/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/path/index.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/path/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/path/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/path/tests/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/pool/.npmignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/pool/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/pool/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/pool/index.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/pool/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/pool/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/pool/tests/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/utf8/.npmignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/utf8/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/utf8/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/utf8/index.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/utf8/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/utf8/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/utf8/tests/data/utf8.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@protobufjs/utf8/tests/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/assert.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/assert/strict.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/async_hooks.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/buffer.buffer.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/buffer.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/child_process.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/cluster.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/compatibility/iterators.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/console.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/constants.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/crypto.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/dgram.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/diagnostics_channel.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/dns.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/dns/promises.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/domain.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/events.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/fs.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/fs/promises.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/globals.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/globals.typedarray.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/http.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/http2.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/https.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/index.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/inspector.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/inspector.generated.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/inspector/promises.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/module.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/net.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/os.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/path.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/path/posix.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/path/win32.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/perf_hooks.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/process.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/punycode.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/querystring.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/quic.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/readline.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/readline/promises.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/repl.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/sea.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/sqlite.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/stream.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/stream/consumers.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/stream/promises.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/stream/web.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/string_decoder.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/test.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/test/reporters.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/timers.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/timers/promises.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/tls.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/trace_events.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/ts5.6/buffer.buffer.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/ts5.6/compatibility/float16array.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/ts5.6/globals.typedarray.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/ts5.6/index.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/ts5.7/compatibility/float16array.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/ts5.7/index.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/tty.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/url.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/util.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/util/types.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/v8.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/vm.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/wasi.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/web-globals/abortcontroller.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/web-globals/blob.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/web-globals/console.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/web-globals/crypto.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/web-globals/domexception.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/web-globals/encoding.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/web-globals/events.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/web-globals/fetch.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/web-globals/importmeta.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/web-globals/messaging.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/web-globals/navigator.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/web-globals/performance.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/web-globals/storage.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/web-globals/streams.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/web-globals/timers.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/web-globals/url.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/worker_threads.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/@types/node/zlib.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/js/builder.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/js/builder.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/js/byte-buffer.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/js/byte-buffer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/js/constants.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/js/constants.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/js/encoding.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/js/encoding.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/js/flatbuffers.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/js/flatbuffers.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/js/flatbuffers.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/js/flexbuffers.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/js/flexbuffers.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/js/flexbuffers/bit-width-util.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/js/flexbuffers/bit-width-util.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/js/flexbuffers/bit-width.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/js/flexbuffers/bit-width.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/js/flexbuffers/builder.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/js/flexbuffers/builder.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/js/flexbuffers/flexbuffers-util.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/js/flexbuffers/flexbuffers-util.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/js/flexbuffers/reference-util.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/js/flexbuffers/reference-util.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/js/flexbuffers/reference.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/js/flexbuffers/reference.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/js/flexbuffers/stack-value.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/js/flexbuffers/stack-value.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/js/flexbuffers/value-type-util.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/js/flexbuffers/value-type-util.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/js/flexbuffers/value-type.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/js/flexbuffers/value-type.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/js/types.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/js/types.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/js/utils.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/js/utils.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/mjs/builder.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/mjs/builder.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/mjs/byte-buffer.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/mjs/byte-buffer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/mjs/constants.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/mjs/constants.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/mjs/encoding.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/mjs/encoding.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/mjs/flatbuffers.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/mjs/flatbuffers.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/mjs/flexbuffers.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/mjs/flexbuffers.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/mjs/flexbuffers/bit-width-util.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/mjs/flexbuffers/bit-width-util.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/mjs/flexbuffers/bit-width.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/mjs/flexbuffers/bit-width.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/mjs/flexbuffers/builder.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/mjs/flexbuffers/builder.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/mjs/flexbuffers/flexbuffers-util.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/mjs/flexbuffers/flexbuffers-util.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/mjs/flexbuffers/reference-util.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/mjs/flexbuffers/reference-util.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/mjs/flexbuffers/reference.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/mjs/flexbuffers/reference.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/mjs/flexbuffers/stack-value.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/mjs/flexbuffers/stack-value.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/mjs/flexbuffers/value-type-util.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/mjs/flexbuffers/value-type-util.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/mjs/flexbuffers/value-type.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/mjs/flexbuffers/value-type.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/mjs/types.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/mjs/types.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/mjs/utils.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/mjs/utils.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/ts/builder.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/ts/byte-buffer.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/ts/constants.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/ts/encoding.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/ts/flatbuffers.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/ts/flexbuffers.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/ts/flexbuffers/bit-width-util.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/ts/flexbuffers/bit-width.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/ts/flexbuffers/builder.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/ts/flexbuffers/flexbuffers-util.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/ts/flexbuffers/reference-util.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/ts/flexbuffers/reference.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/ts/flexbuffers/stack-value.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/ts/flexbuffers/value-type-util.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/ts/flexbuffers/value-type.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/ts/types.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/flatbuffers/ts/utils.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/guid-typescript/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/guid-typescript/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/long/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/long/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/long/index.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/long/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/long/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/long/types.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/long/umd/index.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/long/umd/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/long/umd/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/long/umd/types.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/onnxruntime-common/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/onnxruntime-common/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/onnxruntime-web/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/onnxruntime-web/docs/webgl-operators.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/onnxruntime-web/docs/webgpu-operators.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/onnxruntime-web/docs/webnn-operators.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/onnxruntime-web/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/onnxruntime-web/types.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/platform/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/platform/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/platform/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/platform/platform.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/ext/debug/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/ext/debug/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/ext/descriptor/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/ext/descriptor/index.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/ext/descriptor/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/ext/descriptor/test.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/google/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/google/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/google/api/annotations.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/google/api/annotations.proto" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/google/api/http.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/google/api/http.proto" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/google/protobuf/api.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/google/protobuf/api.proto" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/google/protobuf/descriptor.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/google/protobuf/descriptor.proto" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/google/protobuf/source_context.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/google/protobuf/source_context.proto" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/google/protobuf/type.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/google/protobuf/type.proto" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/index.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/light.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/light.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/minimal.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/minimal.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/scripts/postinstall.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/src/common.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/src/converter.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/src/decoder.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/src/encoder.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/src/enum.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/src/field.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/src/index-light.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/src/index-minimal.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/src/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/src/mapfield.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/src/message.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/src/method.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/src/namespace.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/src/object.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/src/oneof.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/src/parse.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/src/reader.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/src/reader_buffer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/src/root.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/src/roots.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/src/rpc.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/src/rpc/service.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/src/service.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/src/tokenize.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/src/type.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/src/types.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/src/typescript.jsdoc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/src/util.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/src/util/longbits.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/src/util/minimal.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/src/verifier.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/src/wrappers.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/src/writer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/src/writer_buffer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/protobufjs/tsconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/undici-types/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/undici-types/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/undici-types/agent.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/undici-types/api.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/undici-types/balanced-pool.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/undici-types/cache-interceptor.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/undici-types/cache.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/undici-types/client-stats.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/undici-types/client.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/undici-types/connector.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/undici-types/content-type.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/undici-types/cookies.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/undici-types/diagnostics-channel.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/undici-types/dispatcher.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/undici-types/env-http-proxy-agent.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/undici-types/errors.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/undici-types/eventsource.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/undici-types/fetch.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/undici-types/formdata.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/undici-types/global-dispatcher.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/undici-types/global-origin.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/undici-types/h2c-client.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/undici-types/handlers.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/undici-types/header.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/undici-types/index.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/undici-types/interceptors.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/undici-types/mock-agent.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/undici-types/mock-call-history.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/undici-types/mock-client.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/undici-types/mock-errors.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/undici-types/mock-interceptor.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/undici-types/mock-pool.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/undici-types/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/undici-types/patch.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/undici-types/pool-stats.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/undici-types/pool.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/undici-types/proxy-agent.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/undici-types/readable.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/undici-types/retry-agent.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/undici-types/retry-handler.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/undici-types/round-robin-pool.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/undici-types/snapshot-agent.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/undici-types/util.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/undici-types/utility.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/undici-types/webidl.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/node_modules/undici-types/websocket.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/package.json" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,7 +476,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="du-lightgbm-test" />
+        <entry key="$PROJECT_DIR$" value="Du-nn-meta" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -112,7 +532,12 @@
     "Python.evaluate_strict.executor": "Run",
     "Python.export_assets.executor": "Run",
     "Python.export_js.executor": "Run",
+    "Python.export_nn_onnx.executor": "Run",
+    "Python.export_svd_k39.executor": "Run",
     "Python.export_to_js.executor": "Run",
+    "Python.export_user_knn_k13.executor": "Run",
+    "Python.export_webui (1).executor": "Run",
+    "Python.export_webui.executor": "Run",
     "Python.fast_meta_recommender.executor": "Run",
     "Python.gpu_backend.executor": "Run",
     "Python.hit_rate_sniper.executor": "Run",
@@ -163,8 +588,8 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "ai.playground.ignore.import.keys.banner.in.settings": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "Du-nn-meta",
-    "last_opened_file_path": "C:/Users/donyw/Desktop/cmpt310/CineMatch/models/meta_learner",
+    "git-widget-placeholder": "Du-clear-up",
+    "last_opened_file_path": "C:/Users/donyw/Desktop/cmpt310/CineMatch/webui",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -185,22 +610,22 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\donyw\Desktop\cmpt310\CineMatch\webui" />
+      <recent name="C:\Users\donyw\Desktop\cmpt310\CineMatch\db_backup" />
+      <recent name="C:\Users\donyw\Desktop\cmpt310\CineMatch\models\lgbm_meta" />
       <recent name="C:\Users\donyw\Desktop\cmpt310\CineMatch\models\meta_learner" />
       <recent name="C:\Users\donyw\Desktop\cmpt310\CineMatch\models\dpan" />
-      <recent name="C:\Users\donyw\Desktop\cmpt310\CineMatch\db_backup" />
-      <recent name="C:\Users\donyw\Desktop\cmpt310\CineMatch\models\meta_tmp" />
-      <recent name="C:\Users\donyw\Desktop\cmpt310\CineMatch\models\content_knn" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\donyw\Desktop\cmpt310\CineMatch\doc" />
       <recent name="C:\Users\donyw\Desktop\cmpt310\CineMatch\models" />
-      <recent name="C:\Users\donyw\Desktop\cmpt310\CineMatch\models\svd" />
-      <recent name="C:\Users\donyw\Desktop\cmpt310\CineMatch\data" />
-      <recent name="C:\Users\donyw\Desktop\cmpt310\CineMatch" />
+      <recent name="C:\Users\donyw\Desktop\cmpt310\CineMatch\webui" />
+      <recent name="C:\Users\donyw\Desktop\cmpt310\CineMatch\doc" />
+      <recent name="C:\Users\donyw\Desktop\cmpt310\CineMatch\models\nn_meta" />
+      <recent name="C:\Users\donyw\Desktop\cmpt310\CineMatch\models\meta_tmp" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.plot_nn_distribution">
-    <configuration name="evaluate_rmse" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.nn_recommender">
+    <configuration name="export_item_knn_k7" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="CineMatch" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -209,14 +634,14 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/models" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/models/item_knn" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="DEBUG_JUST_MY_CODE" value="false" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="RUN_TOOL" value="" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/models/evaluate_rmse.py" />
+      <option name="SCRIPT_NAME" value="C:\Users\donyw\Desktop\cmpt310\CineMatch\models\item_knn\export_item_knn_k7.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -225,7 +650,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="evaluate_strict" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="export_nn_onnx" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="CineMatch" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -234,14 +659,14 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/models" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/models/nn_meta" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="DEBUG_JUST_MY_CODE" value="true" />
+      <option name="DEBUG_JUST_MY_CODE" value="false" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="RUN_TOOL" value="" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/models/evaluate_strict.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/models/nn_meta/export_nn_onnx.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -250,7 +675,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="plot_nn_distribution" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="export_svd_k39" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="CineMatch" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -259,14 +684,14 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/models" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/models/svd" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="DEBUG_JUST_MY_CODE" value="false" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="RUN_TOOL" value="" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/models/plot_nn_distribution.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/models/svd/export_svd_k39.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -275,7 +700,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="prepare_meta_data" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="export_user_knn_k13" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="CineMatch" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -284,14 +709,14 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/models/meta_learner" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/models/user_knn" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="DEBUG_JUST_MY_CODE" value="false" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="RUN_TOOL" value="" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/models/meta_learner/prepare_meta_data.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/models/user_knn/export_user_knn_k13.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -300,7 +725,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="train_meta_learner_nn" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="nn_recommender" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="CineMatch" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -309,14 +734,14 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/models/meta_learner" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/models/nn_meta" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="DEBUG_JUST_MY_CODE" value="false" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="RUN_TOOL" value="" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/models/meta_learner/train_meta_learner_nn.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/models/nn_meta/nn_recommender.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -326,19 +751,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.plot_nn_distribution" />
-      <item itemvalue="Python.prepare_meta_data" />
-      <item itemvalue="Python.train_meta_learner_nn" />
-      <item itemvalue="Python.evaluate_rmse" />
-      <item itemvalue="Python.evaluate_strict" />
+      <item itemvalue="Python.export_item_knn_k7" />
+      <item itemvalue="Python.export_nn_onnx" />
+      <item itemvalue="Python.export_svd_k39" />
+      <item itemvalue="Python.export_user_knn_k13" />
+      <item itemvalue="Python.nn_recommender" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.plot_nn_distribution" />
-        <item itemvalue="Python.evaluate_rmse" />
-        <item itemvalue="Python.evaluate_strict" />
-        <item itemvalue="Python.train_meta_learner_nn" />
-        <item itemvalue="Python.prepare_meta_data" />
+        <item itemvalue="Python.nn_recommender" />
+        <item itemvalue="Python.export_nn_onnx" />
+        <item itemvalue="Python.export_user_knn_k13" />
+        <item itemvalue="Python.export_svd_k39" />
+        <item itemvalue="Python.export_item_knn_k7" />
       </list>
     </recent_temporary>
   </component>
@@ -513,7 +938,15 @@
       <option name="project" value="LOCAL" />
       <updated>1775298773301</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="stop at here">
+      <option name="closed" value="true" />
+      <created>1775407548058</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1775407548058</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -543,7 +976,8 @@
     <MESSAGE value="web ui test" />
     <MESSAGE value="a lot update" />
     <MESSAGE value="nn meta learner" />
-    <option name="LAST_COMMIT_MESSAGE" value="nn meta learner" />
+    <MESSAGE value="stop at here" />
+    <option name="LAST_COMMIT_MESSAGE" value="stop at here" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/CineMatch$recommender.coverage" NAME="recommender 覆盖结果" MODIFIED="1775294148693" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/meta_tmp" />
@@ -551,11 +985,14 @@
     <SUITE FILE_PATH="coverage/CineMatch$tune_content_knn_rmse.coverage" NAME="tune_content_knn_rmse 覆盖结果" MODIFIED="1775210165165" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/content_knn" />
     <SUITE FILE_PATH="coverage/CineMatch$tune_svd_rmse.coverage" NAME="tune_svd_rmse 覆盖结果" MODIFIED="1775205911251" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/svd" />
     <SUITE FILE_PATH="coverage/CineMatch$train_autorec.coverage" NAME="train_autorec 覆盖结果" MODIFIED="1772246295783" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/CineMatch$export_webui.coverage" NAME="export_webui 覆盖结果" MODIFIED="1775408378121" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/content_knn" />
     <SUITE FILE_PATH="coverage/CineMatch$export_to_js.coverage" NAME="export_to_js 覆盖结果" MODIFIED="1775225311225" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/meta_learner" />
     <SUITE FILE_PATH="coverage/CineMatch$train_meta_learner_nn.coverage" NAME="train_meta_learner_nn 覆盖结果" MODIFIED="1775404338369" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/meta_learner" />
     <SUITE FILE_PATH="coverage/CineMatch$tune_item_knn_strict.coverage" NAME="tune_item_knn_strict 覆盖结果" MODIFIED="1775206565447" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/item_knn" />
+    <SUITE FILE_PATH="coverage/CineMatch$export_user_knn_k13.coverage" NAME="export_user_knn_k13 覆盖结果" MODIFIED="1775409157478" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/user_knn" />
     <SUITE FILE_PATH="coverage/CineMatch$fast_meta_recommender.coverage" NAME="fast_meta_recommender 覆盖结果" MODIFIED="1775370581499" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/meta_tmp" />
     <SUITE FILE_PATH="coverage/CineMatch$train.coverage" NAME="train 覆盖结果" MODIFIED="1775363052642" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/dpan" />
+    <SUITE FILE_PATH="coverage/CineMatch$export_nn_onnx.coverage" NAME="export_nn_onnx 覆盖结果" MODIFIED="1775409738803" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/nn_meta" />
     <SUITE FILE_PATH="coverage/CineMatch$train_meta_learner_classification.coverage" NAME="train_meta_learner_classification 覆盖结果" MODIFIED="1775224230701" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/meta_learner" />
     <SUITE FILE_PATH="coverage/CineMatch$tune_svd__1_.coverage" NAME="tune_svd (1) 覆盖结果" MODIFIED="1774963236773" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/svd" />
     <SUITE FILE_PATH="coverage/CineMatch$export_assets.coverage" NAME="export_assets 覆盖结果" MODIFIED="1774963836660" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tools" />
@@ -580,6 +1017,7 @@
     <SUITE FILE_PATH="coverage/CineMatch$meta_dataset_db.coverage" NAME="meta_dataset.db 覆盖结果" MODIFIED="1773902838248" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/lightgbm" />
     <SUITE FILE_PATH="coverage/CineMatch$infer_autorec.coverage" NAME="infer_autorec 覆盖结果" MODIFIED="1772490790377" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/auto_rec" />
     <SUITE FILE_PATH="coverage/CineMatch$prepare_meta_data__1_.coverage" NAME="prepare_meta_data (1) 覆盖结果" MODIFIED="1773905544297" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/lightgbm" />
+    <SUITE FILE_PATH="coverage/CineMatch$export_svd_k39.coverage" NAME="export_svd_k39 覆盖结果" MODIFIED="1775408809410" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/svd" />
     <SUITE FILE_PATH="coverage/CineMatch$tune_item_knn_rmse.coverage" NAME="tune_item_knn_rmse 覆盖结果" MODIFIED="1775203346580" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/item_knn" />
     <SUITE FILE_PATH="coverage/CineMatch$tune_user_knn_strict.coverage" NAME="tune_user_knn_strict 覆盖结果" MODIFIED="1775206574513" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/user_knn" />
     <SUITE FILE_PATH="coverage/CineMatch$ultimate_meta_learner.coverage" NAME="ultimate_meta_learner 覆盖结果" MODIFIED="1775382129980" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/meta_tmp" />
@@ -589,12 +1027,13 @@
     <SUITE FILE_PATH="coverage/CineMatch$linear_meta.coverage" NAME="linear_meta 覆盖结果" MODIFIED="1775390744892" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/meta_tmp" />
     <SUITE FILE_PATH="coverage/CineMatch$User_first_crawler.coverage" NAME="User_first_crawler 覆盖结果" MODIFIED="1772132803651" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/CineMatch$export_js.coverage" NAME="export_js 覆盖结果" MODIFIED="1775011301384" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/auto_rec" />
-    <SUITE FILE_PATH="coverage/CineMatch$nn_recommender.coverage" NAME="nn_recommender 覆盖结果" MODIFIED="1775309097743" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/meta_learner" />
+    <SUITE FILE_PATH="coverage/CineMatch$nn_recommender.coverage" NAME="nn_recommender 覆盖结果" MODIFIED="1775414816530" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/nn_meta" />
     <SUITE FILE_PATH="coverage/CineMatch$tune_user_knn.coverage" NAME="tune_user_knn 覆盖结果" MODIFIED="1774963080472" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/user_knn" />
     <SUITE FILE_PATH="coverage/CineMatch$tune_item_knn.coverage" NAME="tune_item_knn 覆盖结果" MODIFIED="1774959847095" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/item_knn" />
     <SUITE FILE_PATH="coverage/CineMatch$svd_recommender.coverage" NAME="svd_recommender 覆盖结果" MODIFIED="1772487790665" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models" />
     <SUITE FILE_PATH="coverage/CineMatch$train_meta_learner.coverage" NAME="train_meta_learner 覆盖结果" MODIFIED="1775221252122" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/lightgbm" />
     <SUITE FILE_PATH="coverage/CineMatch$lgbm_recommender_hit.coverage" NAME="lgbm_recommender_hit 覆盖结果" MODIFIED="1775292497413" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/meta_learner" />
+    <SUITE FILE_PATH="coverage/CineMatch$export_webui__1_.coverage" NAME="export_webui (1) 覆盖结果" MODIFIED="1775408644823" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/item_knn" />
     <SUITE FILE_PATH="coverage/CineMatch$clean_db.coverage" NAME="clean_db 覆盖结果" MODIFIED="1772244416905" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/CineMatch$gpu_backend.coverage" NAME="gpu_backend 覆盖结果" MODIFIED="1772489855187" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/user_knn" />
   </component>

@@ -1,8 +1,10 @@
+import os
 import sqlite3
 
 from pathlib import Path
 
 import numpy as np
+import onnx
 import pandas as pd
 from matplotlib import pyplot as plt
 
@@ -48,3 +50,28 @@ def plot_results(results, k_range, title: str, xlabel: str, ylabel: str, filenam
     plt.ylabel(ylabel, fontsize=12)
     plt.grid(True, linestyle=':', alpha=0.6)
     plt.savefig(filename, dpi=300, bbox_inches='tight')
+
+
+def merge_onnx_model(onnx_path, data_path):
+    print("[ONNX Merger] 启动模型融合程序...")
+
+    if not os.path.exists(onnx_path):
+        print(f"{onnx_path} not found!")
+        return
+
+    print("[ONNX Merger] 正在读取主模型和外部权重...")
+    # onnx.load 会自动把同目录下的 .data 文件里的权重吸入内存
+    model = onnx.load(str(onnx_path))
+
+    print("[ONNX Merger] 正在将权重写入主干，生成单文件模型...")
+    # onnx.save 默认 save_as_external_data=False，因此会强行打包成一个文件
+    onnx.save_model(model, str(onnx_path))
+
+    print("\n" + "=" * 50)
+    print(f"融合成功！现在的{onnx_path}已经是包含所有权重的终极单文件了。")
+    print("=" * 50)
+
+    # 顺手帮你把那个碍事的 data 文件删掉
+    if os.path.exists(data_path):
+        os.remove(data_path)
+        print(f"已自动清理残留的{data_path}文件。")
