@@ -45,20 +45,22 @@ def train_nn_meta_learner():
         "ContentKNN_Hit_Score", "UserKNN_Hit_Score"
     ]
 
-    print("[Train] Dynamically calculating query-level Z-Scores in memory...")
+    print("[Train] Calculating Unified User Average Ratings...")
+    # 算出每个用户真实的打分均值作为“绝对锚点”
+    user_avgs = df.groupby('user_username')["Actual_Rating"].transform('mean')
+
+    print("[Train] Uniformly subtracting User Average from ALL base scores and targets...")
+    # 🚀 1. 目标统一去均值化
+    df["Actual_Rating_Centered"] = df["Actual_Rating"] - user_avgs
+
+    # 🚀 2. 特征统一去均值化 (强行把所有基座模型拉到同一个起跑线)
     for col in score_cols:
-        df[col] = df.groupby('user_username')[col].transform(
-            lambda x: (x - x.mean()) / (x.std(ddof=0) + 1e-8)
-        )
+        # 注意：这里是用该列的原始预测分，统一减去用户的真实均分
+        df[col] = df[col] - user_avgs
 
-    # 🚀 2. 目标去均值化 (Target Mean-Centering)
-    # 只减均分，绝对不除以标准差！防止 MSE 梯度爆炸！
-    print("[Train] Mean-Centering Targets...")
-    df["Actual_Rating_Centered"] = df["Actual_Rating"] - df.groupby('user_username')["Actual_Rating"].transform(
-        'mean')
-
+    # 现在的输入和输出，全部变成了围绕 user_avg 浮动的纯粹偏差值！
     X = df[score_cols].values.astype(np.float32)
-    y = df["Actual_Rating_Centered"].values.astype(np.float32)  # 目标变成了纯粹的偏差值 (如 +0.5, -1.2)
+    y = df["Actual_Rating_Centered"].values.astype(np.float32)
 
     X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, random_state=42)
 

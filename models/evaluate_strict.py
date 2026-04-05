@@ -1,6 +1,7 @@
 import random
 import time
 
+
 from models.evaluate_rmse import test_models
 
 
@@ -102,8 +103,9 @@ def run_strict_evaluation():
     from models.meta_learner import ResidualMetaRecommender
     from models.meta_learner import NNMetaRecommender
     from models.meta_tmp import MetaRecommender
+    from models.dpan import Recommender
     models = {
-        "Meta": NNMetaRecommender(db_path=TRAIN_DB),
+        "Meta": Recommender(db_path=TRAIN_DB),
     }
     print("\n" + "=" * 65)
     print(f"HIT RATE & PRECISION LEADERBOARD (Top-{TOP_N_RECS})")
