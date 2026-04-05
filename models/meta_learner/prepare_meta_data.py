@@ -35,9 +35,10 @@ def build_oof_meta_dataset():
         movie_std=('rating', 'std')
     ).fillna(0.0).to_dict('index')
 
-    df_movies = pd.read_sql_query("SELECT slug, year FROM movies", conn_train)
+    df_movies = pd.read_sql_query("SELECT slug, year,rating_average FROM movies", conn_train)
     df_movies['year'] = pd.to_numeric(df_movies['year'], errors='coerce').fillna(2000)
     movie_years = df_movies.set_index('slug')['year'].to_dict()
+    movie_avg = df_movies.set_index('slug')['rating_average'].to_dict()
     conn_train.close()
 
     all_users = df_train['user_username'].unique()
@@ -109,8 +110,10 @@ def build_oof_meta_dataset():
                 actual_rating = float(user_data[user_data['movie_slug'] == hidden_slug]['rating'].values[0])
                 m_stats = movie_stats.get(hidden_slug, {'movie_avg': 3.0, 'movie_count': 0, 'movie_std': 0.0})
                 m_year = movie_years.get(hidden_slug, 2000)
+                m_avg = movie_avg.get(hidden_slug, 3.0)
 
                 row = {
+                    "movie_slug": hidden_slug,
                     "user_username": user,
                     "User_Rating_Count": user_rating_count,
                     "User_Avg": user_avg,
@@ -118,6 +121,7 @@ def build_oof_meta_dataset():
                     "Movie_Rating_Count": m_stats['movie_count'],
                     "Movie_Avg": m_stats['movie_avg'],
                     "Movie_Std": m_stats['movie_std'],
+                    "Movie_Avg_User": m_avg,
                     "Release_Year": m_year,
                     "AutoRec_Score": model_predictions["AutoRec"].get(hidden_slug, 0.0),  # 弃权请坚决用 0.0，不要用 user_avg 兜底
                     "UserKNN_RMSE_Score": model_predictions["UserKNNRMSE"].get(hidden_slug, 0.0),

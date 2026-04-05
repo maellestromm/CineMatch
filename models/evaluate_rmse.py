@@ -97,6 +97,8 @@ def run_rmse_evaluation():
     print("[Eval] Initialize models...")
     from models.meta_learner import NNMetaRecommender
     from models.meta_tmp import MetaRecommender
+    from models.meta_tmp import FastMetaRecommender
+    from models.meta_tmp import LinearMetaRecommender
     models = {
         "Meta": NNMetaRecommender(db_path=TRAIN_DB),
     }

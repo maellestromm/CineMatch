@@ -12,12 +12,12 @@ from models.svd import SVDRecommender
 from models.user_knn import UserBasedRecommender
 
 MODEL_LOAD_PATH = root_path() / "data/nn_meta_model.pth"
+STD_CLIP_LOWER = 0.1  # 必须和训练时一致
 
 
-# 🚀 1. 必须在推理文件里定义一模一样的网络结构
 class WideAndDeepMeta(nn.Module):
     def __init__(self, input_dim=5):
-        super(WideAndDeepMeta, self).__init__()
+        super().__init__()
         self.wide = nn.Linear(input_dim, 1)
         self.deep = nn.Sequential(
             nn.Linear(input_dim, 16),
@@ -34,99 +34,99 @@ class WideAndDeepMeta(nn.Module):
 class NNMetaRecommender:
     def __init__(self, db_path):
         self.db_path = db_path
-        print("[NN Recommender] Loading PyTorch Wide&Deep Meta-Learner...")
-
-        # 🚀 2. 加载 PyTorch 权重并设为评估模式
+        print("[NN Recommender] Loading model...")
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.model = WideAndDeepMeta().to(self.device)
         self.model.load_state_dict(torch.load(MODEL_LOAD_PATH, map_location=self.device))
-        self.model.eval()  # 极其重要：关闭 Dropout/BatchNorm 等训练特性
+        self.model.eval()
 
-        print("[NN Recommender] Initializing 5 Base Engines...")
+        print("[NN Recommender] Initializing base models...")
         self.base_models = {
             "SVD": SVDRecommender(db_path=self.db_path),
             "ItemKNN_Hit": ItemBasedRecommender(db_path=self.db_path, k_neighbors=7),
             "AutoRec": AutoRecRecommender(db_path=self.db_path),
             "ContentKNN_Hit": ContentBasedRecommender(db_path=self.db_path, k_neighbors=1),
-            "UserKNN_Hit": UserBasedRecommender(db_path=self.db_path, k_neighbors=13)
+            "UserKNN_Hit": UserBasedRecommender(db_path=self.db_path, k_neighbors=13),
         }
 
         conn = sqlite3.connect(self.db_path)
-        # 注意：确认你的数据库列名是 slug 还是 movie_slug
         self.df_movies = pd.read_sql_query("SELECT slug, title, year FROM movies", conn)
         self.df_movies.set_index('slug', inplace=True)
         self.movie_slugs = self.df_movies.index.tolist()
         conn.close()
 
-    def get_recommendations(self, user_profile, top_n=10):
+    def _normalize_model_scores(self, raw_preds: dict, user_avg: float) -> dict:
+        """
+        和训练时完全一致的归一化：
+        1. 减 user_avg（缺失的 slug 不在 raw_preds 里，取 0 之后减 user_avg 变为负数）
+        2. 除以该模型在该用户上预测分的 std（clip 0.1）
+        返回 {slug: normalized_score}，缺失 slug 对应负值。
+        """
+        # Step 1: 减均值，缺失的取 0（→ 0 - user_avg = 负数，和训练一致）
+        centered = {
+            slug: (raw_preds.get(slug, 0) if raw_preds.get(slug, 0) != 0 else user_avg)
+            for slug in self.movie_slugs
+        }
+
+        # Step 2: 除以 std，对齐量纲
+        vals = np.array(list(centered.values()), dtype=np.float32)
+        std = float(vals.std())
+        std = max(std, STD_CLIP_LOWER)  # 和训练时 clip(lower=0.1) 一致
+        avg = float(vals.mean())
+        return {slug: (v - avg) / std for slug, v in centered.items()}
+
+    def get_recommendations(self, user_profile: dict, top_n: int = 10) -> list:
         if not user_profile:
             return []
 
-        model_z_scores = {}
+        user_avg = float(np.mean(list(user_profile.values())))
+        user_std = float(np.std(list(user_profile.values())))
+        user_std = 1 if user_std == 0 else user_std
+        user_std = max(user_std, STD_CLIP_LOWER)
+
+        # 获取各基础模型的全量预测并归一化
+        normalized = {}
         for name, model in self.base_models.items():
             raw_recs = model.get_recommendations(user_profile, top_n=len(self.movie_slugs))
-            preds = {rec['slug']: rec['score'] for rec in raw_recs}
+            raw_preds = {rec['slug']: rec['score'] for rec in raw_recs}
+            normalized[name] = self._normalize_model_scores(raw_preds, user_avg)
 
-            if len(preds) > 0:
-                values = np.array(list(preds.values()))
-                mean = values.mean()
-                std = values.std() + 1e-8
-                model_z_scores[name] = {k: (v - mean) / std for k, v in preds.items()}
-            else:
-                model_z_scores[name] = {}
-
-        inference_features = []
-        candidate_slugs = []
-
+        # 组装特征矩阵（跳过用户已看过的电影）
+        features, candidate_slugs = [], []
         for slug in self.movie_slugs:
             if slug in user_profile:
                 continue
-
-            row = [
-                model_z_scores["SVD"].get(slug, 0.0),
-                model_z_scores["ItemKNN_Hit"].get(slug, 0.0),
-                model_z_scores["AutoRec"].get(slug, 0.0),
-                model_z_scores["ContentKNN_Hit"].get(slug, 0.0),
-                model_z_scores["UserKNN_Hit"].get(slug, 0.0)
-            ]
-            inference_features.append(row)
+            features.append([
+                normalized["SVD"].get(slug, 0.0),
+                normalized["ItemKNN_Hit"].get(slug, 0.0),
+                normalized["AutoRec"].get(slug, 0.0),
+                normalized["ContentKNN_Hit"].get(slug, 0.0),
+                normalized["UserKNN_Hit"].get(slug, 0.0),
+            ])
             candidate_slugs.append(slug)
 
-        if not inference_features:
+        if not features:
             return []
 
-        # 🚀 3. 推理前向传播
-        X_tensor = torch.tensor(inference_features, dtype=torch.float32).to(self.device)
-
+        # 推理
+        X = torch.tensor(features, dtype=torch.float32).to(self.device)
         with torch.no_grad():
-            # 此时网络输出的是“相对偏差分” (Centered Scores)
-            centered_preds = self.model(X_tensor).squeeze(1).cpu().numpy()
+            scores = self.model(X).squeeze(1).cpu().numpy()
 
-        # ==========================================================
-        # 🚀 死保 Hit Rate：直接用相对偏差分排序！
-        # ==========================================================
-        top_indices = np.argsort(centered_preds)[::-1][:top_n]
+        # Top-N 排序
+        top_indices = np.argsort(scores)[::-1][:top_n]
         results = []
-
-        # 获取用户真实的打分均值，作为绝对分的锚点
-        user_ratings = list(user_profile.values())
-        user_avg = np.mean(user_ratings) if user_ratings else 3.5
-
         for idx in top_indices:
             slug = candidate_slugs[idx]
-            movie_data = self.df_movies.loc[slug]
-
-            # 🚀 拯救 RMSE：将预测出的“偏差”加上“用户均分”，还原为绝对星级！
-            absolute_score = centered_preds[idx] + user_avg
-
-            # 越界保护 (不影响已经确定的排序)
-            final_absolute_score = max(0.5, min(5.0, absolute_score))
-
+            movie = self.df_movies.loc[slug]
+            # 反变换回绝对评分（仅用于展示，不影响排序）
+            absolute_score = (float(scores[idx])*user_std + user_avg)
+            absolute_score = max(0.5, min(5.0, absolute_score))
             results.append({
                 'slug': slug,
-                'title': movie_data['title'],
-                'year': movie_data['year'],
-                'score': float(final_absolute_score)
+                'title': movie['title'],
+                'year': movie['year'],
+                'score': absolute_score,
             })
 
         return results
@@ -137,8 +137,8 @@ if __name__ == "__main__":
     demo_profile = {
         "inception": 5.0,
         "interstellar": 4.5,
-        "the-dark-knight": 5.0
+        "the-dark-knight": 5.0,
     }
     recs = recommender.get_recommendations(demo_profile)
     for r in recs:
-        print(f"[{r['score']:.4f}] {r['title']} ({r['year']})")
+        print(f"[{r['score']:.2f}] {r['title']} ({r['year']})")

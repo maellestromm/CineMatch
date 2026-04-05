@@ -109,7 +109,7 @@ class AutoRecRecommender:
             predictions = self.model(target_vector).squeeze(0).numpy()
 
         # 5. Mask out already watched movies
-        predictions[watched_indices] = -999.0
+        predictions[watched_indices] = -1.0
 
         # 6. Extract top N predicted movie indices
         top_indices = np.argsort(predictions)[::-1][:top_n]
@@ -119,6 +119,8 @@ class AutoRecRecommender:
         for idx in top_indices:
             slug = self.movie_slugs[idx]
             score = float(predictions[idx])
+            if score <= 0:
+                continue
 
             if slug in self.df_movies.index:
                 movie_data = self.df_movies.loc[slug]

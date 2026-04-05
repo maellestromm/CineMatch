@@ -60,7 +60,7 @@ class SVDRecommender:
 
         final_scores = reconstructed_centered + user_mean
 
-        final_scores[watched_indices] = -999.0
+        final_scores[watched_indices] = -1.0
 
         top_n_indices = np.argsort(final_scores)[::-1][:top_n]
 

@@ -138,7 +138,7 @@ class ContentBasedRecommender:
         # ==============================================================
 
         # 3. 掩码与排序 (利用 GPU 极速筛选)
-        final_scores[watched_indices] = -999.0
+        final_scores[watched_indices] = -1.0
 
         # torch.topk 是极其强大的底层函数，比 python 的 sorted 快无数倍
         actual_top_n = min(top_n, num_movies)

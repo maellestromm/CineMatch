@@ -1,9 +1,7 @@
 import random
 import time
 
-
 from models.evaluate_rmse import test_models
-
 
 from util import root_path, load_test_datas
 
@@ -75,6 +73,10 @@ def evaluate_model_strict(model, test_profiles, top_n=TOP_N_RECS):
 
         if user_hits > 0:
             hits += 1
+        else:
+            print(f"MISS | profile size: {len(profile['train_profile'])} "
+                  f"| test_set size: {len(profile['test_set'])} "
+                  f"| test movies: {profile['test_set']}")
         precision_sum += (user_hits / top_n)
 
     # 聚合指标
@@ -104,8 +106,10 @@ def run_strict_evaluation():
     from models.meta_learner import NNMetaRecommender
     from models.meta_tmp import MetaRecommender
     from models.dpan import Recommender
+    from models.meta_tmp import FastMetaRecommender
+    from models.meta_tmp import LinearMetaRecommender
     models = {
-        "Meta": Recommender(db_path=TRAIN_DB),
+        "Meta": NNMetaRecommender(db_path=TRAIN_DB),
     }
     print("\n" + "=" * 65)
     print(f"HIT RATE & PRECISION LEADERBOARD (Top-{TOP_N_RECS})")

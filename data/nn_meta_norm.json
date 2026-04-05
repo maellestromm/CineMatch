@@ -1,0 +1,17 @@
+{
+  "score_cols": [
+    "SVD_Score",
+    "ItemKNN_Hit_Score",
+    "AutoRec_Score",
+    "ContentKNN_Hit_Score",
+    "UserKNN_Hit_Score"
+  ],
+  "std_clip_lower": 0.1,
+  "col_global_stds": {
+    "SVD_Score": 0.9701770566539947,
+    "ItemKNN_Hit_Score": 0.9902726529190401,
+    "AutoRec_Score": 0.9937107172827124,
+    "ContentKNN_Hit_Score": 0.9829402504169819,
+    "UserKNN_Hit_Score": 0.993337231464367
+  }
+}

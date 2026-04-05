@@ -78,7 +78,7 @@ class UserKNNGPUBackend:
 
             final_scores[similarity_sums == 0] = 0.0
 
-            final_scores[watched_indices] = -999.0
+            final_scores[watched_indices] = -1.0
 
             top_n_scores, top_n_movie_indices = torch.topk(final_scores, top_n)
 

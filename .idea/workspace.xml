@@ -5,24 +5,34 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb65961-2b56-4585-8fc1-86fe6579e464" name="更改" comment="nn meta learner">
-      <change afterPath="$PROJECT_DIR$/models/dpan/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/dpan/dpan_model.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/dpan/inference.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/dpan/train.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/plot_timcop_dist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/345b7143-171b-4d0c-b985-22191aa4ca83.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/345b7143-171b-4d0c-b985-22191aa4ca83/storage_v2/_src_/schema/main.uQUzAA.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/5b64d673-576f-48e8-bcf9-60d2639f9968.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/5b64d673-576f-48e8-bcf9-60d2639f9968.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/aa67591b-227d-4dca-9eaa-03acc812a851.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/aa67591b-227d-4dca-9eaa-03acc812a851.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/b9cfd8e9-6586-4d22-89cd-fb0a017faceb.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/b9cfd8e9-6586-4d22-89cd-fb0a017faceb.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/f01d2834-b312-49ca-bf96-f55617996e41.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/f01d2834-b312-49ca-bf96-f55617996e41/storage_v2/_src_/schema/main.uQUzAA.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/f9d017f6-88bd-4d1d-a084-521e672f657a.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/f9d017f6-88bd-4d1d-a084-521e672f657a.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/meta_learner/nn_recommender1.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/meta_learner/train_meta_learner_nn1.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/meta_tmp/fast_meta_recommender.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/meta_tmp/hit_rate_sniper.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/meta_tmp/linear_meta.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/meta_tmp/ultimate_meta_learner.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/plot_nn_distribution.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/aa67591b-227d-4dca-9eaa-03acc812a851.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/aa67591b-227d-4dca-9eaa-03acc812a851/storage_v2/_src_/schema/main.uQUzAA.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/data_sources_history.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/data_sources_history.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/f9d017f6-88bd-4d1d-a084-521e672f657a.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/f9d017f6-88bd-4d1d-a084-521e672f657a/storage_v2/_src_/schema/main.uQUzAA.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/nn_meta_model.pth" beforeDir="false" afterPath="$PROJECT_DIR$/data/nn_meta_model.pth" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/auto_rec/infer_autorec.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/auto_rec/infer_autorec.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/content_knn/recommender.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/content_knn/recommender.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/evaluate_rmse.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/evaluate_rmse.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/evaluate_strict.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/evaluate_strict.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/item_knn/recommender.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/item_knn/recommender.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/meta_learner/meta_learner_loss_curve.png" beforeDir="false" afterPath="$PROJECT_DIR$/models/meta_learner/meta_learner_loss_curve.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/meta_learner/nn_recommender.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/meta_learner/nn_recommender.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/meta_learner/prepare_meta_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/meta_learner/prepare_meta_data.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/meta_learner/train_meta_learner_nn.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/meta_learner/train_meta_learner_nn.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/meta_tmp/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/meta_tmp/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/plot_timcop_dist.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/plot_dist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/svd/recommender.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/svd/recommender.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/user_knn/gpu_backend.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/user_knn/gpu_backend.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,6 +94,9 @@
   &quot;associatedIndex&quot;: 2
 }</component>
   <component name="ProjectId" id="3A878Ogn6mHOAjRqrkQizpUeMR5" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -100,14 +113,18 @@
     "Python.export_assets.executor": "Run",
     "Python.export_js.executor": "Run",
     "Python.export_to_js.executor": "Run",
+    "Python.fast_meta_recommender.executor": "Run",
     "Python.gpu_backend.executor": "Run",
+    "Python.hit_rate_sniper.executor": "Run",
     "Python.infer_autorec.executor": "Run",
     "Python.inference.executor": "Run",
     "Python.item_knn.executor": "Run",
     "Python.lgbm_recommender_hit.executor": "Run",
     "Python.lightgbm_recommender.executor": "Run",
+    "Python.linear_meta.executor": "Run",
     "Python.meta_dataset.db.executor": "Run",
     "Python.nn_recommender.executor": "Run",
+    "Python.plot_nn_distribution.executor": "Run",
     "Python.plot_timcop_dist.executor": "Run",
     "Python.prepare_meta_data (1).executor": "Run",
     "Python.prepare_meta_data.executor": "Run",
@@ -135,6 +152,7 @@
     "Python.tune_user_knn.executor": "Run",
     "Python.tune_user_knn_rmse.executor": "Run",
     "Python.tune_user_knn_strict.executor": "Run",
+    "Python.ultimate_meta_learner.executor": "Run",
     "Python.user_knn.executor": "Run",
     "Python.user_knn_gpu.executor": "Run",
     "RunOnceActivity.MCP Project settings loaded": "true",
@@ -146,7 +164,7 @@
     "ai.playground.ignore.import.keys.banner.in.settings": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "git-widget-placeholder": "Du-nn-meta",
-    "last_opened_file_path": "C:/Users/donyw/Desktop/cmpt310/CineMatch/models/dpan",
+    "last_opened_file_path": "C:/Users/donyw/Desktop/cmpt310/CineMatch/models/meta_learner",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -167,21 +185,21 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\donyw\Desktop\cmpt310\CineMatch\models\meta_learner" />
       <recent name="C:\Users\donyw\Desktop\cmpt310\CineMatch\models\dpan" />
       <recent name="C:\Users\donyw\Desktop\cmpt310\CineMatch\db_backup" />
       <recent name="C:\Users\donyw\Desktop\cmpt310\CineMatch\models\meta_tmp" />
       <recent name="C:\Users\donyw\Desktop\cmpt310\CineMatch\models\content_knn" />
-      <recent name="C:\Users\donyw\Desktop\cmpt310\CineMatch\models\svd" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\donyw\Desktop\cmpt310\CineMatch\doc" />
+      <recent name="C:\Users\donyw\Desktop\cmpt310\CineMatch\models" />
       <recent name="C:\Users\donyw\Desktop\cmpt310\CineMatch\models\svd" />
       <recent name="C:\Users\donyw\Desktop\cmpt310\CineMatch\data" />
       <recent name="C:\Users\donyw\Desktop\cmpt310\CineMatch" />
-      <recent name="C:\Users\donyw\Desktop\cmpt310\CineMatch\models\item_knn" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.plot_timcop_dist">
+  <component name="RunManager" selected="Python.plot_nn_distribution">
     <configuration name="evaluate_rmse" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="CineMatch" />
       <option name="ENV_FILES" value="" />
@@ -195,7 +213,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="DEBUG_JUST_MY_CODE" value="true" />
+      <option name="DEBUG_JUST_MY_CODE" value="false" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="RUN_TOOL" value="" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/models/evaluate_rmse.py" />
@@ -232,32 +250,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="inference" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="CineMatch" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/models/dpan" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="DEBUG_JUST_MY_CODE" value="false" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="RUN_TOOL" value="" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/models/dpan/inference.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="plot_timcop_dist" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="plot_nn_distribution" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="CineMatch" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -273,7 +266,7 @@
       <option name="DEBUG_JUST_MY_CODE" value="false" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="RUN_TOOL" value="" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/models/plot_timcop_dist.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/models/plot_nn_distribution.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -282,7 +275,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="train" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="prepare_meta_data" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="CineMatch" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -291,14 +284,39 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/models/dpan" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/models/meta_learner" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="DEBUG_JUST_MY_CODE" value="false" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="RUN_TOOL" value="" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/models/dpan/train.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/models/meta_learner/prepare_meta_data.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="train_meta_learner_nn" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="CineMatch" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/models/meta_learner" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="DEBUG_JUST_MY_CODE" value="false" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="RUN_TOOL" value="" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/models/meta_learner/train_meta_learner_nn.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -308,19 +326,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.inference" />
-      <item itemvalue="Python.plot_timcop_dist" />
-      <item itemvalue="Python.train" />
+      <item itemvalue="Python.plot_nn_distribution" />
+      <item itemvalue="Python.prepare_meta_data" />
+      <item itemvalue="Python.train_meta_learner_nn" />
       <item itemvalue="Python.evaluate_rmse" />
       <item itemvalue="Python.evaluate_strict" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.plot_timcop_dist" />
-        <item itemvalue="Python.train" />
-        <item itemvalue="Python.evaluate_strict" />
-        <item itemvalue="Python.inference" />
+        <item itemvalue="Python.plot_nn_distribution" />
         <item itemvalue="Python.evaluate_rmse" />
+        <item itemvalue="Python.evaluate_strict" />
+        <item itemvalue="Python.train_meta_learner_nn" />
+        <item itemvalue="Python.prepare_meta_data" />
       </list>
     </recent_temporary>
   </component>
@@ -531,43 +549,48 @@
     <SUITE FILE_PATH="coverage/CineMatch$recommender.coverage" NAME="recommender 覆盖结果" MODIFIED="1775294148693" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/meta_tmp" />
     <SUITE FILE_PATH="coverage/CineMatch$lightgbm_recommender.coverage" NAME="lightgbm_recommender 覆盖结果" MODIFIED="1775221263080" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/" />
     <SUITE FILE_PATH="coverage/CineMatch$tune_content_knn_rmse.coverage" NAME="tune_content_knn_rmse 覆盖结果" MODIFIED="1775210165165" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/content_knn" />
-    <SUITE FILE_PATH="coverage/CineMatch$recommender__1_.coverage" NAME="recommender (1) 覆盖结果" MODIFIED="1772489949577" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/user_knn" />
-    <SUITE FILE_PATH="coverage/CineMatch$evaluate_rmse.coverage" NAME="evaluate_rmse 覆盖结果" MODIFIED="1775354965913" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models" />
     <SUITE FILE_PATH="coverage/CineMatch$tune_svd_rmse.coverage" NAME="tune_svd_rmse 覆盖结果" MODIFIED="1775205911251" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/svd" />
-    <SUITE FILE_PATH="coverage/CineMatch$inference.coverage" NAME="inference 覆盖结果" MODIFIED="1775361823814" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/dpan" />
     <SUITE FILE_PATH="coverage/CineMatch$train_autorec.coverage" NAME="train_autorec 覆盖结果" MODIFIED="1772246295783" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
-    <SUITE FILE_PATH="coverage/CineMatch$train_meta_learner_nn.coverage" NAME="train_meta_learner_nn 覆盖结果" MODIFIED="1775354484018" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/meta_learner" />
     <SUITE FILE_PATH="coverage/CineMatch$export_to_js.coverage" NAME="export_to_js 覆盖结果" MODIFIED="1775225311225" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/meta_learner" />
+    <SUITE FILE_PATH="coverage/CineMatch$train_meta_learner_nn.coverage" NAME="train_meta_learner_nn 覆盖结果" MODIFIED="1775404338369" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/meta_learner" />
     <SUITE FILE_PATH="coverage/CineMatch$tune_item_knn_strict.coverage" NAME="tune_item_knn_strict 覆盖结果" MODIFIED="1775206565447" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/item_knn" />
-    <SUITE FILE_PATH="coverage/CineMatch$item_knn.coverage" NAME="item_knn 覆盖结果" MODIFIED="1772488005458" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models" />
+    <SUITE FILE_PATH="coverage/CineMatch$fast_meta_recommender.coverage" NAME="fast_meta_recommender 覆盖结果" MODIFIED="1775370581499" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/meta_tmp" />
     <SUITE FILE_PATH="coverage/CineMatch$train.coverage" NAME="train 覆盖结果" MODIFIED="1775363052642" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/dpan" />
-    <SUITE FILE_PATH="coverage/CineMatch$train_meta_learner_regression.coverage" NAME="train_meta_learner_regression 覆盖结果" MODIFIED="1775225662336" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/meta_learner" />
-    <SUITE FILE_PATH="coverage/CineMatch$meta_dataset_db.coverage" NAME="meta_dataset.db 覆盖结果" MODIFIED="1773902838248" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/lightgbm" />
-    <SUITE FILE_PATH="coverage/CineMatch$infer_autorec.coverage" NAME="infer_autorec 覆盖结果" MODIFIED="1772490790377" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/auto_rec" />
-    <SUITE FILE_PATH="coverage/CineMatch$prepare_meta_data__1_.coverage" NAME="prepare_meta_data (1) 覆盖结果" MODIFIED="1773905544297" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/lightgbm" />
     <SUITE FILE_PATH="coverage/CineMatch$train_meta_learner_classification.coverage" NAME="train_meta_learner_classification 覆盖结果" MODIFIED="1775224230701" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/meta_learner" />
-    <SUITE FILE_PATH="coverage/CineMatch$tune_item_knn_rmse.coverage" NAME="tune_item_knn_rmse 覆盖结果" MODIFIED="1775203346580" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/item_knn" />
     <SUITE FILE_PATH="coverage/CineMatch$tune_svd__1_.coverage" NAME="tune_svd (1) 覆盖结果" MODIFIED="1774963236773" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/svd" />
     <SUITE FILE_PATH="coverage/CineMatch$export_assets.coverage" NAME="export_assets 覆盖结果" MODIFIED="1774963836660" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tools" />
     <SUITE FILE_PATH="coverage/CineMatch$tune_user_knn_rmse.coverage" NAME="tune_user_knn_rmse 覆盖结果" MODIFIED="1775203341036" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/user_knn" />
-    <SUITE FILE_PATH="coverage/CineMatch$tune_user_knn_strict.coverage" NAME="tune_user_knn_strict 覆盖结果" MODIFIED="1775206574513" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/user_knn" />
-    <SUITE FILE_PATH="coverage/CineMatch$content_knn.coverage" NAME="content_knn 覆盖结果" MODIFIED="1772487758534" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models" />
-    <SUITE FILE_PATH="coverage/CineMatch$user_knn_gpu.coverage" NAME="user_knn_gpu 覆盖结果" MODIFIED="1772252997784" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/CineMatch$split_db.coverage" NAME="split_db 覆盖结果" MODIFIED="1772244623651" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/CineMatch$tune_svd_strict.coverage" NAME="tune_svd_strict 覆盖结果" MODIFIED="1775206569779" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/svd" />
     <SUITE FILE_PATH="coverage/CineMatch$tune_svd.coverage" NAME="tune_svd 覆盖结果" MODIFIED="1774950519915" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/svd" />
     <SUITE FILE_PATH="coverage/CineMatch$user_knn.coverage" NAME="user_knn 覆盖结果" MODIFIED="1772250334609" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/CineMatch$train_meta_learner_rank__1_.coverage" NAME="train_meta_learner_rank (1) 覆盖结果" MODIFIED="1775292484731" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/meta_learner" />
+    <SUITE FILE_PATH="coverage/CineMatch$hit_rate_sniper.coverage" NAME="hit_rate_sniper 覆盖结果" MODIFIED="1775391258602" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/meta_tmp" />
     <SUITE FILE_PATH="coverage/CineMatch$boosted_autorec.coverage" NAME="boosted_autorec 覆盖结果" MODIFIED="1775350544621" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/meta_tmp" />
-    <SUITE FILE_PATH="coverage/CineMatch$User_first_crawler.coverage" NAME="User_first_crawler 覆盖结果" MODIFIED="1772132803651" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/CineMatch$plot_timcop_dist.coverage" NAME="plot_timcop_dist 覆盖结果" MODIFIED="1775365777871" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models" />
     <SUITE FILE_PATH="coverage/CineMatch$train_lightgbm.coverage" NAME="train_lightgbm 覆盖结果" MODIFIED="1773902133899" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/lightgbm" />
-    <SUITE FILE_PATH="coverage/CineMatch$export_js.coverage" NAME="export_js 覆盖结果" MODIFIED="1775011301384" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/auto_rec" />
     <SUITE FILE_PATH="coverage/CineMatch$tune_content_knn_strict.coverage" NAME="tune_content_knn_strict 覆盖结果" MODIFIED="1775207673975" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/content_knn" />
+    <SUITE FILE_PATH="coverage/CineMatch$prepare_meta_data.coverage" NAME="prepare_meta_data 覆盖结果" MODIFIED="1775402072809" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/meta_learner" />
+    <SUITE FILE_PATH="coverage/CineMatch$evaluate_strict.coverage" NAME="evaluate_strict 覆盖结果" MODIFIED="1775404573527" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models" />
+    <SUITE FILE_PATH="coverage/CineMatch$recommender__1_.coverage" NAME="recommender (1) 覆盖结果" MODIFIED="1772489949577" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/user_knn" />
+    <SUITE FILE_PATH="coverage/CineMatch$evaluate_rmse.coverage" NAME="evaluate_rmse 覆盖结果" MODIFIED="1775405452715" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models" />
+    <SUITE FILE_PATH="coverage/CineMatch$inference.coverage" NAME="inference 覆盖结果" MODIFIED="1775361823814" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/dpan" />
+    <SUITE FILE_PATH="coverage/CineMatch$item_knn.coverage" NAME="item_knn 覆盖结果" MODIFIED="1772488005458" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models" />
+    <SUITE FILE_PATH="coverage/CineMatch$train_meta_learner_regression.coverage" NAME="train_meta_learner_regression 覆盖结果" MODIFIED="1775225662336" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/meta_learner" />
+    <SUITE FILE_PATH="coverage/CineMatch$meta_dataset_db.coverage" NAME="meta_dataset.db 覆盖结果" MODIFIED="1773902838248" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/lightgbm" />
+    <SUITE FILE_PATH="coverage/CineMatch$infer_autorec.coverage" NAME="infer_autorec 覆盖结果" MODIFIED="1772490790377" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/auto_rec" />
+    <SUITE FILE_PATH="coverage/CineMatch$prepare_meta_data__1_.coverage" NAME="prepare_meta_data (1) 覆盖结果" MODIFIED="1773905544297" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/lightgbm" />
+    <SUITE FILE_PATH="coverage/CineMatch$tune_item_knn_rmse.coverage" NAME="tune_item_knn_rmse 覆盖结果" MODIFIED="1775203346580" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/item_knn" />
+    <SUITE FILE_PATH="coverage/CineMatch$tune_user_knn_strict.coverage" NAME="tune_user_knn_strict 覆盖结果" MODIFIED="1775206574513" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/user_knn" />
+    <SUITE FILE_PATH="coverage/CineMatch$ultimate_meta_learner.coverage" NAME="ultimate_meta_learner 覆盖结果" MODIFIED="1775382129980" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/meta_tmp" />
+    <SUITE FILE_PATH="coverage/CineMatch$content_knn.coverage" NAME="content_knn 覆盖结果" MODIFIED="1772487758534" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models" />
+    <SUITE FILE_PATH="coverage/CineMatch$user_knn_gpu.coverage" NAME="user_knn_gpu 覆盖结果" MODIFIED="1772252997784" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/CineMatch$plot_nn_distribution.coverage" NAME="plot_nn_distribution 覆盖结果" MODIFIED="1775405485276" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models" />
+    <SUITE FILE_PATH="coverage/CineMatch$linear_meta.coverage" NAME="linear_meta 覆盖结果" MODIFIED="1775390744892" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/meta_tmp" />
+    <SUITE FILE_PATH="coverage/CineMatch$User_first_crawler.coverage" NAME="User_first_crawler 覆盖结果" MODIFIED="1772132803651" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/CineMatch$export_js.coverage" NAME="export_js 覆盖结果" MODIFIED="1775011301384" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/auto_rec" />
     <SUITE FILE_PATH="coverage/CineMatch$nn_recommender.coverage" NAME="nn_recommender 覆盖结果" MODIFIED="1775309097743" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/meta_learner" />
-    <SUITE FILE_PATH="coverage/CineMatch$prepare_meta_data.coverage" NAME="prepare_meta_data 覆盖结果" MODIFIED="1775224913637" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/meta_learner" />
     <SUITE FILE_PATH="coverage/CineMatch$tune_user_knn.coverage" NAME="tune_user_knn 覆盖结果" MODIFIED="1774963080472" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/user_knn" />
-    <SUITE FILE_PATH="coverage/CineMatch$evaluate_strict.coverage" NAME="evaluate_strict 覆盖结果" MODIFIED="1775362249969" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models" />
     <SUITE FILE_PATH="coverage/CineMatch$tune_item_knn.coverage" NAME="tune_item_knn 覆盖结果" MODIFIED="1774959847095" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/item_knn" />
     <SUITE FILE_PATH="coverage/CineMatch$svd_recommender.coverage" NAME="svd_recommender 覆盖结果" MODIFIED="1772487790665" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models" />
     <SUITE FILE_PATH="coverage/CineMatch$train_meta_learner.coverage" NAME="train_meta_learner 覆盖结果" MODIFIED="1775221252122" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/lightgbm" />
