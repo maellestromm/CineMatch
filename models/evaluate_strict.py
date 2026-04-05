@@ -102,8 +102,9 @@ def run_strict_evaluation():
     from models.meta_learner import ResidualMetaRecommender
     from models.meta_learner import NNMetaRecommender
     from models.meta_tmp import MetaRecommender
+    from models.meta_tmp import PopularityBoostedAutoRec
     models = {
-        "Meta": NNMetaRecommender(db_path=TRAIN_DB),
+        "Meta": PopularityBoostedAutoRec(db_path=TRAIN_DB),
     }
     print("\n" + "=" * 65)
     print(f"HIT RATE & PRECISION LEADERBOARD (Top-{TOP_N_RECS})")

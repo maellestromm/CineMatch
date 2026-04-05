@@ -108,19 +108,54 @@ class NNMetaRecommender:
         top_indices = np.argsort(centered_preds)[::-1][:top_n]
         results = []
 
-        # 获取用户真实的打分均值，作为绝对分的锚点
+        # 获取用户真实的打分均值，如果某个基座模型没能给出分数，用均分作为完美的“中立兜底”
         user_ratings = list(user_profile.values())
         user_avg = np.mean(user_ratings) if user_ratings else 3.5
+
+        # 1. 收集 5 个基座模型的 原始绝对分数 (Raw Scores)
+        raw_preds = {}
+        for name, model in self.base_models.items():
+            raw_recs = model.get_recommendations(user_profile, top_n=len(self.movie_slugs))
+            raw_preds[name] = {rec['slug']: rec['score'] for rec in raw_recs}
+
+        inference_features = []
+        candidate_slugs = []
+
+        for slug in self.movie_slugs:
+            if slug in user_profile:
+                continue
+
+            # 直接喂入原始分数，缺失值用 user_avg 填补
+            row = [
+                raw_preds["SVD"].get(slug, user_avg),
+                raw_preds["ItemKNN_Hit"].get(slug, user_avg),
+                raw_preds["AutoRec"].get(slug, user_avg),
+                raw_preds["ContentKNN_Hit"].get(slug, user_avg),
+                raw_preds["UserKNN_Hit"].get(slug, user_avg)
+            ]
+            inference_features.append(row)
+            candidate_slugs.append(slug)
+
+        if not inference_features:
+            return []
+
+        # 2. 纯粹的推断前向传播
+        X_tensor = torch.tensor(inference_features, dtype=torch.float32).to(self.device)
+
+        with torch.no_grad():
+            # 网络吐出的 final_scores 已经是完美契合 1~5 刻度的绝对星级了！
+            final_scores = self.model(X_tensor).squeeze(1).cpu().numpy()
+
+        # 3. 直接排序并输出
+        top_indices = np.argsort(final_scores)[::-1][:top_n]
+        results = []
 
         for idx in top_indices:
             slug = candidate_slugs[idx]
             movie_data = self.df_movies.loc[slug]
 
-            # 🚀 拯救 RMSE：将预测出的“偏差”加上“用户均分”，还原为绝对星级！
-            absolute_score = centered_preds[idx] + user_avg
-
-            # 越界保护 (不影响已经确定的排序)
-            final_absolute_score = max(0.5, min(5.0, absolute_score))
+            # 越界保护 (1~5星)，这是唯一需要的后处理
+            final_absolute_score = max(0.5, min(5.0, final_scores[idx]))
 
             results.append({
                 'slug': slug,

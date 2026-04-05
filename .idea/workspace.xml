@@ -5,15 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb65961-2b56-4585-8fc1-86fe6579e464" name="更改" comment="nn meta learner">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/5b64d673-576f-48e8-bcf9-60d2639f9968.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/5b64d673-576f-48e8-bcf9-60d2639f9968.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/data_source_mapping.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/db-forest-config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/db-forest-config.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/meta_tmp/boosted_autorec.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db_backup/meta_dataset.db" beforeDir="false" afterPath="$PROJECT_DIR$/db_backup/meta_dataset.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/nn_meta_model.pth" beforeDir="false" afterPath="$PROJECT_DIR$/data/nn_meta_model.pth" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/evaluate_strict.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/evaluate_strict.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/meta_learner/meta_learner_loss_curve.png" beforeDir="false" afterPath="$PROJECT_DIR$/models/meta_learner/meta_learner_loss_curve.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/meta_learner/nn_recommender.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/meta_learner/nn_recommender.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/meta_learner/train_meta_learner_nn.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/meta_learner/train_meta_learner_nn.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/meta_tmp/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/meta_tmp/__init__.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,6 +83,7 @@
     "DefaultHtmlFileTemplate": "HTML File",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "Python.User_first_crawler.executor": "Run",
+    "Python.boosted_autorec.executor": "Run",
     "Python.clean_db.executor": "Run",
     "Python.content_knn.executor": "Run",
     "Python.evaluate_rmse.executor": "Run",
@@ -169,6 +169,30 @@
     </key>
   </component>
   <component name="RunManager" selected="Python.evaluate_strict">
+    <configuration name="boosted_autorec" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="CineMatch" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/models/meta_tmp" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="RUN_TOOL" value="" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/models/meta_tmp/boosted_autorec.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="evaluate_rmse" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="CineMatch" />
       <option name="ENV_FILES" value="" />
@@ -241,30 +265,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="recommender" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="CineMatch" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/models/meta_tmp" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="RUN_TOOL" value="" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/models/meta_tmp/recommender.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="train_meta_learner_nn" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="CineMatch" />
       <option name="ENV_FILES" value="" />
@@ -290,8 +290,8 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Python.boosted_autorec" />
       <item itemvalue="Python.nn_recommender" />
-      <item itemvalue="Python.recommender" />
       <item itemvalue="Python.train_meta_learner_nn" />
       <item itemvalue="Python.evaluate_rmse" />
       <item itemvalue="Python.evaluate_strict" />
@@ -299,10 +299,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.evaluate_strict" />
-        <item itemvalue="Python.nn_recommender" />
-        <item itemvalue="Python.train_meta_learner_nn" />
+        <item itemvalue="Python.boosted_autorec" />
         <item itemvalue="Python.evaluate_rmse" />
-        <item itemvalue="Python.recommender" />
+        <item itemvalue="Python.train_meta_learner_nn" />
+        <item itemvalue="Python.nn_recommender" />
       </list>
     </recent_temporary>
   </component>
@@ -330,7 +330,7 @@
       <workItem from="1773901661116" duration="10834000" />
       <workItem from="1774933563302" duration="21863000" />
       <workItem from="1775007656619" duration="8465000" />
-      <workItem from="1775200770479" duration="42996000" />
+      <workItem from="1775200770479" duration="49312000" />
     </task>
     <task id="LOCAL-00001" summary="A database suitable for user-collaborative filtering knn. -- Du Wang">
       <option name="closed" value="true" />
@@ -476,7 +476,15 @@
       <option name="project" value="LOCAL" />
       <updated>1775298773301</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="nn meta learner">
+      <option name="closed" value="true" />
+      <created>1775310151464</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1775310151464</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -527,12 +535,13 @@
     <SUITE FILE_PATH="coverage/CineMatch$tune_content_knn_strict.coverage" NAME="tune_content_knn_strict 覆盖结果" MODIFIED="1775207673975" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/content_knn" />
     <SUITE FILE_PATH="coverage/CineMatch$lightgbm_recommender.coverage" NAME="lightgbm_recommender 覆盖结果" MODIFIED="1775221263080" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/" />
     <SUITE FILE_PATH="coverage/CineMatch$tune_item_knn.coverage" NAME="tune_item_knn 覆盖结果" MODIFIED="1774959847095" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/item_knn" />
-    <SUITE FILE_PATH="coverage/CineMatch$evaluate_rmse.coverage" NAME="evaluate_rmse 覆盖结果" MODIFIED="1775308157957" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models" />
-    <SUITE FILE_PATH="coverage/CineMatch$evaluate_strict.coverage" NAME="evaluate_strict 覆盖结果" MODIFIED="1775309298695" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models" />
+    <SUITE FILE_PATH="coverage/CineMatch$evaluate_rmse.coverage" NAME="evaluate_rmse 覆盖结果" MODIFIED="1775312516732" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models" />
+    <SUITE FILE_PATH="coverage/CineMatch$evaluate_strict.coverage" NAME="evaluate_strict 覆盖结果" MODIFIED="1775352333925" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models" />
     <SUITE FILE_PATH="coverage/CineMatch$svd_recommender.coverage" NAME="svd_recommender 覆盖结果" MODIFIED="1772487790665" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models" />
-    <SUITE FILE_PATH="coverage/CineMatch$train_meta_learner_nn.coverage" NAME="train_meta_learner_nn 覆盖结果" MODIFIED="1775308159472" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/meta_learner" />
+    <SUITE FILE_PATH="coverage/CineMatch$train_meta_learner_nn.coverage" NAME="train_meta_learner_nn 覆盖结果" MODIFIED="1775310568750" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/meta_learner" />
     <SUITE FILE_PATH="coverage/CineMatch$user_knn_gpu.coverage" NAME="user_knn_gpu 覆盖结果" MODIFIED="1772252997784" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/CineMatch$prepare_meta_data__1_.coverage" NAME="prepare_meta_data (1) 覆盖结果" MODIFIED="1773905544297" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/lightgbm" />
+    <SUITE FILE_PATH="coverage/CineMatch$boosted_autorec.coverage" NAME="boosted_autorec 覆盖结果" MODIFIED="1775350544621" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/meta_tmp" />
     <SUITE FILE_PATH="coverage/CineMatch$content_knn.coverage" NAME="content_knn 覆盖结果" MODIFIED="1772487758534" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models" />
     <SUITE FILE_PATH="coverage/CineMatch$item_knn.coverage" NAME="item_knn 覆盖结果" MODIFIED="1772488005458" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models" />
     <SUITE FILE_PATH="coverage/CineMatch$tune_item_knn_rmse.coverage" NAME="tune_item_knn_rmse 覆盖结果" MODIFIED="1775203346580" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/item_knn" />

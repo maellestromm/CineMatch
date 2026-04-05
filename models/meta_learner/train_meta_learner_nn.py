@@ -40,25 +40,20 @@ def train_nn_meta_learner():
     df = pd.read_sql_query("SELECT * FROM meta_train ORDER BY user_username", conn)
     conn.close()
 
+    # 提取那 5 个核心基座模型的原始分数
     score_cols = [
         "SVD_Score", "ItemKNN_Hit_Score", "AutoRec_Score",
         "ContentKNN_Hit_Score", "UserKNN_Hit_Score"
     ]
 
-    print("[Train] Dynamically calculating query-level Z-Scores in memory...")
-    for col in score_cols:
-        df[col] = df.groupby('user_username')[col].transform(
-            lambda x: (x - x.mean()) / (x.std(ddof=0) + 1e-8)
-        )
+    print("[Train] Extracting RAW base model scores...")
+    # ⛔️ 彻底删掉原来的 Z-Score 计算循环！
 
-    # 🚀 2. 目标去均值化 (Target Mean-Centering)
-    # 只减均分，绝对不除以标准差！防止 MSE 梯度爆炸！
-    print("[Train] Mean-Centering Targets...")
-    df["Actual_Rating_Centered"] = df["Actual_Rating"] - df.groupby('user_username')["Actual_Rating"].transform(
-        'mean')
-
+    # 直接使用原始特征，特征值在 1.0 ~ 5.0 之间
     X = df[score_cols].values.astype(np.float32)
-    y = df["Actual_Rating_Centered"].values.astype(np.float32)  # 目标变成了纯粹的偏差值 (如 +0.5, -1.2)
+
+    # 直接使用真实的星级作为目标，目标值在 0.5 ~ 5.0 之间
+    y = df["Actual_Rating"].values.astype(np.float32)
 
     X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, random_state=42)
 
@@ -80,7 +75,7 @@ def train_nn_meta_learner():
     # 🚀 4. 分组优化器：Deep侧加狗链防过拟合
     optimizer = optim.Adam([
         {'params': model.wide.parameters(), 'weight_decay': 0.0},
-        {'params': model.deep.parameters(), 'weight_decay': 1e-3}
+        {'params': model.deep.parameters(), 'weight_decay': 1e-4}
     ], lr=0.0001)
 
     # ==========================================
