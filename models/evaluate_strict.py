@@ -101,16 +101,7 @@ def run_strict_evaluation():
     print(f"[Eval] Generated {valid_evaluations} valid test profiles.")
 
     print("[Eval] Initializing models (Black-box mode)...")
-    # models = test_models(TEST_DB)
-    from models.lgbm_meta import ResidualMetaRecommender
-    from models.lgbm_meta import NNMetaRecommender
-    from models.meta_tmp import MetaRecommender
-    from models.dpan import Recommender
-    from models.meta_tmp import FastMetaRecommender
-    from models.meta_tmp import LinearMetaRecommender
-    models = {
-        "Meta": NNMetaRecommender(db_path=TRAIN_DB),
-    }
+    models = test_models(TEST_DB)
     print("\n" + "=" * 65)
     print(f"HIT RATE & PRECISION LEADERBOARD (Top-{TOP_N_RECS})")
     print(f"Total Valid Users Evaluated: {valid_evaluations}")

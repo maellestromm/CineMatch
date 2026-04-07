@@ -7,6 +7,7 @@ from models.auto_rec import AutoRecRecommender
 from models.content_knn import ContentBasedRecommender
 from models.item_knn import ItemBasedRecommender
 from models.lgbm_meta import LGBMRecommenderRMSE
+from models.nn_meta import NNMetaRecommender
 from models.svd import SVDRecommender
 from models.user_knn import UserBasedRecommender
 from util import root_path, load_test_datas
@@ -27,6 +28,7 @@ def test_models(db_path):
         "Content-KNN-1": ContentBasedRecommender(db_path=db_path, k_neighbors=1),
         "Content-KNN-871": ContentBasedRecommender(db_path=db_path),
         "LightGBM": LGBMRecommenderRMSE(db_path=db_path),
+        "NN-Meta": NNMetaRecommender(db_path=db_path),
     }
     return models
 
@@ -95,13 +97,7 @@ def run_rmse_evaluation():
 
     print(f"[Eval] Generated {valid_evaluations} valid test profiles.")
     print("[Eval] Initialize models...")
-    from models.lgbm_meta import NNMetaRecommender
-    from models.meta_tmp import MetaRecommender
-    from models.meta_tmp import FastMetaRecommender
-    from models.meta_tmp import LinearMetaRecommender
-    models = {
-        "Meta": NNMetaRecommender(db_path=TRAIN_DB),
-    }
+    models = test_models(TEST_DB)
     print("\n" + "=" * 55)
     print("RMSE ACCURACY LEADERBOARD")
     print("=" * 55)
