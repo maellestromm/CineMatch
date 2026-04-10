@@ -1,18 +1,16 @@
-/* ================= 1. 全局与背景 ================= */
 body, html {
     margin: 0;
     padding: 0;
     width: 100vw;
     height: 100vh;
-    overflow: hidden; /* 绝对禁止滚动条 */
+    overflow: hidden;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    /* 暗蓝色圆形渐变，圆心在屏幕正下方外部 */
     background: radial-gradient(circle at 50% 120%, #1e3c72 0%, #0a192f 50%, #020c1b 100%);
     color: white;
     user-select: none;
 }
 
-/* ================= 2. 悬浮搜索框 ================= */
+
 #search-container {
     position: fixed;
     top: 25px;
@@ -20,7 +18,7 @@ body, html {
     z-index: 100;
     display: flex;
     align-items: center;
-    background: rgba(255, 255, 255, 0.1); /* 正常透明 */
+    background: rgba(255, 255, 255, 0.1);
     border-radius: 25px;
     padding: 8px 15px;
     backdrop-filter: blur(5px);
@@ -29,7 +27,7 @@ body, html {
 }
 
 #search-container:focus-within, #search-container:hover {
-    background: rgba(255, 255, 255, 0.95); /* 选中/悬浮显示实体 */
+    background: rgba(255, 255, 255, 0.95);
 }
 
 #search-input {
@@ -71,17 +69,15 @@ body, html {
     display: none;
 }
 
-/* ================= 3. 自适应网格布局 ================= */
 #movie-grid {
     display: grid;
-    padding: 80px 40px 40px 40px; /* 顶部留出空间给搜索框 */
+    padding: 80px 40px 40px 40px;
     width: 100%;
     height: 100%;
     box-sizing: border-box;
     gap: 20px;
 }
 
-/* ================= 4. 电影卡片 ================= */
 .card {
     background-size: cover;
     background-position: center;
@@ -117,7 +113,6 @@ body, html {
     text-overflow: ellipsis;
 }
 
-/* 交互式星星打分 */
 .stars-container {
     display: flex;
     gap: 4px;
@@ -147,9 +142,6 @@ body, html {
     border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* ================= 5. 展开大图详情弹窗 ================= */
-
-/* 重置原生 dialog 的默认样式，使其适配我们原本的暗黑主题 */
 dialog {
     padding: 0;
     border: none;
@@ -281,42 +273,38 @@ dialog::backdrop {
 }
 
 
-
-/* ================= 星星打分系统样式 ================= */
 .stars-container {
-    display: flex;
-    gap: 4px;
+    display: inline-flex;
+    gap: 2px;
+    font-size: 24px;
+    color: #444;
+    user-select: none;
 }
 
-.star {
-    cursor: pointer;
-    font-size: 24px;
-    color: #4a5568; /* 默认的暗色底星 */
+.star-wrapper {
     position: relative;
     display: inline-block;
+    cursor: pointer;
     transition: transform 0.1s;
 }
 
-.star:hover {
+.star-wrapper:active {
     transform: scale(1.2);
 }
 
-/* 满星状态：全金 */
-.star.full {
-    color: #fbbf24;
-}
-
-/* 半星魔法：利用绝对定位的伪元素，盖住左半边 */
-.star.half {
-    color: #4a5568; /* 底色依然是暗色 */
-}
-
-.star.half::before {
-    content: '★';
-    color: #fbbf24; /* 盖上一层金色 */
+.star.left-half {
     position: absolute;
     left: 0;
     top: 0;
-    width: 50%; /* 核心魔法：只显示一半宽度 */
+    width: 50%;
     overflow: hidden;
+    z-index: 2;
+}
+
+.star.right-half {
+    display: inline-block;
+}
+
+.star.full {
+    color: gold;
 }
