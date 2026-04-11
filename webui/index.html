@@ -7,7 +7,7 @@
     <title>CineMatch Edge AI</title>
 </head>
 <body>
-
+<button id="help-btn" title="Help">?</button>
 <div id="search-container">
     <label for="search-input"></label>
     <input type="text" id="search-input" placeholder="Search movie title...">
@@ -20,6 +20,13 @@
 <div id="page-indicator">Page <span id="current-page">1</span> / <span id="total-pages">1</span> (Scroll or Use Arrow
     Keys)
 </div>
+
+<dialog id="help-modal">
+    <div class="help-modal-content">
+        <div class="close-btn" id="close-help-btn">×</div>
+        <img src="help.webp" alt="Help Guide">
+    </div>
+</dialog>
 
 <dialog id="movie-modal">
     <div class="close-btn" id="close-dialog-btn">×</div>
@@ -107,6 +114,8 @@
     const dialog = document.getElementById('movie-modal');
     const dialogInner = document.getElementById('modal-inner-content');
 
+    const helpModal = document.getElementById('help-modal');
+
     // Initialize model engine
     const recommender = new NN_Meta();
     let isModelReady = false;
@@ -114,6 +123,19 @@
     document.getElementById('close-dialog-btn').addEventListener('click', () => {
         dialog.close();
     });
+
+    document.getElementById('help-btn').addEventListener('click', () => {
+        helpModal.showModal();
+    });
+
+    document.getElementById('close-help-btn').addEventListener('click', () => {
+        helpModal.close();
+    });
+
+    if (!localStorage.getItem('cineMatchFirstVisit')) {
+        helpModal.showModal();
+        localStorage.setItem('cineMatchFirstVisit', 'true');
+    }
 
     function calculateGrid() {
         const cardWidth = 220;
