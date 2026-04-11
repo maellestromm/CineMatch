@@ -125,7 +125,7 @@ fetching:
 4. Run `evaluate_rmse.py` to view the leaderboard of all models on the true taste prediction accuracy (1-5 stars).
 
 ## How to Run Terminal Interface
-1. 1. Extract `db_backup/user_first_cut3_clear.7z` into the `data/` directory.
+1. Extract `db_backup/user_first_cut3_clear.7z` into the `data/` directory.
 2. Run `tools/split_db.py`. This performs a strict physical split of the database at a 9:1 ratio, generating
    `train_model.db` and `test_eval.db` to ensure zero data leakage during evaluation.
 3. Run `python gui/user_io.py`
