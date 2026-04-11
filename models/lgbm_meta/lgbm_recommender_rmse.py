@@ -121,7 +121,6 @@ class LGBMRecommenderRMSE:
         # 4. Predict using Meta-Learner
         x_infer = pd.DataFrame(inference_features)
 
-        # 给特征赋予列名，避免 LightGBM 在推断时抛出 Warning
         x_infer.columns = [
             "User_Rating_Count", "User_Avg", "User_Std",
             "Movie_Rating_Count", "Movie_Avg", "Movie_Std", "Release_Year",

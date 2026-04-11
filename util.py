@@ -34,6 +34,19 @@ def load_test_datas(db_path):
     test_users = df_test['user_username'].unique()
     return df_test, test_users
 
+def load_export_datas(db_path):
+    conn = sqlite3.connect(db_path)
+
+    df_reviews = pd.read_sql_query("SELECT user_username, movie_slug, rating FROM reviews WHERE rating != 'None'", conn)
+    df_reviews['rating'] = pd.to_numeric(df_reviews['rating'], errors='coerce')
+    df_reviews = df_reviews.dropna()
+
+    df_movies = pd.read_sql_query("SELECT slug FROM movies", conn)
+    df_movies.drop_duplicates(subset=['slug'], keep='first', inplace=True)
+    all_slugs = df_movies['slug'].tolist()
+
+    conn.close()
+    return df_reviews, all_slugs
 
 def plot_results(results, k_range, title: str, xlabel: str, ylabel: str, filename: str, min_best: bool = True):
     best_i_k = k_range[np.argmin(results)] if min_best else k_range[np.argmax(results)]

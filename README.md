@@ -18,13 +18,17 @@ seaborn~=0.13.2
 
 ├── db_backup/ # Database backup files (raw crawled data)\
 ├── data/ # Runtime data, model weights, generated dictionaries, etc.\
+├── doc/ # Charts and screenshots \
+├── gui/ # User interaction through terminal I/O\
+├── webui/ # User interaction through web browser\
 ├── models/\
 │ ├── content_knn/ # Content-based recommendation (Content-KNN)\
 │ ├── item_knn/ # Item-based collaborative filtering (Item-KNN)\
 │ ├── svd/ # Latent factor model / Matrix factorization (Truncated SVD)\
 │ ├── user_knn/ # User-based collaborative filtering (User-KNN)\
 │ ├── auto_rec/ # Deep learning autoencoder (Deep AutoRec)\
-│ └── meta_learner/ # LightGBM Meta learner\
+│ ├── lgbm_meta/ # LightGBM Meta learner\
+│ └── nn_meta/ # Deep&Wide Meta learner\
 ├── tools/\
 │ ├── clear_db.py # Database cleaning and preprocessing script\
 │ ├── split_db.py # Train/test set physical split script\
@@ -75,7 +79,22 @@ ranking architecture:
 
 ### 6. Meta Learner (LightGBM)
 
-* TODO
+* **Principle**: "Minimizing prediction error through ensemble learning, even if it means sacrificing ranking contrast."
+* **Implementation**: Extracts the prediction scores from the 5 base models as input features and trains a Gradient
+  Boosting Decision Tree (GBDT). Because it is strictly optimized for Mean Squared Error (MSE), the model learns to play
+  it safe, heavily penalizing extreme scores. As a result, it achieves the most accurate absolute score predictions
+  across the entire database. However, this "conservative" nature flattens the prediction variance, making
+  it struggle to push hidden masterpieces to the top, resulting in a mediocre Hit Rate.
+
+### 7. Deep & Wide (NN Meta)
+
+* **Principle**: "Using non-linear transformations and dynamic variance scaling to find the perfect boundary between
+  masterpieces and bad movies."
+* **Implementation**: Employs a Wide & Deep neural network architecture to act as the ultimate judge. Before feeding the
+  base model predictions into the network, it dynamically applies Z-score normalization to amplify the score
+  variance—effectively resolving the zero-sum conflict between RMSE and Hit Rate. The network captures complex,
+  non-linear feature interactions to determine the final trust weights for each base model. It dominates the leaderboard
+  with a massive 78.96% Hit Rate.
 
 ## Crawlers
 
@@ -103,9 +122,8 @@ fetching:
 1. Extract `db_backup/user_first_cut3_clear.7z` into the `data/` directory.
 2. Run `tools/split_db.py`. This performs a strict physical split of the database at a 9:1 ratio, generating
    `train_model.db` and `test_eval.db` to ensure zero data leakage during evaluation.
-3. (Optional) Navigate to `models/auto_rec/` and run `train_autorec.py` to pre-train the deep learning model.
-4. Run `evaluate_strict.py` to view the leaderboard of all models on Hit Rate and Precision.
-5. Run `evaluate_rmse.py` to view the leaderboard of all models on the true taste prediction accuracy (1-5 stars).
+3. Run `evaluate_strict.py` to view the leaderboard of all models on Hit Rate and Precision.
+4. Run `evaluate_rmse.py` to view the leaderboard of all models on the true taste prediction accuracy (1-5 stars).
 
 ## Performance
 

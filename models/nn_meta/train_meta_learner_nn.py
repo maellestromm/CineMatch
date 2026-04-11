@@ -37,36 +37,28 @@ class WideAndDeepMeta(nn.Module):
 
 
 def normalize(df):
-    """
-    对每个用户的每列分数做归一化：
-    1. 减去用户真实评分均值（消除用户偏置，同时让 0 变成负数作为"无预测"信号）
-    2. 除以该用户该列的 std（对齐各模型量纲）
-    返回归一化后的 df，以及每列的全局 std（推理时用）
-    """
     user_avgs = df.groupby('user_username')["Actual_Rating"].transform('mean')
     user_stds = (df.groupby('user_username')["Actual_Rating"].transform('std')
-                 .fillna(1.0).replace(0, 1.0).clip(lower=0.1))  # 防止 std 过小导致数值爆炸
+                 .fillna(1.0).replace(0, 1.0).clip(lower=0.1))
     df["Actual_Rating_Centered"] = (df["Actual_Rating"] - user_avgs) / user_stds
 
     col_global_stds = {}
     for col in SCORE_COLS:
         mask = (df[col] == 0)
         df.loc[mask, col] = user_avgs[mask]
-        # Step 1: 减用户均值（0 → 负数，作为有效的"无预测"信号保留）
+
         col_avgs = df.groupby('user_username')[col].transform('mean')
         df[col] = df[col] - col_avgs
 
-        # Step 2: 除以该用户该列的 std，对齐各模型的量纲
         col_stds = (
             df.groupby('user_username')[col]
             .transform('std')
-            .fillna(1.0)  # 单行用户 std=NaN
-            .replace(0, 1.0)  # 全相同值 std=0
-            .clip(lower=0.1)  # 防止 std 过小导致数值爆炸
+            .fillna(1.0)
+            .replace(0, 1.0)
+            .clip(lower=0.1)
         )
         df[col] = df[col] / col_stds
 
-        # 保存全局 std 供推理时做健全性检查（不用于归一化）
         col_global_stds[col] = float(df[col].std())
 
     return df, user_avgs, col_global_stds
@@ -82,7 +74,6 @@ def train():
     print("[2/5] Normalizing...")
     df, _, col_global_stds = normalize(df)
 
-    # 检查归一化结果
     for col in SCORE_COLS:
         nan_count = df[col].isna().sum()
         print(f"      {col}: NaN={nan_count}, "
@@ -124,7 +115,6 @@ def train():
         {'params': model.deep.parameters(), 'weight_decay': 1e-3},
     ], lr=1e-3)
 
-    # 验证 loss 连续 5 个 epoch 没改善就降低学习率
     scheduler = optim.lr_scheduler.ReduceLROnPlateau(
         optimizer, mode='min', factor=0.5, patience=5
     )
@@ -137,7 +127,7 @@ def train():
     train_losses, val_losses = [], []
 
     for epoch in range(epochs):
-        # Train
+
         model.train()
         train_loss = 0.0
         for bX, by in train_loader:
@@ -150,7 +140,6 @@ def train():
         train_loss /= len(train_loader.dataset)
         train_losses.append(train_loss)
 
-        # Val
         model.eval()
         val_loss = 0.0
         with torch.no_grad():
@@ -180,16 +169,15 @@ def train():
             break
 
     print(f"\n[5/5] Saving normalization params to {NORM_SAVE_PATH}...")
-    # 推理时需要知道用哪些列、clip 的下限是多少
+
     norm_params = {
         "score_cols": SCORE_COLS,
         "std_clip_lower": 0.1,
-        "col_global_stds": col_global_stds,  # 仅供参考，不用于推理归一化
+        "col_global_stds": col_global_stds,
     }
     with open(NORM_SAVE_PATH, "w") as f:
         json.dump(norm_params, f, indent=2)
 
-    # Loss 曲线
     plt.figure(figsize=(10, 5))
     actual_epochs = len(train_losses)
     plt.plot(range(1, actual_epochs + 1), train_losses, label='Train MSE', linewidth=2)

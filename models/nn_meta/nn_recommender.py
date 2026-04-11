@@ -12,7 +12,7 @@ from models.svd import SVDRecommender
 from models.user_knn import UserBasedRecommender
 
 MODEL_LOAD_PATH = root_path() / "data/nn_meta_model.pth"
-STD_CLIP_LOWER = 0.1  # 必须和训练时一致
+STD_CLIP_LOWER = 0.1
 
 
 class WideAndDeepMeta(nn.Module):
@@ -56,22 +56,14 @@ class NNMetaRecommender:
         conn.close()
 
     def _normalize_model_scores(self, raw_preds: dict, user_avg: float) -> dict:
-        """
-        和训练时完全一致的归一化：
-        1. 减 user_avg（缺失的 slug 不在 raw_preds 里，取 0 之后减 user_avg 变为负数）
-        2. 除以该模型在该用户上预测分的 std（clip 0.1）
-        返回 {slug: normalized_score}，缺失 slug 对应负值。
-        """
-        # Step 1: 减均值，缺失的取 0（→ 0 - user_avg = 负数，和训练一致）
         centered = {
             slug: (raw_preds.get(slug, 0) if raw_preds.get(slug, 0) != 0 else user_avg)
             for slug in self.movie_slugs
         }
 
-        # Step 2: 除以 std，对齐量纲
         vals = np.array(list(centered.values()), dtype=np.float32)
         std = float(vals.std())
-        std = max(std, STD_CLIP_LOWER)  # 和训练时 clip(lower=0.1) 一致
+        std = max(std, STD_CLIP_LOWER)
         avg = float(vals.mean())
         return {slug: (v - avg) / std for slug, v in centered.items()}
 
@@ -84,7 +76,6 @@ class NNMetaRecommender:
         user_std = 1 if user_std == 0 else user_std
         user_std = max(user_std, STD_CLIP_LOWER)
 
-        # 获取各基础模型的全量预测并归一化
         normalized = {}
         raw = {}
         for name, model in self.base_models.items():
@@ -93,7 +84,6 @@ class NNMetaRecommender:
             raw[name] = raw_preds
             normalized[name] = self._normalize_model_scores(raw_preds, user_avg)
 
-        # 组装特征矩阵（跳过用户已看过的电影）
         features, candidate_slugs = [], []
         raw_scores = []
         for slug in self.movie_slugs:
@@ -119,19 +109,16 @@ class NNMetaRecommender:
         if not features:
             return []
 
-        # 推理
         X = torch.tensor(features, dtype=torch.float32).to(self.device)
         with torch.no_grad():
             scores = self.model(X).squeeze(1).cpu().numpy()
 
-        # Top-N 排序
         top_indices = np.argsort(scores)[::-1][:top_n]
         results = []
         for idx in top_indices:
             slug = candidate_slugs[idx]
             raw_score = raw_scores[idx]
             movie = self.df_movies.loc[slug]
-            # 反变换回绝对评分（仅用于展示，不影响排序）
             absolute_score = (float(scores[idx]) * user_std + user_avg)
             absolute_score = max(0.5, min(5.0, absolute_score))
             results.append({
@@ -140,7 +127,7 @@ class NNMetaRecommender:
                 'year': movie['year'],
                 'score': absolute_score,
                 'raw_score': raw_score,
-                'raw_meta':scores[idx]
+                'raw_meta': scores[idx]
             })
 
         return results

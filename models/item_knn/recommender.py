@@ -88,7 +88,6 @@ class ItemBasedRecommender:
             damping = 3.0
             final_scores = (recommendation_scores + damping * prior_mean) / (similarity_sums + damping)
 
-            # 🚀 核心对齐：如果没有任何相似度，摧毁贝叶斯平滑的底噪，强行弃权输出 0
             final_scores[similarity_sums == 0] = 0.0
             # Mask out already watched movies
             final_scores[watched_indices] = -1.0
