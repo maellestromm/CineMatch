@@ -98,7 +98,7 @@ ranking architecture:
 
 ## Crawlers
 
-To obtain high-quality real rating data, we designed two complementary crawling strategies based on alternating queue
+To collect high-quality real rating data, we designed two complementary crawling strategies based on alternating queue
 fetching:
 
 * **User-First Crawler**
@@ -117,23 +117,37 @@ fetching:
     * **Purpose**: Focuses on exploring movie diversity, broadly expanding the boundaries of movie genres in the
       database, and providing rich feature materials for Content-KNN.
 
+## Before Running
+1. Install the required packages listed in `requirements.txt`.
+2. Install the appropriate PyTorch installation following the instructions at https://pytorch.org/get-started/locally/.
+3. Extract `db_backup/user_first_cut3_clear.7z` into the `data/` directory.
+4. Run `tools/split_db.py`. This performs a strict physical split of the database at a 9:1 ratio, generating
+   `models/train_model.db` and `models/test_eval.db` to ensure zero data leakage during evaluation.
+
+## How to Run Models
+1. All models come with a main function and can be run directly.
+2. For auto_rec, run `models/auto_rec/infer_autorec.py`
+3. For svd, run `models/svd/recommender.py`
+4. For content_knn, run `models/content_knn/recommender.py`
+5. For item_knn, run `models/item_knn/recommender.py`
+6. For user_knn, run `models/user_knn/recommender.py`
+7. For lgbm_meta, run `models/lgbm_meta/lgbm_recommender_rmse.py`
+8. For nn_meta, run `models/nn_meta/nn_recommender.py`
+
 ## How to Run Benchmarks
-1. Extract `db_backup/user_first_cut3_clear.7z` into the `data/` directory.
-2. Run `tools/split_db.py`. This performs a strict physical split of the database at a 9:1 ratio, generating
-   `train_model.db` and `test_eval.db` to ensure zero data leakage during evaluation.
-3. Run `evaluate_strict.py` to view the leaderboard of all models on Hit Rate and Precision.
-4. Run `evaluate_rmse.py` to view the leaderboard of all models on the true taste prediction accuracy (1-5 stars).
+1. Run `models/evaluate_strict.py` to view the leaderboard of all models on Hit Rate and Precision.
+2. Run `models/evaluate_rmse.py` to view the leaderboard of all models on the true taste prediction accuracy (1-5 stars).
 
 ## How to Run Terminal Interface
 1. Extract `db_backup/user_first_cut3_clear.7z` into the `data/` directory.
 2. Run `tools/split_db.py`. This performs a strict physical split of the database at a 9:1 ratio, generating
    `train_model.db` and `test_eval.db` to ensure zero data leakage during evaluation.
-3. Run `python gui/user_io.py`
+3. Run `gui/user_io.py`
 4. Enter Letterboxd username.
 
 ## How to Run Web Interface
 1. Run `python -m http.server 8000 -d webui`
-2. Access `http://localhost:8000`
+2. Access http://localhost:8000
 
 ## How to Train Meta Learner
 1. The meta learner requires meta_dataset.db for training. 

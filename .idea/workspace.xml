@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4fb65961-2b56-4585-8fc1-86fe6579e464" name="更改" comment="merge TUI --Du Wang">
+    <list default="true" id="4fb65961-2b56-4585-8fc1-86fe6579e464" name="更改" comment="update readme --Du Wang">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
@@ -528,7 +528,23 @@
       <option name="project" value="LOCAL" />
       <updated>1775881860287</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="update readme --Du Wang">
+      <option name="closed" value="true" />
+      <created>1775882845506</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1775882845506</updated>
+    </task>
+    <task id="LOCAL-00024" summary="update readme --Du Wang">
+      <option name="closed" value="true" />
+      <created>1775882888485</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1775882888485</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -562,7 +578,8 @@
     <MESSAGE value="web ui full test" />
     <MESSAGE value="clear up" />
     <MESSAGE value="merge TUI --Du Wang" />
-    <option name="LAST_COMMIT_MESSAGE" value="merge TUI --Du Wang" />
+    <MESSAGE value="update readme --Du Wang" />
+    <option name="LAST_COMMIT_MESSAGE" value="update readme --Du Wang" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/CineMatch$recommender.coverage" NAME="recommender 覆盖结果" MODIFIED="1775294148693" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/meta_tmp" />
