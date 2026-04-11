@@ -118,12 +118,29 @@ fetching:
       database, and providing rich feature materials for Content-KNN.
 
 ## How to Run Benchmarks
-
 1. Extract `db_backup/user_first_cut3_clear.7z` into the `data/` directory.
 2. Run `tools/split_db.py`. This performs a strict physical split of the database at a 9:1 ratio, generating
    `train_model.db` and `test_eval.db` to ensure zero data leakage during evaluation.
 3. Run `evaluate_strict.py` to view the leaderboard of all models on Hit Rate and Precision.
 4. Run `evaluate_rmse.py` to view the leaderboard of all models on the true taste prediction accuracy (1-5 stars).
+
+## How to Run Terminal Interface
+1. 1. Extract `db_backup/user_first_cut3_clear.7z` into the `data/` directory.
+2. Run `tools/split_db.py`. This performs a strict physical split of the database at a 9:1 ratio, generating
+   `train_model.db` and `test_eval.db` to ensure zero data leakage during evaluation.
+3. Run `python gui/user_io.py`
+4. Enter Letterboxd username.
+
+## How to Run Web Interface
+1. Run `python -m http.server 8000 -d webui`
+2. Access `http://localhost:8000`
+
+## How to Train Meta Learner
+1. The meta learner requires meta_dataset.db for training. 
+2. You can directly extract `db_backup/meta_dataset.7z` to the `data/` folder.
+3. Alternatively, you can run `prepare_meta_data.py` to generate a new one.
+4. Run `train_meta_learner_regression.py` to train LightGBM meta-learner.
+5. Run `train_meta_learner_nn.py` to train NN meta-learner.
 
 ## Performance
 

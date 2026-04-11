@@ -4,30 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4fb65961-2b56-4585-8fc1-86fe6579e464" name="更改" comment="clear up">
-      <change afterPath="$PROJECT_DIR$/gui/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gui/backend.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gui/user_io.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/data_sources_history.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/data_sources_history.xml" afterDir="false" />
+    <list default="true" id="4fb65961-2b56-4585-8fc1-86fe6579e464" name="更改" comment="merge TUI --Du Wang">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README_cn.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/auto_rec/export_auto_rec.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/auto_rec/export_auto_rec.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/content_knn/export_content_knn_k1.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/content_knn/export_content_knn_k1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/content_knn/recommender.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/content_knn/recommender.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/evaluate_strict.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/evaluate_strict.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/item_knn/export_item_knn_k7.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/item_knn/export_item_knn_k7.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/item_knn/recommender.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/item_knn/recommender.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/lgbm_meta/lgbm_recommender_rmse.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/lgbm_meta/lgbm_recommender_rmse.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/nn_meta/export_nn_onnx.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/nn_meta/export_nn_onnx.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/nn_meta/nn_recommender.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/nn_meta/nn_recommender.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/nn_meta/plot_dist.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/nn_meta/plot_dist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/nn_meta/plot_nn_distribution.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/nn_meta/plot_nn_distribution.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/nn_meta/train_meta_learner_nn.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/nn_meta/train_meta_learner_nn.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/svd/export_svd_k39.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/svd/export_svd_k39.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/user_knn/export_user_knn_k13.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/user_knn/export_user_knn_k13.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/util.py" beforeDir="false" afterPath="$PROJECT_DIR$/util.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webui/demo.html" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -128,6 +107,7 @@
     "Python.plot_timcop_dist.executor": "Run",
     "Python.prepare_meta_data (1).executor": "Run",
     "Python.prepare_meta_data.executor": "Run",
+    "Python.python -m http.server 8000 -d webui.executor": "Run",
     "Python.recommender (1).executor": "Run",
     "Python.recommender.executor": "Run",
     "Python.split_db.executor": "Run",
@@ -200,7 +180,7 @@
       <recent name="C:\Users\donyw\Desktop\cmpt310\CineMatch\models\meta_tmp" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.user_io">
+  <component name="RunManager" selected="Python.python -m http.server 8000 -d webui">
     <configuration name="export_nn_onnx" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="CineMatch" />
       <option name="ENV_FILES" value="" />
@@ -218,31 +198,6 @@
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="RUN_TOOL" value="" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/models/nn_meta/export_nn_onnx.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="export_svd_k39" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="CineMatch" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/models/svd" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="DEBUG_JUST_MY_CODE" value="false" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="RUN_TOOL" value="" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/models/svd/export_svd_k39.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -301,6 +256,31 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="python -m http.server 8000 -d webui" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="CineMatch" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="DEBUG_JUST_MY_CODE" value="false" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="RUN_TOOL" value="" />
+      <option name="SCRIPT_NAME" value="http.server" />
+      <option name="PARAMETERS" value="8000 -d webui" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="true" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="user_io" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="CineMatch" />
       <option name="ENV_FILES" value="" />
@@ -327,19 +307,19 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Python.python -m http.server 8000 -d webui" />
       <item itemvalue="Python.user_io" />
       <item itemvalue="Python.export_nn_onnx" />
-      <item itemvalue="Python.export_svd_k39" />
       <item itemvalue="Python.export_user_knn_k13" />
       <item itemvalue="Python.nn_recommender" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.python -m http.server 8000 -d webui" />
         <item itemvalue="Python.user_io" />
         <item itemvalue="Python.nn_recommender" />
         <item itemvalue="Python.export_nn_onnx" />
         <item itemvalue="Python.export_user_knn_k13" />
-        <item itemvalue="Python.export_svd_k39" />
       </list>
     </recent_temporary>
   </component>
@@ -540,7 +520,15 @@
       <option name="project" value="LOCAL" />
       <updated>1775534475391</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="merge TUI --Du Wang">
+      <option name="closed" value="true" />
+      <created>1775881860287</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1775881860287</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -573,7 +561,8 @@
     <MESSAGE value="stop at here" />
     <MESSAGE value="web ui full test" />
     <MESSAGE value="clear up" />
-    <option name="LAST_COMMIT_MESSAGE" value="clear up" />
+    <MESSAGE value="merge TUI --Du Wang" />
+    <option name="LAST_COMMIT_MESSAGE" value="merge TUI --Du Wang" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/CineMatch$recommender.coverage" NAME="recommender 覆盖结果" MODIFIED="1775294148693" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/meta_tmp" />
@@ -625,6 +614,7 @@
     <SUITE FILE_PATH="coverage/CineMatch$User_first_crawler.coverage" NAME="User_first_crawler 覆盖结果" MODIFIED="1772132803651" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/CineMatch$export_js.coverage" NAME="export_js 覆盖结果" MODIFIED="1775011301384" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/auto_rec" />
     <SUITE FILE_PATH="coverage/CineMatch$nn_recommender.coverage" NAME="nn_recommender 覆盖结果" MODIFIED="1775414816530" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/nn_meta" />
+    <SUITE FILE_PATH="coverage/CineMatch$python__m_http_server_8000__d_webui.coverage" NAME="python -m http.server 8000 -d webui 覆盖结果" MODIFIED="1775881970653" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/CineMatch$tune_user_knn.coverage" NAME="tune_user_knn 覆盖结果" MODIFIED="1774963080472" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/user_knn" />
     <SUITE FILE_PATH="coverage/CineMatch$tune_item_knn.coverage" NAME="tune_item_knn 覆盖结果" MODIFIED="1774959847095" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/item_knn" />
     <SUITE FILE_PATH="coverage/CineMatch$svd_recommender.coverage" NAME="svd_recommender 覆盖结果" MODIFIED="1772487790665" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models" />
