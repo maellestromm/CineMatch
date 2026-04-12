@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4fb65961-2b56-4585-8fc1-86fe6579e464" name="更改" comment="update readme --Du Wang">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/data_sources_history.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/data_sources_history.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webui/demo.css" beforeDir="false" afterPath="$PROJECT_DIR$/webui/demo.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webui/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/webui/index.html" afterDir="false" />
-    </list>
+    <list default="true" id="4fb65961-2b56-4585-8fc1-86fe6579e464" name="更改" comment="add a help to webui --Du Wang" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -354,7 +348,7 @@
       <workItem from="1775359681171" duration="5963000" />
       <workItem from="1775528530371" duration="6376000" />
       <workItem from="1775779081113" duration="4015000" />
-      <workItem from="1775902201590" duration="1723000" />
+      <workItem from="1775902201590" duration="1858000" />
     </task>
     <task id="LOCAL-00001" summary="A database suitable for user-collaborative filtering knn. -- Du Wang">
       <option name="closed" value="true" />
@@ -556,7 +550,23 @@
       <option name="project" value="LOCAL" />
       <updated>1775883814305</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="add a help to webui --Du Wang">
+      <option name="closed" value="true" />
+      <created>1775904098440</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1775904098440</updated>
+    </task>
+    <task id="LOCAL-00027" summary="add a help to webui --Du Wang">
+      <option name="closed" value="true" />
+      <created>1775904153218</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1775904153218</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -591,7 +601,8 @@
     <MESSAGE value="clear up" />
     <MESSAGE value="merge TUI --Du Wang" />
     <MESSAGE value="update readme --Du Wang" />
-    <option name="LAST_COMMIT_MESSAGE" value="update readme --Du Wang" />
+    <MESSAGE value="add a help to webui --Du Wang" />
+    <option name="LAST_COMMIT_MESSAGE" value="add a help to webui --Du Wang" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/CineMatch$recommender.coverage" NAME="recommender 覆盖结果" MODIFIED="1775294148693" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/meta_tmp" />
